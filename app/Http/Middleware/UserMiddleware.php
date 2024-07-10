@@ -1,0 +1,40 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use app\Models\User;
+use app\Models\Role;
+
+use Closure;
+use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
+
+class UserMiddleware
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     */
+    public function handle(Request $request, Closure $next): Response
+    {
+        $currentUser = Auth::user();
+
+        if ($currentUser) {
+            $userinfo = User::with('role')->where('id', $currentUser->id)->first();
+            if ($userinfo->role->title == 'customer') {
+                return $next($request);
+            }
+            else
+            {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return response()->json(['error' => 'Unauthorized'], 403);
+            }
+        }
+
+        return redirect()->route('home.login');
+    }
+}
