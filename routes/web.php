@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,3 +26,13 @@ Route::get('/about', function () {
 Route::get('/login', function () {
     return view('home.login');
 })->name('login');
+
+// User CRUD (Try Muna)
+/*  {user} are supposed to be {id}
+    put are used usually on update since it has reference on URL (based on REST api)? but post can also do the same
+*/
+Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
+Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
+Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/user/{user}/update', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{user}/delete', [UserController::class, 'delete'])->name('user.delete');
