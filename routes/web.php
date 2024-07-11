@@ -27,12 +27,10 @@ Route::get('/login', function () {
     return view('home.login');
 })->name('login');
 
-// User CRUD (Try Muna)
-/*  {user} are supposed to be {id}
-    put are used usually on update since it has reference on URL (based on REST api)? but post can also do the same
-*/
-Route::get('/admin/user', [UserController::class, 'create'])->name('user.create');
-Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
-Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-Route::delete('/user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');
+
+// USERS
+Route::get('/admin/user', [UserController::class, 'userpopulate'])->name('user.populate');
+Route::post('/admin/user/store', [UserController::class, 'userstore'])->name('user.store');
+Route::get('/admin/user/{id}/edit', [UserController::class, 'useredit'])->name('user.edit');
+Route::put('/admin/user/{id}/update', [UserController::class, 'userupdate'])->name('user.update');
+Route::delete('/user/{id}/delete', [UserController::class, 'userdelete'])->name('user.delete');

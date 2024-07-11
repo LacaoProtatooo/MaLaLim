@@ -15,26 +15,14 @@ return new class extends Migration
             $table->id();
             $table->string('lname');
             $table->string('fname');
+            $table->string('phone_number');
             $table->string('email')->unique();
             $table->string('password');
-            $table->rememberToken();
+            $table->string('status')->default('unverified');
+            $table->date('birthdate');
+            $table->longText('image_path')->nullable();
             $table->timestamps();
-        });
-
-        // Need pa ba to? xD
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
+            $table->softDeletes();
         });
     }
 

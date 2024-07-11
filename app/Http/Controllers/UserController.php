@@ -8,13 +8,12 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     // Display users
-    public function usercreate()
+    public function userpopulate()
     {
         $users = User::all();
         return view('admin.adminusers', compact('users'));
     }
 
-    // Store a new user
     public function userstore(Request $request)
     {
         $user = User::create($request->all());

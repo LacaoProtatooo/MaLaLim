@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->string('image');
+            $table->longText('image_path');
+            $table->softDeletes();
 
             $table->decimal('discountRate', 8, 2);
             $table->timestamps();

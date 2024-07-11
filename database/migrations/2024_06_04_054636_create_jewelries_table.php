@@ -14,9 +14,10 @@ return new class extends Migration
         Schema::create('jewelries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('image')->nullable();
+            $table->longText('image_path')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
