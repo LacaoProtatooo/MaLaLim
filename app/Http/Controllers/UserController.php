@@ -8,36 +8,33 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     // Display users
-    public function create()
+    public function usercreate()
     {
         $users = User::all();
         return view('admin.adminusers', compact('users'));
     }
 
     // Store a new user
-    public function store(Request $request)
+    public function userstore(Request $request)
     {
         $user = User::create($request->all());
         return response()->json($user);
     }
 
-    // Show the form for editing the specified user
-    public function edit(User $user)
+    public function useredit($id)
     {
-        return response()->json($user);
+        return response()->json($id);
     }
 
-    // Update the specified user in storage
-    public function update(Request $request, User $user)
+    public function userupdate(Request $request, $id)
     {
-        $user->update($request->all());
-        return response()->json($user);
+        $id->update($request->all());
+        return response()->json($id);
     }
 
-    // Remove the specified user from storage
-    public function delete(User $user)
+    public function userdelete($id)
     {
-        $user->delete();
+        User::destroy($id->id);
         return response()->json(['success' => true]);
     }
 }

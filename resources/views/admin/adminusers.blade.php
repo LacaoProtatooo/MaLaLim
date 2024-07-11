@@ -1,42 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Laravel AJAX CRUD for Users</title>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    {{-- <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> --}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Users</title>
 </head>
 <body>
-<div class="container">
-    @include('common.header')
+@include('common.header')
+@vite('resources/js/users.js')
 
-    <h1 class="mt-5">Laravel AJAX CRUD for Users</h1>
-    <button id="createUser" class="btn btn-success mb-3">Create User</button>
-    <table class="table table-bordered">
-        <thead>
-        <tr>
-            <th>Last Name</th>
-            <th>First Name</th>
-            <th>Email</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody id="usersTable">
-        @foreach($users as $user)
-            <tr id="user-{{ $user->id }}">
-                <td>{{ $user->lname }}</td>
-                <td>{{ $user->fname }}</td>
-                <td>{{ $user->email }}</td>
-                <td>
-                    <button class="btn btn-primary editUser" data-id="{{ $user->id }}">Edit</button>
-                    <button class="btn btn-danger deleteUser" data-id="{{ $user->id }}">Delete</button>
-                </td>
-            </tr>
-        @endforeach
-        </tbody>
-    </table>
+
+<div class=" mt-5 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="usersTable">
+                <thead>
+                    <tr>
+                        <th>Last Name</th>
+                        <th>First Name</th>
+                        <th>Email</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTable">
+                    @foreach($users as $user)
+                        <tr id="user-{{ $user->id }}">
+                            <td>{{ $user->lname }}</td>
+                            <td>{{ $user->fname }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                <button class="btn btn-primary editUser" data-id="{{ $user->id }}">Edit</button>
+                                <button class="btn btn-danger deleteUser" data-id="{{ $user->id }}">Delete</button>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
 </div>
 
+    
+{{-- 
 <!-- Modal -->
 <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -143,11 +147,10 @@ $(document).ready(function() {
         }
     });
 });
-</script>
-
-<!-- Bootstrap 4 scripts -->
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-</body>
+</script> --}}
 
 @include('common.footer')
+</body>
+
+
 </html>

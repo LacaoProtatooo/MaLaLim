@@ -31,8 +31,8 @@ Route::get('/login', function () {
 /*  {user} are supposed to be {id}
     put are used usually on update since it has reference on URL (based on REST api)? but post can also do the same
 */
-Route::get('/user/create', [UserController::class, 'create'])->name('user.create');
-Route::post('/user/store', [UserController::class, 'store'])->name('user.store');
-Route::get('/user/{user}/edit', [UserController::class, 'edit'])->name('user.edit');
-Route::put('/user/{user}/update', [UserController::class, 'update'])->name('user.update');
-Route::delete('/user/{user}/delete', [UserController::class, 'delete'])->name('user.delete');
+Route::get('/admin/user', [UserController::class, 'create'])->name('user.create');
+Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
+Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+Route::delete('/user/{id}/delete', [UserController::class, 'delete'])->name('user.delete');

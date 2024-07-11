@@ -15,7 +15,9 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "bootstrap": "^5.3.3",
         "daisyui": "^4.12.10",
+        "datatables.net-dt": "^2.0.8",
         "jquery": "^3.7.1"
     }
 }
