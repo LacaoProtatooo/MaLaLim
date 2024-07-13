@@ -1,4 +1,3 @@
-@include('common.links')
 
 <div class="navbar bg-yellow-300">
   <div class="flex-1">

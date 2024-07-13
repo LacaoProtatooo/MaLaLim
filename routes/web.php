@@ -29,8 +29,5 @@ Route::get('/login', function () {
 
 
 // USERS
-Route::get('/admin/user', [UserController::class, 'userpopulate'])->name('user.populate');
-Route::post('/admin/user/store', [UserController::class, 'userstore'])->name('user.store');
-Route::get('/admin/user/{id}/edit', [UserController::class, 'useredit'])->name('user.edit');
-Route::put('/admin/user/{id}/update', [UserController::class, 'userupdate'])->name('user.update');
-Route::delete('/user/{id}/delete', [UserController::class, 'userdelete'])->name('user.delete');
+Route::get('/admin/users', [UserController::class, 'userpopulate'])->name('admin.users');
+

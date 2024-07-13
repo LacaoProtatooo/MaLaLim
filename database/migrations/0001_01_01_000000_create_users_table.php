@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('status')->default('unverified');
-            $table->date('birthdate');
+            $table->date('birthdate')->nullable();
             $table->longText('image_path')->nullable();
             $table->timestamps();
             $table->softDeletes();
