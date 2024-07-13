@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('jewelry_id')->constrained()->onDelete('cascade');
             $table->foreignId('order_id')->constrained()->onDelete('cascade');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
