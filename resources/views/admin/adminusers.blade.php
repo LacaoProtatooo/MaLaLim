@@ -12,6 +12,7 @@
 @include('common.header')
 
 <div class="mt-5 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
+    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createusermodal').showModal()">Create User</button>
     <div class="table-responsive">
         <table class="table table-bordered" id="usersTable">
             <thead>
@@ -43,7 +44,6 @@
 </div>
 
 {{-- CREATE USER MODAL --}}
-<button class="btn" onclick="document.getElementById('createusermodal').showModal()">Create User</button>
 <dialog id="createusermodal" class="modal">
     <div class="modal-box">
         <div class="relative bg-white rounded-lg">
