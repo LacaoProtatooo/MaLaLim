@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\ItemController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,9 +15,7 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::get('/', function () {
-    return view('home.home');
-})->name('home');
+Route::get('/', [ItemController::class, 'home'])->name('home');
 
 Route::get('/about', function () {
     return view('home.about');
