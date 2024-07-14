@@ -27,6 +27,9 @@ Route::get('/login', function () {
     return view('home.login');
 })->name('login');
 
+Route::get('/checkout', function () {
+    return view('customer.checkout');
+})->name('checkout');
 
 // USERS
 Route::get('/admin/users', [UserController::class, 'userpopulate'])->name('admin.users');
