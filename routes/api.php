@@ -20,7 +20,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/admin/user/store', [UserController::class, 'userstore'])->name('user.store');
-Route::get('/admin/user/{id}/edit', [UserController::class, 'useredit'])->name('user.edit');
-Route::put('/admin/user/{id}/update', [UserController::class, 'userupdate'])->name('user.update');
-Route::delete('/user/{id}/delete', [UserController::class, 'userdelete'])->name('user.delete');
+Route::resource('user', UserController::class);
+
+// Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
+// Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
+// Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
+// Route::delete('/user/{id}/delete', [UserController::class, 'destroy'])->name('user.delete');

@@ -3,27 +3,39 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    // Display users
-    public function userpopulate()
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
     {
         $users = User::all();
         return view('admin.adminusers', compact('users'));
     }
 
-    // Store a new user
-    public function userstore(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
     {
-        dd('nigga');
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
         $validatedData = $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'phone_number' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:11',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -33,7 +45,18 @@ class UserController extends Controller
         return response()->json($user, 201);
     }
 
-    public function useredit($id)
+    /**
+     * Display the specified resource.
+     */
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(string $id)
     {
         $user = User::find($id);
 
@@ -44,7 +67,10 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function userupdate(Request $request, $id)
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, string $id)
     {
         $user = User::find($id);
 
@@ -69,7 +95,10 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function userdelete($id)
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(string $id)
     {
         $user = User::find($id);
 

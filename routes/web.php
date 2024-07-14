@@ -29,5 +29,6 @@ Route::get('/login', function () {
 
 
 // USERS
-Route::get('/admin/users', [UserController::class, 'userpopulate'])->name('admin.users');
+Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+
 

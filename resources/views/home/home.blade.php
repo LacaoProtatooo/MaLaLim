@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>Home</title>
+    @include('common.links')
 </head>
 <body>
     @include('common.header')
