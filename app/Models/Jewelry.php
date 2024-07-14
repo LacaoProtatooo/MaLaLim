@@ -11,7 +11,7 @@ class Jewelry extends Model
 
     protected $fillable = [
         'name',
-        'image',
+        'image_path',
         'description',
     ];
 
