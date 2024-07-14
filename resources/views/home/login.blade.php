@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Login</title>
 </head>
 <body>
     @include('common.header')
@@ -52,7 +53,7 @@
                 </form>
             </div>
             <div class="md:h-full max-md:mt-10 bg-[#000842] rounded-xl lg:p-12 p-8">
-                <img src="../storage/logo.png" class="w-full h-full object-contain" alt="login-image" />
+                <img src="../storage/login-image.png" class="w-full h-full object-contain" alt="login-image" />
             </div>
         </div>
     </div>
