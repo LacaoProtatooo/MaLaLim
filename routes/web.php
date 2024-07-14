@@ -31,7 +31,7 @@ Route::get('/checkout', function () {
     return view('customer.checkout');
 })->name('checkout');
 
-// USERS
+// Admin
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 
 
