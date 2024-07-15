@@ -6,12 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Users</title>
     @include('common.links')
-
 </head>
-<body>
+<body class=" bg-yellow-50">
 @include('common.header')
 
-<div class="mt-5 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
+<div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createusermodal').showModal()">Create User</button>
     <div class="table-responsive">
         <table class="table table-bordered" id="usersTable">
@@ -34,7 +33,7 @@
                         <td>
                             <button class="btn btn-primary user-details" data-id="{{ $user->id }}">Details</button>
                             <button class="btn btn-secondary user-edit" data-id="{{ $user->id }}">Edit</button>
-                            <button class="btn btn-danger user-delete" data-id="{{ $user->id }}">Delete</button>
+                            <button class="btn btn-danger user-delete" data-id="{{ $user->id }}">Deactivate</button>
                         </td>
                     </tr>
                 @endforeach
@@ -47,10 +46,10 @@
 <dialog id="createusermodal" class="modal">
     <div class="modal-box">
         <div class="relative bg-white rounded-lg">
+            <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('createusermodal').close()">✕</button>
             <h3 class="text-lg font-bold mb-4"> Create New User </h3>
+        
             <form class="max-w-md mx-auto" id="userForm" method="#" action="#" enctype="multipart/form-data">
-                
-
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="email" id="email" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />
                     <label for="email" class="peer-focus:font-medium absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Email</label>

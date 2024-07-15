@@ -6,7 +6,6 @@ $(document).ready(function() {
     // DATATABLE
     $('#usersTable').DataTable();
 
-
     // CREATE
     $('#userForm').on('submit', function (e) {
         e.preventDefault();
@@ -33,7 +32,7 @@ $(document).ready(function() {
                     user.phone_number,
                     '<button class="btn btn-primary user-details" data-id="' + user.id + '">Details</button> ' +
                     '<button class="btn btn-secondary user-edit" data-id="' + user.id + '">Edit</button> ' +
-                    '<button class="btn btn-danger user-delete" data-id="' + user.id + '">Delete</button>'
+                    '<button class="btn btn-danger user-delete" data-id="' + user.id + '">Deactivate</button>'
                 ]).draw(false);
             },
             error: function(error) {
