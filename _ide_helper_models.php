@@ -87,6 +87,28 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $jewelry_id
+ * @property int $color_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Stock|null $stocks
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry query()
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereColorId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereJewelryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereUpdatedAt($value)
+ */
+	class ColorJewelry extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $rate
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -130,7 +152,6 @@ namespace App\Models{
  * @property-read int|null $orders_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Promo> $promos
  * @property-read int|null $promos_count
- * @property-read \App\Models\Stock|null $stocks
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
  * @method static \Database\Factories\JewelryFactory factory($count = null, $state = [])
@@ -266,7 +287,7 @@ namespace App\Models{
  * @property string $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Jewelry|null $jewelries
+ * @property-read \App\Models\ColorJewelry|null $colorjewelry
  * @method static \Database\Factories\StockFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
@@ -296,7 +317,7 @@ namespace App\Models{
  * @property string|null $image_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $deleted_at
  * @property-read \App\Models\Cart|null $carts
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jewelry> $jewelries
  * @property-read int|null $jewelries_count
@@ -307,6 +328,7 @@ namespace App\Models{
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthdate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
@@ -320,6 +342,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneNumber($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
+ * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()
  */
 	class User extends \Eloquent {}
 }

@@ -22,6 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('user', UserController::class);
 
+// DataTable
+Route::get('/users', [UserController::class, 'show'])->name('user.getUsers');
+
 // Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
 // Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
 // Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');

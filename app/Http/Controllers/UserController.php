@@ -11,11 +11,11 @@ class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
+     * WEB.PHP
      */
     public function index()
     {
-        $users = User::all();
-        return view('admin.adminusers', compact('users'));
+        return view('admin.adminusers');
     }
 
     /**
@@ -34,7 +34,7 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255',
             'phone_number' => 'required|string|max:11',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -47,10 +47,26 @@ class UserController extends Controller
 
     /**
      * Display the specified resource.
+     * Exclusive only for DataTable
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $users = User::all();
+        // Transform users data to include only necessary fields for DataTables
+        $users = $users->map(function($user) {
+            return [
+                'id' => $user->id,
+                'lname' => $user->lname,
+                'fname' => $user->fname,
+                'email' => $user->email,
+                'phone_number' => $user->phone_number,
+                'actions' => '<button class="btn btn-primary editUser" data-id="' . $user->id . '">Edit</button> 
+                              <button class="btn btn-danger deleteUser" data-id="' . $user->id . '">Delete</button>
+                              <button class="btn btn-info detailsUser" data-id="' . $user->id . '">Details</button>',
+                'full_data' => $user // Keep full data for modal
+            ];
+        });
+        return response()->json($users);
     }
 
     /**
@@ -73,7 +89,6 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         $user = User::find($id);
-
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
         }
@@ -81,19 +96,19 @@ class UserController extends Controller
         $validatedData = $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
             'phone_number' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'password' => 'sometimes|nullable|string|min:8|confirmed',
         ]);
 
-        if ($request->password) {
+        if ($request->filled('password')) {
             $validatedData['password'] = Hash::make($request->password);
         }
 
         $user->update($validatedData);
-
-        return response()->json($user);
+        return response()->json($user, 200);
     }
+
 
     /**
      * Remove the specified resource from storage.
