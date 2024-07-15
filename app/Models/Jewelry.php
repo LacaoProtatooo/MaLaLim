@@ -47,9 +47,4 @@ class Jewelry extends Model
     {
         return $this->belongsToMany(Cart::class);
     }
-
-    public function stocks()
-    {
-        return $this->hasOne(Stock::class);
-    }
 }

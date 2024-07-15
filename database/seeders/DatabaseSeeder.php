@@ -77,22 +77,25 @@ class DatabaseSeeder extends Seeder
         // ==============START===============================
 
         // User::factory(10)->create();
-        // Jewelry::factory()->count(50)->create();
+        Jewelry::factory()->count(50)->create();
 
-        // foreach ($classifications as $classification) {
-        //     Classification::create(['classification' => $classification]);
-        // }
-        // foreach ($colors as $color) {
-        //     Color::create(['color' => $color]);
-        // }
-        // Courier::factory()->count(5)->create();
-        // Material::factory()->count(10)->create();
+        foreach ($classifications as $classification) {
+            Classification::create(['classification' => $classification]);
+        }
+        foreach ($colors as $color) {
+            Color::create(['color' => $color]);
+        }
+        Courier::factory()->count(5)->create();
+        Material::factory()->count(10)->create();
 
-        // $this->call([
-        //     StockSeeder::class
-        // ]);
+        $this->call([
+            ColorJewelrySeeder::class
+        ]);
+        $this->call([
+            StockSeeder::class
+        ]);
 
-        // mat();              //jewelry materials attachment
+        mat();              //jewelry materials attachment
 
         // ===============END==========================
 
