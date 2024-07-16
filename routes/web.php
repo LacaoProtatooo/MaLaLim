@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,15 +22,20 @@ Route::get('/about', function () {
     return view('home.about');
 })->name('about');
 
-Route::get('/login', function () {
-    return view('home.login');
-})->name('login');
+// Route::get('/login', function () {
+//     return view('home.login');
+// })->name('login');
 
 Route::get('/checkout', function () {
     return view('customer.checkout');
 })->name('checkout');
 
+// ============== REAL NIGGA ============ //
+
 // Admin
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+
+// Login
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 

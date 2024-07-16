@@ -44,15 +44,17 @@ $(document).ready(function() {
             dataType: "json",
 
             success: function(user) {
+                console.log("user response contains: ",user);
                 document.getElementById('createusermodal').close();
-                userTable.row.add([
-                    user.lname,
-                    user.fname,
-                    user.email,
-                    user.phone_number,
-                    '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Edit</button> ' +
-                    '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
-                ]).draw(false);
+                userTable.row.add({
+                    'id': user.id,
+                    'lname': user.lname,
+                    'fname': user.fname,
+                    'email': user.email,
+                    'phone_number': user.phone_number,
+                    'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Edit</button> ' +
+                               '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
+                }).draw(false);
             },
             error: function(error) {
                 console.log(error);
@@ -133,16 +135,14 @@ $(document).ready(function() {
         
         // Confirm deletion
         if (confirm("Are you sure you want to delete this user?")) {
-            // Send AJAX request to delete user
             $.ajax({
                 type: 'DELETE',
                 url: `http://localhost:8000/api/user/${userId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
-                    console.log(response.message); // Log success message
-                    // Optionally handle UI update or refresh data
-                    // Example: Remove deleted user row from DataTable
-                    userTable.ajax.reload(); // Reload DataTable if needed
+                    console.log(response.message);
+                    // Reload Table
+                    userTable.ajax.reload();
                 },
                 error: function(error) {
                     console.error("Delete error:", error);

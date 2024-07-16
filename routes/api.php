@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,9 @@ Route::resource('user', UserController::class);
 
 // DataTable
 Route::get('/users', [UserController::class, 'show'])->name('user.getUsers');
+
+//Login
+Route::post('/user/login', [LoginController::class, 'login'])->name('user.login');
 
 // Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
 // Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
