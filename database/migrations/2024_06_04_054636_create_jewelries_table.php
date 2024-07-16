@@ -17,7 +17,6 @@ return new class extends Migration
             $table->longText('image_path')->nullable();
             $table->string('description')->nullable();
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
