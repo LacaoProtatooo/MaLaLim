@@ -22,6 +22,10 @@ Route::get('/about', function () {
     return view('home.about');
 })->name('about');
 
+Route::get('/orderhistory', function () {
+   return view('home.orderhistory');
+})->name('orderhistory');
+
 // Route::get('/login', function () {
 //     return view('home.login');
 // })->name('login');
