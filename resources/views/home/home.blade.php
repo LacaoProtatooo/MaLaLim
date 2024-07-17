@@ -15,7 +15,21 @@
         @include('common.card')
 
     </div>
-    
+
+    @foreach ($jewel as $jew )
+    {{ $jew->name }}
+        @foreach ($jew->colorJewelries as $pivot)
+            {{ ($pivot->stocks->quantity) }}
+            {{ ($pivot->colors->color) }}
+            <br>
+        @endforeach
+        <br>
+
+    @endforeach
+
+
     @include('common.footer')
+
 </body>
+
 </html>
