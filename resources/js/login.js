@@ -2,20 +2,17 @@
 $(document).ready(function(){
     $('#loginForm').on('submit', function (e){
         e.preventDefault();
-        var data = $('#loginForm')[0];
-        let formData = new FormData(data);
-
-        let data = $("#loginForm").serialize();
+        var data = $(this).serialize();
 
         $.ajax({
             type: 'POST',
             url: '/api/user/login',
             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: formData,
+            data: data,
             success: function(response) {
                 console.log(response);
                 if (response.message === 'Login successful') {
-                    console.log("LOGGIN SUCCESS NIGGA");
+                    console.log("Login Success");
                 } else {
                     showError("Username or Password Incorrect. Please Check");
                 }

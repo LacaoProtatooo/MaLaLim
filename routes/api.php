@@ -17,19 +17,17 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
 Route::resource('user', UserController::class);
 
 // DataTable
-Route::get('/users', [UserController::class, 'show'])->name('user.getUsers');
+Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
 
 //Login
-Route::post('/user/login', [LoginController::class, 'login'])->name('user.login');
+Route::post('/user/login', [LoginController::class, 'login'])
+    ->middleware('web')
+    ->name('user.login');
 
-// Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
-// Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-// Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-// Route::delete('/user/{id}/delete', [UserController::class, 'destroy'])->name('user.delete');
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});

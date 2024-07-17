@@ -17,17 +17,19 @@ class UserMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         $currentUser = Auth::user();
 
         if ($currentUser) {
             $userinfo = User::with('role')->where('id', $currentUser->id)->first();
-            if ($userinfo->role->title == 'customer') {
+            // $userinfo = User::leftJoin('roles', 'roles.user_id', '=', 'users.id')
+            //     ->where('users.id', $currentUser->id)
+            //     ->first(['users.*', 'roles.*']);
+
+            if ($userinfo->role->title == 'user') {
                 return $next($request);
-            }
-            else
-            {
+            } else {
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
@@ -37,4 +39,5 @@ class UserMiddleware
 
         return redirect()->route('home.login');
     }
+
 }
