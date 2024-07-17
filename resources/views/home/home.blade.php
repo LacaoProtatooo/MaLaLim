@@ -17,7 +17,16 @@
 
     </div>
     
-    
+    <button class="btn" onclick="my_modal_5.showModal()">View Product</button>
+<dialog id="my_modal_5" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    @include('common.productview')
+  </div>
+</dialog>
+                                            
 
     @include('common.footer')
 </body>
