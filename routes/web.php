@@ -26,9 +26,11 @@ Route::get('/orderhistory', function () {
    return view('home.orderhistory');
 })->name('orderhistory');
 
-// Route::get('/login', function () {
-//     return view('home.login');
-// })->name('login');
+Route::get('/favorites', function () {
+    return view('home.favorites');
+ })->name('favorites');
+
+
 
 Route::get('/checkout', function () {
     return view('customer.checkout');

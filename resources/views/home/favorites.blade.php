@@ -27,7 +27,7 @@
                         <p class="font-medium text-lg leading-8 text-gray-600">Qty </p>
                     </div>
                     <div class="col-span-2 max-lg:hidden">
-                        <p class="font-medium text-lg leading-8 text-gray-500">Delivery Expected by </p>
+                        <p class="font-medium text-lg leading-8 text-gray-500"></p>
                     </div>
                 </div>
                 <div
@@ -50,31 +50,7 @@
                         <p class="font-semibold text-xl leading-8 text-indigo-600 text-center">2</p>
                     </div>
                     <div class="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
-                        <p class="font-semibold text-xl leading-8 text-black">23rd March 2021</p>
-                    </div>
-                </div>
-
-                <div
-                    class="box p-8 rounded-3xl bg-gray-100 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto">
-
-                    <div class="col-span-8 sm:col-span-4 lg:col-span-1 sm:row-span-4 lg:row-span-1">
-                        <img src="https://pagedone.io/asset/uploads/1705474950.png" alt="earbuds image" class="max-lg:w-auto max-sm:mx-auto">
-                    </div>
-                    <div
-                        class="col-span-8 sm:col-span-4 lg:col-span-3 flex h-full justify-center pl-4 flex-col max-lg:items-center">
-                        <h5 class="font-manrope font-semibold text-2xl leading-9 text-black mb-1 whitespace-nowrap">
-                            Apple Airpods Pro</h5>
-                        <p class="font-normal text-base leading-7 text-gray-600 max-md:text-center">White</p>
-                    </div>
-
-                    <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center">
-                        <p class="font-semibold text-xl leading-8 text-black">$249.99</p>
-                    </div>
-                    <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center ">
-                        <p class="font-semibold text-xl leading-8 text-indigo-600 text-center">2</p>
-                    </div>
-                    <div class="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
-                        <p class="font-semibold text-xl leading-8 text-black">23rd March 2021</p>
+                    <button class="btn">Buy Again</button>
                     </div>
                 </div>
 
@@ -98,7 +74,31 @@
                         <p class="font-semibold text-xl leading-8 text-indigo-600 text-center">2</p>
                     </div>
                     <div class="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
-                        <p class="font-semibold text-xl leading-8 text-black">23rd March 2021</p>
+                    <button class="btn">Buy Again</button>
+                    </div>
+                </div>
+
+                <div
+                    class="box p-8 rounded-3xl bg-gray-100 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto">
+
+                    <div class="col-span-8 sm:col-span-4 lg:col-span-1 sm:row-span-4 lg:row-span-1">
+                        <img src="https://pagedone.io/asset/uploads/1705474950.png" alt="earbuds image" class="max-lg:w-auto max-sm:mx-auto">
+                    </div>
+                    <div
+                        class="col-span-8 sm:col-span-4 lg:col-span-3 flex h-full justify-center pl-4 flex-col max-lg:items-center">
+                        <h5 class="font-manrope font-semibold text-2xl leading-9 text-black mb-1 whitespace-nowrap">
+                            Apple Airpods Pro</h5>
+                        <p class="font-normal text-base leading-7 text-gray-600 max-md:text-center">White</p>
+                    </div>
+
+                    <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center">
+                        <p class="font-semibold text-xl leading-8 text-black">$249.99</p>
+                    </div>
+                    <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center ">
+                        <p class="font-semibold text-xl leading-8 text-indigo-600 text-center">2</p>
+                    </div>
+                    <div class="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
+                    <button class="btn">Buy Again</button>
                     </div>
                 </div>
             </div>

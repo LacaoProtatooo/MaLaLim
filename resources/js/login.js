@@ -26,10 +26,27 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('#logoutLink').on('click', function(e) {
+        e.preventDefault();
+        logout();
+    });
+
 });
 
-function login() {
-    
+function logout() {
+    $.ajax({
+        type: 'POST',
+        url: '/api/user/logout',
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        success: function(response) {
+            console.log('Logged out successfully');
+            window.location.href = '/';
+        },
+        error: function(xhr) {
+            console.error('Logout failed:', xhr);
+        }
+    });
 }
 
 function showError(message) {
