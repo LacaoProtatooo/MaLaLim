@@ -17,10 +17,13 @@ class ItemController extends Controller
         //     ->with(['colorJewelries.stocks']);
         // }])->get();
 
-        $jewel = Jewelry::with(['colorJewelries' => function ($query) {
-            $query->with(['colors', 'stocks']);
-        }])->get();
 
-        return view('home.home', compact('jewel'));
+    }
+
+    public function index(){
+        $data = Jewelry::with('prices')->get();
+
+        // return response()->json($data);
+        return view('home.home', compact('data'));
     }
 }

@@ -2,7 +2,7 @@
 <div class="navbar  flex flex-col justify-center items-center p-4">
 
 <div class="relative p-3 border border-white rounded-lg w-full max-w-lg">
-        <input type="text" class="rounded-md p-3 w-full" placeholder="Search Jewelry | Categories | Brand">
+        <input type="text" id = "searchinput" class="rounded-md p-3 w-full" placeholder="Search Jewelry | Categories | Brand">
 
         <button type="submit" class="absolute right-6 top-6">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"

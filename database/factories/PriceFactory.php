@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Stock>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
  */
-class StockFactory extends Factory
+class PriceFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,7 +17,7 @@ class StockFactory extends Factory
     public function definition(): array
     {
         return [
-            'quantity' => $this->faker->numberBetween(1, 100),
+            'price' => $this->faker->randomFloat(2, 150, 5000),
         ];
     }
 }

@@ -5,14 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Courier extends Model
+class Price extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'rate',
+        'price'
     ];
 
-   
+    public function jewelries(){
+        return $this->belongsTo(Jewelry::class);
+    }
 }

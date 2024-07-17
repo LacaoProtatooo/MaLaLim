@@ -16,7 +16,7 @@ use App\Http\Controllers\LoginController;
 |
 */
 
-Route::get('/', [ItemController::class, 'home'])->name('home');
+Route::get('/item', [ItemController::class, 'index'])->name('home');
 
 Route::get('/about', function () {
     return view('home.about');

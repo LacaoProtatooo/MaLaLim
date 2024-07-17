@@ -48,6 +48,10 @@ class Jewelry extends Model
     {
         return $this->belongsToMany(Cart::class);
     }
+    public function prices()
+    {
+        return $this->hasOne(Price::class);
+    }
 
     public function colorjewelries()
     {
