@@ -16,7 +16,7 @@ class ItemController extends Controller
         //     }])
         //     ->with(['colorJewelries.stocks']);
         // }])->get();
-
+        
 
     }
 
@@ -25,5 +25,9 @@ class ItemController extends Controller
 
         // return response()->json($data);
         return view('home.home', compact('data'));
+    }
+
+    public function searching(){
+
     }
 }

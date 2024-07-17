@@ -27,6 +27,7 @@
       </div>
     </dialog>
     @include('common.footer')
+
     <button class="btn" onclick="my_modal_5.showModal()">View Product</button>
 <dialog id="my_modal_5" class="modal">
   <div class="modal-box">
