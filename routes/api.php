@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,13 +17,17 @@ use App\Http\Controllers\UserController;
 |
 */
 
+Route::resource('user', UserController::class);
+
+// DataTable
+Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
+
+//Login
+Route::post('/user/login', [LoginController::class, 'login'])
+    ->middleware('web')
+    ->name('user.login');
+
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::resource('user', UserController::class);
-
-// Route::post('/admin/user/store', [UserController::class, 'store'])->name('user.store');
-// Route::get('/admin/user/{id}/edit', [UserController::class, 'edit'])->name('user.edit');
-// Route::put('/admin/user/{id}/update', [UserController::class, 'update'])->name('user.update');
-// Route::delete('/user/{id}/delete', [UserController::class, 'destroy'])->name('user.delete');

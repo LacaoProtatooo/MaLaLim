@@ -2,11 +2,11 @@
 <!--Tailwind Utility & Flowbite-->
 @vite(['resources/css/app.css','resources/js/app.js',
 // Custom Javascript Files
-'resources/js/users.js'])
+'resources/js/users.js',
+'resources/js/login.js'])
 
 {{-- LINKS --}}
-
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}
