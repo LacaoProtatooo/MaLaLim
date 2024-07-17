@@ -13,4 +13,13 @@ class ColorJewelry extends Model
     public function stocks(){
         return $this->hasOne(Stock::class);
     }
+    public function jewelry()
+    {
+        return $this->belongsTo(Jewelry::class, 'jewelry_id');
+    }
+
+    public function colors()
+    {
+        return $this->belongsTo(Color::class, 'color_id');
+    }
 }

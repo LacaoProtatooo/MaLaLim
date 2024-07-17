@@ -15,6 +15,12 @@ class Color extends Model
 
     public function jewelries()
     {
-        return $this->belongsToMany(Jewelry::class);
+        return $this->belongsToMany(Jewelry::class, 'color_jewelry')
+                    ->withPivot('id'); // Include the pivot ID
+    }
+
+    public function colorJewelries()
+    {
+        return $this->hasMany(ColorJewelry::class, 'color_id');
     }
 }
