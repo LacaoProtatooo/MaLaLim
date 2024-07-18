@@ -7,27 +7,23 @@ use App\Models\Jewelry;
 
 class ItemController extends Controller
 {
-    public function home(){
-        // $jewel = Jewelry::with(['colors', 'materials', 'classifications'])->get();
-        // $jewel = Jewelry::with(['colorJewelries' => function ($query) {
-        //     $query->with(['colors', 'stocks' => function ($query) {
-                // $query->whereColumn('color_jewelry.color_id', 'colors.id')
-                //       ->whereColumn('color_jewelry.jewelry_id', 'colors_jewelry.jewelry_id'); // Adjusted column name
-        //     }])
-        //     ->with(['colorJewelries.stocks']);
-        // }])->get();
-        
+    public function home(Request $request)
+    {
+        $search = $request->input('search');
+        $query = Jewelry::with('prices');
 
+        if ($search) {
+            $query->where('name', 'like', '%' . $search . '%');
+        }
+
+        $jewelry = $query->paginate(10);
+
+        return response()->json($jewelry);
     }
 
-    public function index(){
+    public function index()
+    {
         $data = Jewelry::with('prices')->get();
-
-        // return response()->json($data);
         return view('home.home', compact('data'));
-    }
-
-    public function searching(){
-
     }
 }

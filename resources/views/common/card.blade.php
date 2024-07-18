@@ -1,5 +1,5 @@
 @foreach ($data as $jewel)
-<form action="your_action_url" method="POST">
+
         <div class="col-span-1 bg-white p-4">
                 <div class="group my-10 flex w-full max-w-md flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg">
                         <a class="relative flex h-80 overflow-hidden rounded-t-lg" href="#">

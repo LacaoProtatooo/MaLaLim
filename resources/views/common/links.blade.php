@@ -3,10 +3,12 @@
 @vite(['resources/css/app.css','resources/js/app.js',
 // Custom Javascript Files
 'resources/js/users.js',
-'resources/js/login.js'])
+'resources/js/login.js',
+'resources/js/home.js'])
 
 {{-- LINKS --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}

@@ -4,7 +4,7 @@
 <div class="relative p-3 border border-white rounded-lg w-full max-w-lg">
         <input type="text" id = "searchinput" class="rounded-md p-3 w-full" placeholder="Search Jewelry | Categories | Brand">
 
-        <button type="submit" class="absolute right-6 top-6">
+        <button type="submit" id ="searchButton" class="absolute right-6 top-6">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round"
