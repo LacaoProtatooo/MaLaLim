@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class LoginController extends Controller
 {
@@ -17,27 +18,45 @@ class LoginController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
+            $user = Auth::user();
+            $token = $user->createToken('auth_token')->plainTextToken;
 
             return response()->json([
                 'message' => 'Login successful',
-                'user' => Auth::user()
+                'user' => $user,
+                'token' => $token,
             ], 200);
         }
-        else{
-            return response()->json([
-                'message' => 'Invalid credentials'
-            ], 401);
-        }
+
+        return response()->json([
+            'message' => 'Invalid credentials'
+        ], 401);
     }
+
 
     public function logout(Request $request)
     {
-        Auth::logout();
-        $request->session()->invalidate(); 
+        $user = Auth::user();
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        // Revoke the current token
+        $token = $request->bearerToken();
+        if ($token) {
+            $sanctumToken = PersonalAccessToken::findToken($token);
+            if ($sanctumToken) {
+                $sanctumToken->delete();
+            }
+        }
+
+        $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return response()->json(['message' => 'Logout successful']);
     }
+
+
 
 
 

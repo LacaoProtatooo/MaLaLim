@@ -25,7 +25,7 @@ Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');
-Route::post('/user/logout', [LoginController::class, 'logout'])->middleware('web')->name('user.logout');
+Route::post('/user/logout', [LoginController::class, 'logout'])->middleware(['web', 'auth:sanctum'])->name('user.logout');
 
 
 

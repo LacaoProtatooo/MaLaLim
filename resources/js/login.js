@@ -13,6 +13,8 @@ $(document).ready(function(){
                 console.log(response);
                 if (response.message === 'Login successful') {
                     console.log("Login Success");
+                    localStorage.setItem('auth_token', response.token);
+                    window.location.href = '/item';
                 } else {
                     showError("Username or Password Incorrect. Please Check");
                 }
@@ -38,10 +40,13 @@ function logout() {
     $.ajax({
         type: 'POST',
         url: '/api/user/logout',
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+        },
         success: function(response) {
             console.log('Logged out successfully');
-            window.location.href = '/';
+            localStorage.removeItem('auth_token');
+            window.location.href = '/item';
         },
         error: function(xhr) {
             console.error('Logout failed:', xhr);
