@@ -4,26 +4,7 @@
     <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">MaLaLim</a>
   </div>
     
-  <button class="btn mr-3" onclick="my_modal_3.showModal()">
-      <img src="../storage/cart.png" alt="Shopping Cart" style="width: 20px; height: 20px;" />
-  </button>
-  
-  {{-- SHOPPING CART --}}
-  <button class="btn mr-3" onclick="my_modal_3.showModal()">
-    <img src="{{ asset('storage/cart.png') }}" alt="Shopping Cart" style="width: 20px; height: 20px;" />
-  </button>
-
-  {{-- SHOPPING CARD MODAL --}}
-  <dialog id="my_modal_3" class="modal">
-    <div class="modal-box">
-      <form method="dialog" class="">
-        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-      </form>
-      @include('common.cart')
-    </div>
-  </dialog>
-
-  <button class="btn mr-3" onclick="window.location.href='{{ url('favorites') }}'">Favorites</button>            
+          
     
   {{-- LOGIN :: USER PROFILE --}}
   @if (!Auth::user())
