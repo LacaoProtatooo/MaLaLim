@@ -38,6 +38,9 @@ Route::get('/checkout', function () {
 // Admin
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 
+// Customer
+Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');
+
 // Login
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 

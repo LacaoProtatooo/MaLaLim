@@ -1,4 +1,5 @@
 import './bootstrap';
+import 'jquery-validation';
 
 // Jquery
 import jQuery from 'jquery';

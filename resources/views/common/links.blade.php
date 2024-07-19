@@ -1,13 +1,4 @@
 
-<!--Tailwind Utility & Flowbite-->
-@vite(['resources/css/app.css','resources/js/app.js',
-// Custom Javascript Files
-'resources/js/users.js',
-'resources/js/login.js',
-'resources/js/home.js',
-'resources/js/register.js',
-'resources/js/usercustomer.js'])
-
 {{-- LINKS --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -15,6 +6,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 {{-- Datepicker --}}
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
+{{-- JQuery Validation --}}
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
+
+<!--Tailwind Utility & Flowbite-->
+@vite(['resources/css/app.css','resources/js/app.js',
+// Custom Javascript Files
+'resources/js/users.js',
+'resources/js/login.js',
+'resources/js/home.js',
+'resources/js/register.js',])
+
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}
 <style>

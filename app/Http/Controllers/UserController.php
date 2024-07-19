@@ -8,6 +8,7 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class UserController extends Controller
 {
@@ -141,7 +142,38 @@ class UserController extends Controller
             $user->restore();
         } 
 
-        return redirect()->route('');
+        return response()->json(['message' => 'User Activated Successfully'], 200);
+    }
+
+    public function deactivate(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($user) {
+            $user->delete();
+
+            // $token = $request->bearerToken();
+            // if ($token) {
+            //     $sanctumToken = PersonalAccessToken::findToken($token);
+            //     if ($sanctumToken) {
+            //         $sanctumToken->delete();
+            //     }
+            // }
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+            // Auth::logout();
+
+            return response()->json([
+                'success' => true,
+                'message' => 'Account successfully deleted.',
+            ], 200);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'User not found.',
+        ], 404);
     }
 
     public function profile()
@@ -150,40 +182,70 @@ class UserController extends Controller
         return view('customer.profile', compact('userinfo'));
     }
 
-    public function profileupdate(Request $request){
+    public function getUserProfile()
+    {
+        $userinfo = Auth::user();
+        return response()->json([
+            'id' => $userinfo->id,
+            'fname' => $userinfo->fname,
+            'lname' => $userinfo->lname,
+            'email' => $userinfo->email,
+            'phone_number' => $userinfo->phone_number,
+            'address' => $userinfo->address,
+            'birthdate' => $userinfo->birthdate,
+            'image_path' => $userinfo->image_path,
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
         $user = Auth::user();
 
         $request->validate([
             'fname' => 'required|string|max:255',
             'lname' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:11',
+            'phone_number' => 'required|string|max:15', // Adjusted max length
             'address' => 'required|string|max:255',
+            'new_password' => 'nullable|string|min:8', // Make new_password optional
+            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Image validation
         ]);
 
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->phone_number = $request->phone_number;
-        $user->address = $request->address;
+        $user->fname = $request->input('fname'); // Adjusted to match form field names
+        $user->lname = $request->input('lname');
+        $user->phone_number = $request->input('phone_number');
+        $user->address = $request->input('address');
+        $user->birthdate = $request->input('birthdate');
 
         if ($request->filled('new_password')) {
-            $request->validate([
-                'new_password' => 'required|string|min:8',
-            ]);
-
-            $user->password = Hash::make($request->new_password);
+            $user->password = Hash::make($request->input('new_password'));
         }
 
+        // Handle image upload
         if ($request->hasFile('image')) {
+            // Delete the old image file if it exists
+            if ($user->image_path && \File::exists(public_path($user->image_path))) {
+                \File::delete(public_path($user->image_path));
+            }
+
+            // Store the new image file
             $image = $request->file('image');
             $filename = uniqid() . '_' . $image->getClientOriginalName();
-            $image->move('storage', $filename);
-            $imagePath = 'storage/' . $filename;
-            $user->image_path = $imagePath;
+            $image->move(public_path('storage'), $filename);
+            $user->image_path = 'storage/' . $filename;
         }
 
         $user->save();
+        return response()->json([
+            'success' => true,
+            'message' => 'Profile updated successfully.',
+            'fname' => $user->fname,
+            'lname' => $user->lname,
+            'address' => $user->address,
+            'phone_number' => $user->phone_number,
+            'birthdate' => $user->birthdate,
+            'image_path' => $user->image_path,
+        ], 200);
 
-        // TO BE FIXED
-        return redirect();
     }
+
 }
