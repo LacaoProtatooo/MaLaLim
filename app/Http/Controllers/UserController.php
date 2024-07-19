@@ -7,6 +7,7 @@ use App\Models\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -37,6 +38,7 @@ class UserController extends Controller
             'lname' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'phone_number' => 'required|string|max:11',
+            'address' => 'required|string|max:255',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -129,5 +131,58 @@ class UserController extends Controller
 
         $user->delete();
         return response()->json(['message' => 'User deleted successfully'], 200);
+    }
+
+    // Activate Deactivated Account
+    public function activate($id){
+        $user = User::withTrashed()->find($id);
+        if ($user) {
+            $user->restore();
+        } 
+
+        return redirect()->route('');
+    }
+
+    public function profile()
+    {
+        $userinfo = Auth::user();
+        return view('customer.profile', compact('userinfo'));
+    }
+
+    public function profileupdate(Request $request){
+        $user = Auth::user();
+
+        $request->validate([
+            'fname' => 'required|string|max:255',
+            'lname' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:11',
+            'address' => 'required|string|max:255',
+        ]);
+
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->phone_number = $request->phone_number;
+        $user->address = $request->address;
+
+        if ($request->filled('new_password')) {
+            $request->validate([
+                'new_password' => 'required|string|min:8',
+            ]);
+
+            $user->password = Hash::make($request->new_password);
+        }
+
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $filename = uniqid() . '_' . $image->getClientOriginalName();
+            $image->move('storage', $filename);
+            $imagePath = 'storage/' . $filename;
+            $user->image_path = $imagePath;
+        }
+
+        $user->save();
+
+        // TO BE FIXED
+        return redirect();
     }
 }

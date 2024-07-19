@@ -5,7 +5,8 @@
 'resources/js/users.js',
 'resources/js/login.js',
 'resources/js/home.js',
-'resources/js/register.js'])
+'resources/js/register.js',
+'resources/js/usercustomer.js'])
 
 {{-- LINKS --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">

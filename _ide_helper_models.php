@@ -140,8 +140,7 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cart> $carts
  * @property-read int|null $carts_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Classification> $classifications
- * @property-read int|null $classifications_count
+ * @property-read \App\Models\Classification|null $classification
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorjewelries
  * @property-read int|null $colorjewelries_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Color> $colors

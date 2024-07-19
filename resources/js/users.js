@@ -18,7 +18,7 @@ $(document).ready(function() {
             {
                 data: 'id',
                 render: function(data) {
-                    return '<button class="btn btn-primary user-edit" data-id="' + data + '">Edit</button> ' +
+                    return '<button class="btn btn-primary user-edit" data-id="' + data + '">Details</button> ' +
                            '<button class="btn btn-secondary user-delete" data-id="' + data + '">Deactivate</button>';
                 }
             }
@@ -51,8 +51,9 @@ $(document).ready(function() {
                     'lname': user.lname,
                     'fname': user.fname,
                     'email': user.email,
+                    'address': user.address,
                     'phone_number': user.phone_number,
-                    'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Edit</button> ' +
+                    'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Details</button> ' +
                                '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
                 }).draw(false);
             },
@@ -81,6 +82,7 @@ $(document).ready(function() {
 
                 $('#userno').val(data.id)
                 $('#emailedit').val(data.email)
+                $('#addressedit').val(data.address)
                 $('#createdatedit').val(data.created_at)
                 $('#fnameedit').val(data.fname)
                 $('#lnameedit').val(data.lname)
