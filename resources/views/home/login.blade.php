@@ -54,7 +54,7 @@
                     </div>
                 </form>
             </div>
-            <div class="md:h-full max-md:mt-10 bg-[#000842] rounded-xl lg:p-12 p-8">
+            <div class="md:h-full max-md:mt-10 bg-[#ffffff] rounded-xl lg:p-12 p-8">
                 <img src="../storage/login-image.png" class="w-full h-full object-contain" alt="login-image" />
             </div>
         </div>
