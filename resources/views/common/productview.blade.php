@@ -5,8 +5,7 @@
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full overflow-hidden relative">
             <!-- Close Button -->
-            <button onclick="document.getElementById('myModal').classList.add('hidden')" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 focus:outline-none" aria-label="Close">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button onclick="document.getElementById('myModal').classList.add('hidden'); document.getElementById('colorsJewel').innerHTML = ''; document.getElementById('stonkss').innerHTML = '';" class="absolute top-4 right-4 text-gray-500 hover:text-gray-800 focus:outline-none" aria-label="Close">                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                 </svg>
             </button>
@@ -33,18 +32,15 @@
 
                     <div class="flex flex-wrap gap-4 mb-8">
                         <div class="flex flex-col">
-                            <p id = "salapi" class="text-gray-800 text-4xl font-bold"></p>
-
+                            <h2 id = "salapi" class="text-gray-800 text-4xl font-bold"></h2>
+                            <p id = "stonkss" class="text-sm text-gray-500 mt-2"></p>
                         </div>
                     </div>
 
                     <div class="mb-8">
-                        <h3 class="text-xl font-bold text-gray-800">Choose a Color</h3>
-                        <div class="flex flex-wrap gap-4 mt-4">
-                            <button type="button" class="w-10 h-10 bg-black border border-white hover:border-gray-800 rounded-md"></button>
-                            <button type="button" class="w-10 h-10 bg-gray-400 border border-white hover:border-gray-800 rounded-md"></button>
-                            <button type="button" class="w-10 h-10 bg-orange-400 border border-white hover:border-gray-800 rounded-md"></button>
-                            <button type="button" class="w-10 h-10 bg-red-400 border border-white hover:border-gray-800 rounded-md"></button>
+                        <h3 class="text-xl font-bold text-gray-800">Available Colors:</h3>
+                        <div id="colorsJewel" class="flex flex-wrap gap-4 mt-4">
+
                         </div>
                     </div>
 
