@@ -4,7 +4,8 @@
 // Custom Javascript Files
 'resources/js/users.js',
 'resources/js/login.js',
-'resources/js/home.js'])
+'resources/js/home.js',
+'resources/js/register.js'])
 
 {{-- LINKS --}}
 <meta name="csrf-token" content="{{ csrf_token() }}">

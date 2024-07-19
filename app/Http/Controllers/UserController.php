@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -42,6 +43,12 @@ class UserController extends Controller
         $validatedData['password'] = Hash::make($validatedData['password']);
         $user = User::create($validatedData);
 
+        // CREATE ROLE
+        Role::create([
+            'user_id' => $user->id,
+            'title' => 'customer',
+        ]);
+
         return response()->json($user, 201);
     }
 
@@ -52,7 +59,6 @@ class UserController extends Controller
     public function show()
     {
         $users = User::all();
-        // Transform users data to include only necessary fields for DataTables
         $users = $users->map(function($user) {
             return [
                 'id' => $user->id,
@@ -122,7 +128,6 @@ class UserController extends Controller
         }
 
         $user->delete();
-
         return response()->json(['message' => 'User deleted successfully'], 200);
     }
 }

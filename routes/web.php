@@ -30,13 +30,10 @@ Route::get('/favorites', function () {
     return view('home.favorites');
  })->name('favorites');
 
-
-
 Route::get('/checkout', function () {
     return view('customer.checkout');
 })->name('checkout');
 
-// ============== REAL NIGGA ============ //
 
 // Admin
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');

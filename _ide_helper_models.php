@@ -21,7 +21,6 @@ namespace App\Models{
  * @property string $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jewelry> $jewelries
  * @property-read int|null $jewelries_count
  * @property-read \App\Models\User|null $users
@@ -29,7 +28,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Cart newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cart query()
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cart whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereQuantity($value)
@@ -69,6 +67,8 @@ namespace App\Models{
  * @property string $color
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorJewelries
+ * @property-read int|null $color_jewelries_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jewelry> $jewelries
  * @property-read int|null $jewelries_count
  * @method static \Illuminate\Database\Eloquent\Builder|Color newModelQuery()
@@ -91,6 +91,8 @@ namespace App\Models{
  * @property int $color_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Color $colors
+ * @property-read \App\Models\Jewelry $jewelry
  * @property-read \App\Models\Stock|null $stocks
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry newQuery()
@@ -113,14 +115,11 @@ namespace App\Models{
  * @property string $rate
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
- * @property-read Courier|null $couriers
  * @method static \Database\Factories\CourierFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Courier newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Courier newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Courier query()
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Courier whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereRate($value)
@@ -139,17 +138,19 @@ namespace App\Models{
  * @property string|null $description
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property string|null $deleted_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cart> $carts
  * @property-read int|null $carts_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Classification> $classifications
  * @property-read int|null $classifications_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorjewelries
+ * @property-read int|null $colorjewelries_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Color> $colors
  * @property-read int|null $colors_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Material> $materials
  * @property-read int|null $materials_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Order> $orders
  * @property-read int|null $orders_count
+ * @property-read \App\Models\Price|null $prices
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Promo> $promos
  * @property-read int|null $promos_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
@@ -159,7 +160,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry query()
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereImagePath($value)
@@ -230,10 +230,32 @@ namespace App\Models{
  * 
  *
  * @property int $id
+ * @property int $jewelry_id
+ * @property string $price
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Jewelry|null $jewelries
+ * @method static \Database\Factories\PriceFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Price newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Price newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Price query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereJewelryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Price whereUpdatedAt($value)
+ */
+	class Price extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
  * @property string $name
  * @property string $description
  * @property string $image_path
- * @property string|null $deleted_at
  * @property string $discountRate
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -243,7 +265,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Promo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Promo query()
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Promo whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereDiscountRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereId($value)
@@ -282,9 +303,8 @@ namespace App\Models{
  * 
  *
  * @property int $id
- * @property int $jewelry_id
+ * @property int $color_jewelry_id
  * @property int $quantity
- * @property string $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ColorJewelry|null $colorjewelry
@@ -292,10 +312,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereColorJewelryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereJewelryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
  */
@@ -312,7 +331,6 @@ namespace App\Models{
  * @property string $phone_number
  * @property string $email
  * @property string $password
- * @property string $status
  * @property string|null $birthdate
  * @property string|null $image_path
  * @property \Illuminate\Support\Carbon|null $created_at
@@ -325,6 +343,8 @@ namespace App\Models{
  * @property-read int|null $notifications_count
  * @property-read \App\Models\Order|null $orders
  * @property-read \App\Models\Role|null $roles
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Laravel\Sanctum\PersonalAccessToken> $tokens
+ * @property-read int|null $tokens_count
  * @method static \Database\Factories\UserFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|User newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
@@ -340,7 +360,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User whereLname($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User wherePhoneNumber($value)
- * @method static \Illuminate\Database\Eloquent\Builder|User whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User withTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User withoutTrashed()

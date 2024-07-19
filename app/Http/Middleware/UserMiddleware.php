@@ -27,12 +27,12 @@ class UserMiddleware
             //     ->where('users.id', $currentUser->id)
             //     ->first(['users.*', 'roles.*']);
 
-            if ($userinfo->role->title == 'user') {
+            if ($userinfo->role->title == 'customer') {
                 return $next($request);
             } else {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
+                // Auth::logout();
+                // $request->session()->invalidate();
+                // $request->session()->regenerateToken();
                 return response()->json(['error' => 'Unauthorized'], 403);
             }
         }
