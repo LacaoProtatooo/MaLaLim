@@ -13,6 +13,8 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+{{-- Datepicker --}}
+<script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}
 <style>
@@ -44,8 +46,4 @@
         text-align: right;
     }
 </style>
-
-
-
-
 

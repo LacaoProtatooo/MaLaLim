@@ -11,17 +11,17 @@
 </head>
 <body>
     @include('common.header')
+    @include('modal.userregister')
 
     <div class="text-black min-h-screen flex flex-col items-center justify-center bg-gray-100 mt-10">
         <div class="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full p-4 m-4 rounded-md bg-white shadow-2xl px-10 py-10">
             <div class="md:max-w-md w-full sm:px-6 py-4">
+                <div class="mb-12">
+                    <h3 class="text-3xl font-bold">Sign in</h3>
+                    {{-- Register Here --}}
+                    <p class="text-sm mt-4">Don't have an account? <a onclick="document.getElementById('registeruserModal').showModal()" class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
+                </div>
                 <form name="loginForm" id="loginForm">
-                    <div class="mb-12">
-                        <h3 class="text-3xl font-bold">Sign in</h3>
-                        {{-- Register Here --}}
-                        {{-- {{route('register')}} --}}
-                        <p class="text-sm mt-4">Don't have an account? <a href="" class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
-                    </div>
                     <div>
                         <label class="text-xs block mb-2">Email</label>
                         <div class="relative flex items-center">
