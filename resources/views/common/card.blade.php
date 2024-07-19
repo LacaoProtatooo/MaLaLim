@@ -25,12 +25,15 @@
                             <div class="grid grid-cols-4 gap-2">
 
 
-                                    <button class="col-span-3 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" type = "submit">
-                                        View item
-                                    </button>
-                                    <button class="col-span-1 flex items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" type = "submit">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
+                                <button class="btn col-span-3 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" onclick="my_modal_5.showModal()">View Product</button>
+                                <dialog id="my_modal_5" class="modal">
+                                    <div class="modal-box">
+                                        <form method="dialog">
+                                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                                        </form>
+                                        @include('common.productview')
+                                    </div>
+                                </dialog>
                                 </form>
                             </div>
                         </div>

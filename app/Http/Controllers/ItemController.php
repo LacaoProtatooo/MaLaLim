@@ -23,7 +23,26 @@ class ItemController extends Controller
 
     public function index()
     {
-        $data = Jewelry::with('prices')->get();
-        return view('home.home', compact('data'));
+
+        return view('home.home');
     }
+
+    public function description($id)
+    {
+        // Retrieve item details based on $id
+        $item = Jewelry::with(['prices', 'classification'])->find($id); // Assuming you have an Item model
+        // dd($item);
+        if ($item) {
+            return response()->json([
+                'success' => true,
+                'data' => $item
+            ]);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Item not found'
+            ], 404);
+        }
+    }
+
 }

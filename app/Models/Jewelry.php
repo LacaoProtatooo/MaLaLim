@@ -21,9 +21,9 @@ class Jewelry extends Model
                     ->withPivot('id'); // Include the pivot ID
     }
 
-    public function classifications()
+    public function classification()
     {
-        return $this->belongsToMany(Classification::class);
+        return $this->belongsTo(Classification::class);
     }
 
     public function materials()

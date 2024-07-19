@@ -77,11 +77,12 @@ class DatabaseSeeder extends Seeder
         // ==============START===============================
 
         // User::factory(10)->create();
-        Jewelry::factory()->count(50)->create();
+
 
         foreach ($classifications as $classification) {
             Classification::create(['classification' => $classification]);
         }
+        Jewelry::factory()->count(50)->create();
         foreach ($colors as $color) {
             Color::create(['color' => $color]);
         }

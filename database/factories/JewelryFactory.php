@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
-
+use App\Models\Classification;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Jewelry>
  */
@@ -56,7 +56,8 @@ class JewelryFactory extends Factory
             shuffle(static::$jewelry_names);
             static::$shuffled = true;
         }
-
+        $classificationIds = Classification::pluck('id')->toArray();
+        $classificationId = $this->faker->randomElement($classificationIds);
         // Pop a name from the array to ensure it's unique
         $name = array_pop(static::$jewelry_names);
         $description = implode(' ', $this->faker->sentences(3));
@@ -65,6 +66,7 @@ class JewelryFactory extends Factory
             //
             'name' => $name,
             'image_path' =>'Image.jpg',
+            'classification_id' => $classificationId,
             'description'=> $description,
         ];
     }

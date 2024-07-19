@@ -19,19 +19,9 @@
 
     @include('common.footer') <!-- Include footer component -->
 
-    <!-- Include the compiled JavaScript file before the closing body tag -->
-    {{-- <script src="{{ mix('js/app.js') }}"></script> --}}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> <!-- Include jQuery -->
-    
-    <button class="btn" onclick="my_modal_5.showModal()">View Product</button>
-    <dialog id="my_modal_5" class="modal">
-     <div class="modal-box">
-    <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-    </form>
+
     @include('common.productview')
-  </div>
-</dialog>
+
 
 </body>
 </html>

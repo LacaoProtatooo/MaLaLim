@@ -12,11 +12,11 @@ $(document).ready(function() {
                 }
                 const jewels = $('#jewelry');
                 response.data.forEach(jewel => {
-                    jewels.append(`
+                    const jewelHTML = `
                         <div class="col-span-1 bg-white p-4">
                             <div class="group my-10 flex w-full max-w-md flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg">
                                 <a class="relative flex h-80 overflow-hidden rounded-t-lg" href="#">
-                                    <img class="absolute top-0 right-0 h-full w-full object-cover" src="" />
+                                    <img class="absolute top-0 right-0 h-full w-full object-cover" src="${jewel.image}" alt="${jewel.name}" />
                                     <div class="absolute bottom-0 mb-4 flex w-full justify-center space-x-4">
                                         <div class="h-3 w-3 rounded-full border-2 border-white bg-white"></div>
                                         <div class="h-3 w-3 rounded-full border-2 border-white bg-transparent"></div>
@@ -35,8 +35,8 @@ $(document).ready(function() {
                                         </p>
                                     </div>
                                     <div class="grid grid-cols-4 gap-2">
-                                        <button class="col-span-3 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" type="submit">
-                                            View item
+                                        <button class="viewProductBtn col-span-3 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" data-id="${jewel.id}">
+                                            View Product
                                         </button>
                                         <button class="col-span-1 flex items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" type="submit">
                                             <i class="fas fa-heart"></i>
@@ -45,7 +45,8 @@ $(document).ready(function() {
                                 </div>
                             </div>
                         </div>
-                    `);
+                    `;
+                    jewels.append(jewelHTML);
                 });
             },
             error: function(xhr, status, error) {
@@ -55,10 +56,8 @@ $(document).ready(function() {
         $(window).on('scroll', onScroll);
     }
 
-    // Call the function on document ready or attach it to an event
     popItems(page, search);
 
-    // Optionally, you can attach the function to a button click or scroll event
     $('#searchButton').on('click', function() {
         search = $('#searchinput').val();
         popItems(1, search);
@@ -66,10 +65,48 @@ $(document).ready(function() {
 
     function onScroll() {
         if ($(window).scrollTop() + $(window).height() >= $(document).height() - 200) {
-            $(window).off('scroll', onScroll); // Turn off scroll event to prevent multiple calls
-            popItems(++page, search); // Fetch next page of products
+            $(window).off('scroll', onScroll);
+            popItems(++page, search);
         }
     }
 
     $(window).on('scroll', onScroll);
+
+    // Event delegation for dynamically added elements
+    $(document).on('click', '.viewProductBtn', function() {
+        const itemId = $(this).data('id');
+        $.ajax({
+            url: `api/item/description/${itemId}`,  // Adjust URL to match route
+            type: 'GET',
+            success: function(response) {
+                if (response.success) {
+                    // console.log('Item details:', response.data);
+                    // Use response.data to populate the modal
+                    $('#jewelryName').text(response.data.name);
+                    $('#description').text(response.data.description);
+                    $('#classi').text(response.data.classification.classification);
+                    $('#salapi').text('₱' + response.data.prices.price);
+                    const modal = $('#myModal');
+                    modal.removeClass('hidden');
+
+                } else {
+                    console.error('Item not found:', response.message);
+                }
+            },
+            error: function(xhr) {
+                console.error('An error occurred:', xhr);
+            }
+        });
+    });
+
+
+    $(document).on('click', '#closeModalBtn', function() {
+        $('#myModal').addClass('hidden');
+    });
+
+    $(window).on('click', function(event) {
+        if ($(event.target).is('#myModal')) {
+            $('#myModal').addClass('hidden');
+        }
+    });
 });

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->longText('image_path')->nullable();
+            $table->foreignId('classification_id')->references('id')->on('classifications')->onDelete('cascade');
             $table->string('description')->nullable();
             $table->timestamps();
         });

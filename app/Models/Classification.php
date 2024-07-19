@@ -15,6 +15,6 @@ class Classification extends Model
 
     public function jewelries()
     {
-        return $this->belongsToMany(Jewelry::class);
+        return $this->hasMany(Jewelry::class);
     }
 }

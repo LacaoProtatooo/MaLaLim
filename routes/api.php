@@ -34,3 +34,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
+Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
+
+
