@@ -7,6 +7,10 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
 
+use App\Http\Controllers\JewelryController;
+use App\Http\Controllers\PromoController;
+use App\Http\Controllers\CourierController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,6 +23,9 @@ use App\Http\Controllers\LoginController;
 */
 
 Route::resource('user', UserController::class);
+Route::apiResource('courier', CourierController::class);
+Route::apiResource('promo', PromoController::class);
+Route::apiResource('jewelry', JewelryController::class);
 
 // DataTable
 Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');

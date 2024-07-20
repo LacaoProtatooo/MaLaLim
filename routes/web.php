@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
+
+use App\Http\Controllers\JewelryController;
+use App\Http\Controllers\PromoController;
+use App\Http\Controllers\CourierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

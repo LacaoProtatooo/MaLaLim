@@ -152,13 +152,13 @@ class UserController extends Controller
         if ($user) {
             $user->delete();
 
-            // $token = $request->bearerToken();
-            // if ($token) {
-            //     $sanctumToken = PersonalAccessToken::findToken($token);
-            //     if ($sanctumToken) {
-            //         $sanctumToken->delete();
-            //     }
-            // }
+            $token = $request->bearerToken();
+            if ($token) {
+                $sanctumToken = PersonalAccessToken::findToken($token);
+                if ($sanctumToken) {
+                    $sanctumToken->delete();
+                }
+            }
 
             $request->session()->invalidate();
             $request->session()->regenerateToken();
