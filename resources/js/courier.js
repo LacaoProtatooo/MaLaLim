@@ -2,23 +2,20 @@ import 'datatables.net-dt';
 
 // CREATE
 $(document).ready(function() {
-    // DATATABLE and Structure
-    var userTable = $('#usersTable').DataTable({
+    var userTable = $('#courierTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/users', // Your endpoint to fetch user data
+            url: 'http://localhost:8000/api/courier',
             dataSrc: ""
         },
         columns: [
             { data: 'id' },
-            { data: 'lname' },
-            { data: 'fname' },
-            { data: 'email' },
-            { data: 'phone_number' },
+            { data: 'name' },
+            { data: 'rate' },
             {
                 data: 'id',
                 render: function(data) {
                     return '<button class="btn btn-primary user-edit" data-id="' + data + '">Details</button> ' +
-                           '<button class="btn btn-secondary user-delete" data-id="' + data + '">Deactivate</button>';
+                           '<button class="btn btn-secondary user-delete" data-id="' + data + '">Remove</button>';
                 }
             }
         ]
