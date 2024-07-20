@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Jewelry;
 use App\Models\Stock;
+use App\Models\User;
+use App\Models\Cart;
 use Auth;
 class ItemController extends Controller
 {
@@ -31,7 +33,7 @@ class ItemController extends Controller
     public function description($id)
     {
         // Retrieve item details based on $id
-        $item = Jewelry::with(['prices', 'classification', 'colors'])->find($id); // Assuming you have an Item model
+        $item = Jewelry::with(['prices', 'classification', 'colors', 'materials'])->find($id); // Assuming you have an Item model
         // dd($item);
         if ($item) {
             return response()->json([
@@ -121,6 +123,58 @@ class ItemController extends Controller
 
         return response()->json(['success' => true, 'message' => 'Jewelry detached successfully.']);
     }
+
+    public function addCart(Request $request)
+    {
+        if (!Auth::check()) {
+            return redirect()->route('home');
+        }
+
+        $userId = Auth::id();
+        $jewelId = $request->input('item_id');
+        $colId = $request->input('col_id');
+        $quantity = 1; // Default quantity to 1 if not provided
+
+        // Find the jewelry item
+        $jewelry = Jewelry::find($jewelId);
+        if (!$jewelry) {
+            return response()->json(['error' => 'Jewelry item not found'], 404);
+        }
+
+        $pivotRecord = $jewelry->colors()->wherePivot('color_id', $colId)->first();
+        if (!$pivotRecord) {
+            return response()->json(['error' => 'Color not found for this jewelry item'], 404);
+        }
+
+        $colorJewelryId = $pivotRecord->pivot->id;
+
+        // Create or update the cart record with user_id
+        $user = Cart::where('user_id', $userId)->first();
+        if(!$user)
+        {
+            $cart = Cart::create([
+                'user_id' => $userId,
+            ]);
+        }
+        $cart = Cart::where('user_id', $userId)->first();
+        if ($cart) {
+            // Check if the relationship method exists
+            if (method_exists($cart, 'colorJewelry')) {
+                $cart->colorJewelry()->attach($colorJewelryId, ['quantity' => $quantity]);
+            } else {
+                // Handle the case where the colorJewelry relationship method is missing
+                return response()->json(['error' => 'Relationship method colorJewelry is missing'], 500);
+            }
+        } else {
+            // Handle the case where the cart does not exist
+            return response()->json(['error' => 'Cart not found'], 404);
+        }
+        // $cart->colorJewelry()->attach($colorJewelryId, ['quantity' => $quantity]);
+
+        return response()->json(['success' => 'Item added to cart']);
+    }
+
+
 
 
 

@@ -10,8 +10,7 @@ class Cart extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quantity',
-        'price',
+        'user_id',
     ];
 
     public function users()
@@ -19,8 +18,9 @@ class Cart extends Model
         return $this->hasOne(User::class);
     }
 
-    public function jewelries()
+    public function colorJewelry()
     {
-        return $this->belongsToMany(Jewelry::class);
+        return $this->belongsToMany(ColorJewelry::class)
+                    ->withPivot('quantity'); // Ensure the pivot table has 'quantity'
     }
 }

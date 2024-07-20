@@ -22,4 +22,10 @@ class ColorJewelry extends Model
     {
         return $this->belongsTo(Color::class, 'color_id');
     }
+
+    public function carts()
+    {
+        return $this->belongsToMany(Cart::class)
+                    ->withPivot('quantity'); // Add any other pivot fields if needed
+    }
 }

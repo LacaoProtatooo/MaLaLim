@@ -85,6 +85,7 @@ $(document).ready(function() {
         const colId = $(this).data('id');
         const itemId = $(this).data('item-id');
         AutoDisplay(colId, itemId);
+
     });
 
     // Add to favorite
@@ -117,4 +118,7 @@ $(document).ready(function() {
             $('#colorsJewel').empty();
         }
     });
+
+    
+
 });

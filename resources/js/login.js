@@ -7,7 +7,9 @@ $(document).ready(function(){
         $.ajax({
             type: 'POST',
             url: '/api/user/login',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+            },
             data: data,
             success: function(response) {
                 console.log(response);

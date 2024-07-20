@@ -10,6 +10,11 @@ export function ModalDisplay(itemId) {
                 $('#description').text(response.data.description);
                 $('#classi').text(response.data.classification.classification);
                 $('#salapi').text('₱' + response.data.prices.price);
+                // console.log(response.data);
+                response.data.materials.forEach(mat=>{
+                    $('#materialdesc').html(mat.material + ':' + '<br>' + mat.description + '<br>');
+                });
+
                 response.data.colors.forEach(col => {
                     const colHTML = `
                         <button class="viewColorBtn col-span-3 flex items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md"
@@ -43,6 +48,8 @@ export function AutoDisplay(colId, itemId) {
         success: function(response) {
             if (response.success) {
                 $('#stonkss').text('Stocks: ' + response.data.quantity);
+                $('.cartcart').data('item-id', itemId);
+                $('.cartcart').data('col-id', colId);
             } else {
                 $('#stonkss').text('Stocks: Data not available');
             }
@@ -63,10 +70,52 @@ export function deTach(itemId) {
         },
         success: function(response) {
             console.log('Success:', response.message);
-            
+
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);
         }
     });
 }
+
+    export function addCart(itemId, colId)
+    {
+        $.ajax({
+            url: '/api/item/cartz',
+            type: 'POST',
+            data: {
+                item_id: itemId,
+                col_id: colId,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function(response) {
+                if (response.success) {
+                    // console.log(response);
+                } else {
+                    console.log('Error attaching item:', response.message); // Fixed the console message
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', error);
+            }
+        });
+
+    }
+
+    export function popCart()
+    {
+        $.ajax({
+            url: 'api/fetchCart',
+            type: 'GET',
+            success: function(response) {
+                if (response.success) {
+
+                } else {
+                    console.log('ERROR', response.message); // Fixed the console message
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('AJAX error:', error);
+            }
+        });
+    }

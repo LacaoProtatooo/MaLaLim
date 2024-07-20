@@ -1,6 +1,7 @@
 <!-- Trigger Button -->
 
 <!-- Modal -->
+@vite('resources/js/cart.js')
 <div id="myModal" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-50" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full overflow-hidden relative">
@@ -46,7 +47,7 @@
 
                     <div class="flex gap-4">
                         <button type="button" class="min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-white text-sm font-semibold rounded-md">Buy now</button>
-                        <button type="button" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md">Add to cart</button>
+                        <button type="button" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md cartcart">Add to cart</button>
                     </div>
                 </div>
             </div>
@@ -59,6 +60,10 @@
                 <div class="mt-8">
                     <h3 class="text-xl font-bold text-gray-800">About The Product</h3>
                     <p id = "description" class="text-sm text-gray-500 mt-4">Elevate your casual style with our premium men's t-shirt. Crafted for comfort and designed with a modern fit, this versatile shirt is an essential addition to your wardrobe. The soft and breathable fabric ensures all-day comfort, making it perfect for everyday wear. Its classic crew neck and short sleeves offer a timeless look.</p>
+                </div>
+                <div class="mt-8">
+                    <h3 class="text-xl font-bold text-gray-800">Where is it made from?</h3>
+                    <p id = "materialdesc" class="text-sm text-gray-500 mt-4"></p>
                 </div>
 
 

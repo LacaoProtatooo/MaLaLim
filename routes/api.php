@@ -9,6 +9,7 @@ use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\JewelryController;
 use App\Http\Controllers\PromoController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\CourierController;
 
 /*
@@ -40,14 +41,19 @@ Route::post('/updateProfile', [UserController::class, 'updateProfile'])->middlew
 Route::post('/user/deactivate', [UserController::class, 'deactivate'])->middleware('auth:sanctum');
 // AttachFave Jewelry
 Route::post('/user/fave', [ItemController::class, 'AddFave'])->middleware('auth:sanctum');
-// populate fave
+// attach2Cart
+Route::post('/item/cartz', [ItemController::class, 'AddCart'])->middleware('auth:sanctum');
+// populate thingz
 Route::get('/fetchingFave', [ItemController::class, 'fetchFave'])->middleware('auth:sanctum');
+Route::get('/fetchCart', [CartController::class, 'CartPop'])->middleware('auth:sanctum');
+Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
+// delete fave
 Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
+
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
 
