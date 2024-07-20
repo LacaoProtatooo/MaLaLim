@@ -35,7 +35,7 @@ Route::get('/favorites', function () {
  })->name('favorites');
 
 Route::get('/checkout', function () {
-    return view('customer.checkout');
+    return view('home.checkout');
 })->name('checkout');
 
 
