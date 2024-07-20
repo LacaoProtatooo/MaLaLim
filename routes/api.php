@@ -23,12 +23,13 @@ use App\Http\Controllers\CourierController;
 */
 
 Route::resource('user', UserController::class);
-Route::apiResource('courier', CourierController::class);
+Route::apiResource('courier', CourierController::class)->middleware('web');
 Route::apiResource('promo', PromoController::class);
 Route::apiResource('jewelry', JewelryController::class);
 
 // DataTable
 Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
+Route::get('/couriers', [CourierController::class, 'dtpopulate'])->name('admin.getCouriers');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');

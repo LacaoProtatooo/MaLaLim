@@ -2,9 +2,9 @@ import 'datatables.net-dt';
 
 // CREATE
 $(document).ready(function() {
-    var userTable = $('#courierTable').DataTable({
+    var userTable = $('#couriersTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/courier',
+            url: 'http://localhost:8000/api/couriers',
             dataSrc: ""
         },
         columns: [
@@ -14,8 +14,8 @@ $(document).ready(function() {
             {
                 data: 'id',
                 render: function(data) {
-                    return '<button class="btn btn-primary user-edit" data-id="' + data + '">Details</button> ' +
-                           '<button class="btn btn-secondary user-delete" data-id="' + data + '">Remove</button>';
+                    return '<button class="btn btn-primary courier-edit" data-id="' + data + '">Details</button> ' +
+                           '<button class="btn btn-secondary courier-delete" data-id="' + data + '">Delete</button>';
                 }
             }
         ]
@@ -23,69 +23,82 @@ $(document).ready(function() {
 
     
     // CREATE
-    $('#userForm').on('submit', function (e) {
-        e.preventDefault();
-        var data = $('#userForm')[0];
-        let formData = new FormData(data);
-
-        $.ajax({
-            type: 'POST',
-            url: '/api/user',
-            data: formData,
-            processData: false,
-            contentType: false, 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    $('#courierForm').validate({
+        rules: {
+            name: {
+                required: true,
+                maxlength: 255
             },
-            dataType: "json",
-
-            success: function(user) {
-                console.log("user response contains: ",user);
-                document.getElementById('createusermodal').close();
-                userTable.row.add({
-                    'id': user.id,
-                    'lname': user.lname,
-                    'fname': user.fname,
-                    'email': user.email,
-                    'address': user.address,
-                    'phone_number': user.phone_number,
-                    'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Details</button> ' +
-                               '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
-                }).draw(false);
-            },
-            error: function(error) {
-                console.log(error);
-
+            rate: {
+                required: true,
+                number: true,
+                min: 0
             }
-        });
+        },
+        messages: {
+            name: {
+                required: "Please enter the courier name",
+                maxlength: "Name can not be longer than 255 characters"
+            },
+            rate: {
+                required: "Please enter the rate",
+                number: "Please enter a valid number",
+                min: "Rate must be a positive number"
+            }
+        },
+        submitHandler: function(form) {
+            // Form is valid, proceed with AJAX submission
+            var data = $('#courierForm')[0];
+            let formData = new FormData(data);
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/courier',
+                data: formData,
+                processData: false,
+                contentType: false, 
+                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                dataType: "json",
+                success: function(data) {
+                    console.log("Courier response contains: ", data);
+                    document.getElementById('createcouriermodal').close();
+                    userTable.row.add({
+                        'id': data.id,
+                        'name': data.name,
+                        'rate': data.rate,
+                        'actions': '<button class="btn btn-primary user-edit" data-id="' + data.id + '">Details</button> ' +
+                                   '<button class="btn btn-secondary user-delete" data-id="' + data.id + '">Deactivate</button>'
+                    }).draw(false);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     });
 
     // DETAILS
-    $(document).on('click', '.user-edit', function(e) {
+    $(document).on('click', '.courier-edit', function(e) {
         e.preventDefault();
 
-        var userId = $(this).data('id');
-        // console.log('Edit button : user ID:', userId);
+        var courierid = $(this).data('id');
+        console.log(courierid);
         
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/user/${userId}/edit`,
+            url: `http://localhost:8000/api/courier/${courierid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
                 console.log(data);
 
-                $('#userno').val(data.id)
-                $('#emailedit').val(data.email)
-                $('#addressedit').val(data.address)
+                $('#courierno').val(data.id)
+                $('#nameedit').val(data.name)
+                $('#rateedit').val(data.rate)
                 $('#createdatedit').val(data.created_at)
-                $('#fnameedit').val(data.fname)
-                $('#lnameedit').val(data.lname)
-                $('#phone_numberedit').val(data.phone_number)
-                $('#birthdateedit').val(data.birthdate)
 
-                document.getElementById('editusermodal').showModal();
+                document.getElementById('editcouriermodal').showModal();
             },
             error: function (error) {
                 console.log(error);
@@ -94,29 +107,26 @@ $(document).ready(function() {
     });
 
     // UPDATE 
-    $(document).on('submit', '#usereditForm', function (e) {
+    $(document).on('submit', '#couriereditForm', function (e) {
         e.preventDefault();
     
-        var userId = $('#userno').val();
-        var data = $('#usereditForm')[0];
+        var courierId = $('#courierno').val();
+        var data = $('#couriereditForm')[0];
         let formData = new FormData(data);
         formData.append("_method", "PUT");
-        
-        console.log("User id: " + userId);
-        console.log("Formdata:", formData);
     
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/user/${userId}`,
+            url: `http://localhost:8000/api/courier/${courierId}`,
             data: formData,
             processData: false,
-            contentType: false, 
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-    
+            contentType: false,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: "json",
+
             success: function(response) {
-                // console.log("User ID:", userId)
                 console.log("Response:", response);
-                document.getElementById('editusermodal').close();
+                document.getElementById('editcouriermodal').close();
                 userTable.ajax.reload();
             },
             error: function(error) {
@@ -125,17 +135,16 @@ $(document).ready(function() {
         });
     });
     
-
     // DELETE
-    $(document).on('click', '.user-delete', function() {
-        var userId = $(this).data('id');
-        console.log('Delete button : user ID:', userId);
+    $(document).on('click', '.courier-delete', function() {
+        var courierId = $(this).data('id');
+        console.log('Delete button : courier ID:', courierId);
         
         // Confirm deletion
         if (confirm("Are you sure you want to delete this user?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/user/${userId}`,
+                url: `http://localhost:8000/api/courier/${courierId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);
