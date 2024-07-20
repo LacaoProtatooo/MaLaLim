@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Courier;
+
 class CourierController extends Controller
 {
     /**
@@ -11,7 +13,23 @@ class CourierController extends Controller
      */
     public function index()
     {
-        //
+        // 
+    }
+
+    public function dtpopulate(){
+        $couriers = Courier::all();
+        $couriers = $couriers->map(function($courier) {
+            return [
+            'id' => $courier->id,
+            'name' => $courier->name,
+            'rate' => $courier->rate,
+            'actions' => '<button class="btn btn-primary editCourier" data-id="' . $courier->id . '">Edit</button> 
+                        <button class="btn btn-danger deleteCourier" data-id="' . $courier->id . '">Delete</button>
+                        <button class="btn btn-info detailsCourier" data-id="' . $courier->id . '">Details</button>',
+            'full_data' => $courier
+            ];
+        });
+        return response()->json($couriers);
     }
 
     /**
@@ -19,15 +37,27 @@ class CourierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'rate' => 'required|numeric|min:0',
+        ]);
+
+        $courier = Courier::create($validatedData);
+
+        return response()->json($courier, 201);
     }
 
     /**
-     * Display the specified resource.
+     * Display the specified resource. DETAILS
      */
     public function show(string $id)
     {
-        //
+        $courier = Courier::find($id);
+        if (!$courier) {
+            return response()->json(['message' => 'Courier not found'], 404);
+        }
+        
+        return response()->json($courier);
     }
 
     /**
@@ -35,7 +65,18 @@ class CourierController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $courier = Courier::find($id);
+        if (!$courier) {
+            return response()->json(['message' => 'Courier not found'], 404);
+        }
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'rate' => 'required|numeric|min:0',
+        ]);
+
+        $courier->update($validatedData);
+        return response()->json($courier, 200);
     }
 
     /**
@@ -43,6 +84,13 @@ class CourierController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $courier = Courier::find($id);
+
+        if (!$courier) {
+            return response()->json(['message' => 'Courier not found'], 404);
+        }
+
+        $courier->delete();
+        return response()->json(['message' => 'Courier deleted successfully'], 200);
     }
 }
