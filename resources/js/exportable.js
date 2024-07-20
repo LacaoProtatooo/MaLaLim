@@ -53,3 +53,20 @@ export function AutoDisplay(colId, itemId) {
         }
     });
 }
+
+export function deTach(itemId) {
+    $.ajax({
+        url: `api/user/${itemId}/jewelry`,
+        type: 'DELETE',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+        },
+        success: function(response) {
+            console.log('Success:', response.message);
+            
+        },
+        error: function(xhr, status, error) {
+            console.log('Error:', error);
+        }
+    });
+}

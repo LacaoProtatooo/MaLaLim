@@ -7,6 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <title>Home</title>
     @include('common.links')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/js/favourite.js',)
 </head>
 <body>

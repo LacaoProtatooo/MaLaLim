@@ -95,25 +95,32 @@ class ItemController extends Controller
     }
 
     public function fetchFave()
-{
-    $user = Auth::user();
+    {
+        $user = Auth::user();
 
-    if (!$user) {
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'User not authenticated'
+            ], 401);
+        }
+
+        // Fetch the user's favorite jewelries
+        $list = $user->jewelries()->with('prices')->get();
+
+
         return response()->json([
-            'success' => false,
-            'message' => 'User not authenticated'
-        ], 401);
+            'success' => true,
+            'data' => $list
+        ]);
     }
+    public function detachJewelry($jewelryId)
+    {
+        $user = Auth::user();
+        $user->jewelries()->detach($jewelryId);
 
-    // Fetch the user's favorite jewelries
-    $list = $user->jewelries()->with('prices')->get();
-
-
-    return response()->json([
-        'success' => true,
-        'data' => $list
-    ]);
-}
+        return response()->json(['success' => true, 'message' => 'Jewelry detached successfully.']);
+    }
 
 
 
