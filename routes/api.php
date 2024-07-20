@@ -42,7 +42,7 @@ Route::post('/user/deactivate', [UserController::class, 'deactivate'])->middlewa
 Route::post('/user/fave', [ItemController::class, 'AddFave'])->middleware('auth:sanctum');
 // populate fave
 Route::get('/fetchingFave', [ItemController::class, 'fetchFave'])->middleware('auth:sanctum');
-
+Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
