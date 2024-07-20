@@ -1,4 +1,5 @@
-// ITEM POPULATE
+import { ModalDisplay, AutoDisplay } from './exportable.js';
+
 $(document).ready(function() {
     let page = 1;
     let search = '';
@@ -39,7 +40,7 @@ $(document).ready(function() {
                                         <button class="viewProductBtn col-span-3 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" data-id="${jewel.id}">
                                             View Product
                                         </button>
-                                         <button class="add2Fave col-span-1 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" data-id="${jewel.id}">
+                                        <button class="add2Fave col-span-1 items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md" data-id="${jewel.id}">
                                             <i class="fas fa-heart"></i>
                                         </button>
                                     </div>
@@ -76,85 +77,44 @@ $(document).ready(function() {
     // For modal populate
     $(document).on('click', '.viewProductBtn', function() {
         const itemId = $(this).data('id');
-        const JewelColors = $('#colorsJewel');
-        $.ajax({
-            url: `api/item/description/${itemId}`,  // Adjust URL to match route
-            type: 'GET',
-            success: function(response) {
-                if (response.success) {
-                    // console.log('Item details:', response.data);
-                    // Use response.data to populate the modal
-                    $('#jewelryName').text(response.data.name);
-                    $('#description').text(response.data.description);
-                    $('#classi').text(response.data.classification.classification);
-                    $('#salapi').text('₱' + response.data.prices.price);
-                    response.data.colors.forEach(col => {
-                        const colHTML = `
-                           <button class="viewColorBtn col-span-3 flex items-center justify-center px-4 py-2 text-lg border-black text-black bg-gray-100 transition hover:bg-yellow-200 hover:text-black rounded-md"
-                                data-id="${col.id}"
-                                data-item-id="${itemId}">
-                                ${col.color}
-                            </button>
-                        `;
-                        JewelColors.append(colHTML);
-                    })
-                    if (response.data.colors.length === 1) {
-                        const colId = response.data.colors[0].id;
-
-                        // Call AutoDisplay with colId and itemId
-                        AutoDisplay(colId, itemId);
-                    }
-                    const modal = $('#myModal');
-                    modal.removeClass('hidden');
-
-                } else {
-                    console.error('Item not found:', response.message);
-                }
-            },
-            error: function(xhr) {
-                console.error('An error occurred:', xhr);
-            }
-        });
+        ModalDisplay(itemId);
     });
-    // FOR MODAL ITEM COLOR & Stock
-    $(document).on('click','.viewColorBtn', function()
-    {
+
+    // For modal item color & stock
+    $(document).on('click', '.viewColorBtn', function() {
         const colId = $(this).data('id');
         const itemId = $(this).data('item-id');
-
         AutoDisplay(colId, itemId);
-
     });
 
-    // AUTO DISPLAY IF ONLY ONE VARIANT
-    function AutoDisplay(colId, itemId) {
+    // Add to favorite
+    $(document).on('click', '.add2Fave', function() {
+        const itemId = $(this).data('id');
         $.ajax({
-            url: `api/item/description?col=${colId}&ite=${itemId}`,
-            type: 'GET',
+            url: 'api/user/fave',
+            type: 'POST',
+            data: {
+                item_id: itemId,
+                _token: $('meta[name="csrf-token"]').attr('content')
+            },
             success: function(response) {
                 if (response.success) {
-                    $('#stonkss').text('Stocks: ' + response.data.quantity);
+                    console.log(response.message);
                 } else {
-                    $('#stonkss').text('Stocks: Data not available');
+                    console.log('Error attaching item, ', response.message);
                 }
             },
             error: function(xhr, status, error) {
-                console.log('Error:', error);
-                $('#stonkss').text('Stocks: Error occurred');
+                console.error('AJAX error:', error);
             }
         });
-    }
+    });
 
-
-    // $(document).on('click', '#closeModalBtn', function() {
-    //     $('#colorsJewel').empty()
-    //     $('#myModal').addClass('hidden');
-    // });
-
-    // CLOSE
+    // Close modal
     $(window).on('click', function(event) {
         if ($(event.target).is('#myModal')) {
             $('#myModal').addClass('hidden');
+            $('#colorsJewel').empty();
         }
     });
 });

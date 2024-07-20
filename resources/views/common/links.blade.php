@@ -14,8 +14,8 @@
 // Custom Javascript Files
 'resources/js/users.js',
 'resources/js/login.js',
-'resources/js/home.js',
-'resources/js/register.js',])
+'resources/js/register.js',
+])
 
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}

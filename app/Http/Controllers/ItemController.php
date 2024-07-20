@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Jewelry;
 use App\Models\Stock;
-
+use Auth;
 class ItemController extends Controller
 {
     public function home(Request $request)
@@ -75,5 +75,47 @@ class ItemController extends Controller
             return response()->json(['message' => 'Record not found'], 404);
         }
     }
+    public function AddFave(Request $request)
+    {
+        if(!(Auth::user()))
+        {
+            return view('home.favorites');
+        }
+
+        $user = Auth::user();
+        $itemId = $request->input('item_id');
+
+        if ($user->jewelries()->where('jewelry_id', $itemId)->exists()) {
+            return response()->json(['success' => false, 'message' => 'Item already attached']);
+        }
+
+        $user->jewelries()->attach($itemId);
+
+        return response()->json(['success' => true, 'message' => 'Item attached successfully']);
+    }
+
+    public function fetchFave()
+{
+    $user = Auth::user();
+
+    if (!$user) {
+        return response()->json([
+            'success' => false,
+            'message' => 'User not authenticated'
+        ], 401);
+    }
+
+    // Fetch the user's favorite jewelries
+    $list = $user->jewelries()->with('prices')->get();
+
+
+    return response()->json([
+        'success' => true,
+        'data' => $list
+    ]);
+}
+
+
+
 
 }
