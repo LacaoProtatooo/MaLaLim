@@ -24,6 +24,6 @@
 
     @include('common.productview')
 
-
+    
 </body>
 </html>

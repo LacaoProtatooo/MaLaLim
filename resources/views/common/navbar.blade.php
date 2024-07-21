@@ -1,7 +1,8 @@
+@vite('resources/js/cart.js')
 <div class="navbar flex justify-between items-center p-4">
 
     <div class="flex">
-        <button class="btn mr-3" onclick="my_modal_3.showModal()">
+        <button class="btn mr-3 openMod" onclick="my_modal_3.showModal()">
             <img src="../storage/cart.png" alt="Shopping Cart" style="width: 20px; height: 20px;" />
         </button>
 

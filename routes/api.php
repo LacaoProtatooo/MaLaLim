@@ -55,6 +55,11 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/add/jewel2Cart', [CartController::class, 'Increase'])->middleware('auth:sanctum');
+Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease'])->middleware('auth:sanctum');
+Route::post('/delete/jewel2Cart', [CartController::class, 'Remove'])->middleware('auth:sanctum');
+
+
 
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
