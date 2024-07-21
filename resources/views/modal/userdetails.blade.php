@@ -7,8 +7,8 @@
             <h3 class="text-lg font-bold mb-4"> User Details </h3>
 
             {{-- USER DISPLAY PICTURE --}}
-            <div class="p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 dark:bg-gray-800">
-                <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
+            <div class="flex justify-center items-center p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 dark:bg-gray-800">
+                <div class="flex justify-center items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
                     <img id="imagePreview" class="mb-6 rounded-lg w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="https://www.svgrepo.com/show/530585/user.svg" alt="user picture">
                 </div>
             </div>

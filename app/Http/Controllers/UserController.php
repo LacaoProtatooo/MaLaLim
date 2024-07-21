@@ -111,13 +111,16 @@ class UserController extends Controller
             'password' => 'sometimes|nullable|string|min:8|confirmed',
         ]);
 
+        // Handle password update
         if ($request->filled('password')) {
             $validatedData['password'] = Hash::make($request->password);
         }
 
         $user->update($validatedData);
+
         return response()->json($user, 200);
     }
+
 
 
     /**
@@ -206,8 +209,7 @@ class UserController extends Controller
             'lname' => 'required|string|max:255',
             'phone_number' => 'required|string|max:15', // Adjusted max length
             'address' => 'required|string|max:255',
-            'new_password' => 'nullable|string|min:8', // Make new_password optional
-            'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048', // Image validation
+            'new_password' => 'nullable|string|min:8', // Optional
         ]);
 
         $user->fname = $request->input('fname'); // Adjusted to match form field names

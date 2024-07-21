@@ -123,12 +123,10 @@ $(document).ready(function() {
                 $('#lnameedit').val(data.lname);
                 $('#phone_numberedit').val(data.phone_number);
                 $('#birthdateedit').val(data.birthdate);
+                $('#image_pathedit').val(data.image_path);
 
-                if (data.image_path) {
-                    $('#imagePreview').attr('src', `{{ asset('${data.image_path}') }}`);
-                } else {
-                    $('#imagePreview').attr('src', 'https://www.svgrepo.com/show/530585/user.svg');
-                }
+                var imageUrl = data.image_path ? `http://localhost:8000/${data.image_path}` : 'https://www.svgrepo.com/show/530585/user.svg';
+                $('#imagePreview').attr('src', imageUrl);
 
                 document.getElementById('editusermodal').showModal();
             },

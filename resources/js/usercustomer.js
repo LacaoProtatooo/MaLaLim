@@ -84,10 +84,16 @@ $(document).ready(function(){
             }
         },
         submitHandler: function(form) {
-            // Create a FormData object
-            var formData = new FormData($(form)[0]);
 
-            // Perform AJAX request
+            var formData = new FormData($(form)[0]);
+            for (var pair of formData.entries()) {
+                if (pair[1] instanceof File) {
+                    console.log(pair[0] + ': [File] ' + pair[1].name);
+                } else {
+                    console.log(pair[0] + ': ' + pair[1]);
+                }
+            }
+
             $.ajax({
                 type: 'POST',
                 url: '/api/updateProfile',
