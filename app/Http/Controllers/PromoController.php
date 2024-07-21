@@ -25,9 +25,8 @@ class PromoController extends Controller
                 'name' => $promo->name,
                 'description' => $promo->description,
                 'discountRate' => $promo->discountRate,
-                'actions' => '<button class="btn btn-primary editPromo" data-id="' . $promo->id . '">Edit</button> 
-                              <button class="btn btn-danger deletePromo" data-id="' . $promo->id . '">Delete</button>
-                              <button class="btn btn-info detailsPromo" data-id="' . $promo->id . '">Details</button>',
+                'actions' => '<button class="btn btn-primary promo-edit" data-id="' . $promo->id . '">Details</button> ' .
+                           '<button class="btn btn-secondary promo-delete" data-id="' . $promo->id . '">Delete</button>',
                 'full_data' => $promo
             ];
         });

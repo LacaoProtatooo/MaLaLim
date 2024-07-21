@@ -12,10 +12,9 @@ $(document).ready(function() {
             { data: 'name' },
             { data: 'rate' },
             {
-                data: 'id',
+                data: 'actions',
                 render: function(data) {
-                    return '<button class="btn btn-primary courier-edit" data-id="' + data + '">Details</button> ' +
-                           '<button class="btn btn-secondary courier-delete" data-id="' + data + '">Delete</button>';
+                    return data;
                 }
             }
         ]

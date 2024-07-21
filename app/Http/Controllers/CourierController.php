@@ -23,9 +23,8 @@ class CourierController extends Controller
             'id' => $courier->id,
             'name' => $courier->name,
             'rate' => $courier->rate,
-            'actions' => '<button class="btn btn-primary editCourier" data-id="' . $courier->id . '">Edit</button> 
-                        <button class="btn btn-danger deleteCourier" data-id="' . $courier->id . '">Delete</button>
-                        <button class="btn btn-info detailsCourier" data-id="' . $courier->id . '">Details</button>',
+            'actions' => '<button class="btn btn-primary courier-edit" data-id="' . $courier->id . '">Details</button> ' .
+                           '<button class="btn btn-secondary courier-delete" data-id="' . $courier->id . '">Delete</button>',
             'full_data' => $courier
             ];
         });

@@ -63,19 +63,32 @@ class UserController extends Controller
     public function show()
     {
         $users = User::all();
+        $softDeletedUsers = User::onlyTrashed()->get(); // Get only soft-deleted users
+
+        $users = $users->merge($softDeletedUsers);
+
         $users = $users->map(function($user) {
+            if ($user->trashed()) {
+                // User is soft-deleted
+                $actions = '<button class="btn btn-success user-activate" data-id="' . $user->id . '">Activate</button> ' .
+                        '<button class="btn btn-secondary user-permadelete" data-id="' . $user->id . '">Delete</button>';
+            } else {
+                // User is not deleted
+                $actions = '<button class="btn btn-primary user-edit" data-id="' . $user->id . '">Details</button> ' .
+                        '<button class="btn btn-secondary user-delete" data-id="' . $user->id . '">Deactivate</button>';
+            }
+
             return [
                 'id' => $user->id,
                 'lname' => $user->lname,
                 'fname' => $user->fname,
                 'email' => $user->email,
                 'phone_number' => $user->phone_number,
-                'actions' => '<button class="btn btn-primary editUser" data-id="' . $user->id . '">Edit</button> 
-                              <button class="btn btn-danger deleteUser" data-id="' . $user->id . '">Delete</button>
-                              <button class="btn btn-info detailsUser" data-id="' . $user->id . '">Details</button>',
+                'actions' => $actions,
                 'full_data' => $user // Keep full data for modal
             ];
         });
+
         return response()->json($users);
     }
 
@@ -139,13 +152,26 @@ class UserController extends Controller
     }
 
     // Activate Deactivated Account
-    public function activate($id){
+    public function activate(string $id)
+    {
         $user = User::withTrashed()->find($id);
         if ($user) {
             $user->restore();
-        } 
+            return response()->json(['message' => 'User Activated Successfully'], 200);
+        } else {
+            return response()->json(['message' => 'User not found'], 404);
+        }
+    }
 
-        return response()->json(['message' => 'User Activated Successfully'], 200);
+    public function permadelete(string $id)
+    {
+        $user = User::withTrashed()->find($id);
+        if ($user) {
+            $user->forceDelete();
+            return response()->json(['message' => 'User Permanently Deleted Successfully'], 200);
+        } else {
+            return response()->json(['message' => 'User not found'], 404);
+        }
     }
 
     public function deactivate(Request $request)

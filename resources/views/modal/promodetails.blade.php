@@ -41,7 +41,7 @@
             
             <br>
             <div class="image-container">
-                <div id="uploadedImagesEdit" class="flex flex-wrap"></div> <!-- Image preview container -->
+                <div id="uploadedImagesEdit" class="flex flex-wrap"></div> <!-- Container for multiple image previews -->
             </div>
             
             <style>

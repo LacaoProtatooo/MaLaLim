@@ -14,10 +14,9 @@ $(document).ready(function() {
             { data: 'email' },
             { data: 'phone_number' },
             {
-                data: 'id',
+                data: 'actions',
                 render: function(data) {
-                    return '<button class="btn btn-primary user-edit" data-id="' + data + '">Details</button> ' +
-                           '<button class="btn btn-secondary user-delete" data-id="' + data + '">Deactivate</button>';
+                    return data;
                 }
             }
         ]
@@ -205,7 +204,7 @@ $(document).ready(function() {
         }
     });
 
-    // DELETE
+    // DEACTIVATE
     $(document).on('click', '.user-delete', function() {
         var userId = $(this).data('id');
         console.log('Delete button : user ID:', userId);
@@ -227,4 +226,51 @@ $(document).ready(function() {
             });
         }
     });
+
+    // ACTIVATE
+    $(document).on('click', '.user-activate', function() {
+        var userId = $(this).data('id');
+        console.log('Activate button : user ID:', userId);
+        
+        // Confirm activation
+        if (confirm("Activate this user?")) {
+            $.ajax({
+                type: 'POST',
+                url: `/api/user/activate/${userId}`,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(response) {
+                    console.log(response.message);
+                    // Reload Table
+                    userTable.ajax.reload();
+                },
+                error: function(error) {
+                    console.error("Activation error:", error);
+                }
+            });
+        }
+    });
+
+    // PERMANENT DELETION
+    $(document).on('click', '.user-permadelete', function() {
+        var userId = $(this).data('id');
+        console.log('Permanent Deletion button : user ID:', userId);
+        
+        // Confirm permanent deletion
+        if (confirm("Permanently Delete this user?")) {
+            $.ajax({
+                type: 'POST',
+                url: `/api/user/permadelete/${userId}`,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(response) {
+                    console.log(response.message);
+                    // Reload Table
+                    userTable.ajax.reload();
+                },
+                error: function(error) {
+                    console.error("Permanent Deletion error:", error);
+                }
+            });
+        }
+    });
+    
 });

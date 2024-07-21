@@ -8,6 +8,7 @@
     <title>Login</title>
 
     @include('common.links')
+    @vite(['resources/js/login.js', 'resources/js/register.js'])
 </head>
 <body>
     @include('common.header')

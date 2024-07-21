@@ -11,10 +11,9 @@ $(document).ready(function() {
             { data: 'name' },
             { data: 'discountRate' },
             {
-                data: 'id',
+                data: 'actions',
                 render: function(data) {
-                    return '<button class="btn btn-primary promo-edit" data-id="' + data + '">Details</button> ' +
-                           '<button class="btn btn-secondary promo-delete" data-id="' + data + '">Delete</button>';
+                    return data;
                 }
             }
         ]
@@ -80,7 +79,7 @@ $(document).ready(function() {
                         'name': data.name,
                         'discountRate': data.discountRate,
                         'actions': '<button class="btn btn-primary promo-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Deactivate</button>'
+                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button>'
                     }).draw(false);
                 },
                 error: function(error) {
@@ -104,7 +103,7 @@ $(document).ready(function() {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
-                console.log(data);
+                // console.log(data);
 
                 $('#promono').val(data.id);
                 $('#nameedit').val(data.name);
@@ -113,19 +112,17 @@ $(document).ready(function() {
                 $('#createdatedit').val(data.created_at);
 
                 // Handle image paths
-                if (data.image_path) {
-                    $('#image_pathedit').val(data.image_path);
-                    let imagePaths = data.image_path.split(',');
-                    let imageContainer = $('#uploadedImagesEdit');
-                    imageContainer.empty(); // Clear existing images
+                let imagePaths = data.image_path ? data.image_path.split(',') : [];
+                let imageContainer = $('#uploadedImagesEdit');
+                imageContainer.empty();
 
+                if (imagePaths.length > 0) {
                     imagePaths.forEach(function(imagePath) {
-                    let imgElement = $('<img>').attr('src', `/${imagePath}`).attr('alt', 'Promo Image');
-                    imageContainer.append(imgElement);
+                        let imgElement = $('<img>').attr('src', `/${imagePath}?t=${new Date().getTime()}`).attr('alt', 'Promo Image');
+                        imageContainer.append(imgElement);
                     });
-
                 } else {
-                    $('#uploadedImageEdit').html('<p>No images available</p>');
+                    $('#uploadedImagesEdit').html('<p>No images available</p>');
                 }
 
                 document.getElementById('editpromomodal').showModal();
@@ -223,7 +220,32 @@ $(document).ready(function() {
         }
     });
 
-    const fileInput = document.getElementById('file_input');
+    // ======= IMAGE ========= //
+
+    $('#showFileInput').on('click', function() {
+        $('#file_input_edit').click();
+    });
+
+    // Handle file selection and preview images
+    $('#file_input_edit').on('change', function() {
+        var files = $(this).get(0).files;
+        var previewContainer = $('#uploadedImagesEdit');
+        previewContainer.empty(); // Clear previous images
+
+        if (files.length > 0) {
+            $.each(files, function(index, file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    var img = $('<img>').attr('src', e.target.result).addClass('h-auto max-w-lg');
+                    previewContainer.append(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+    });
+    
+    // Handle single image preview from old code
+    const fileInput = document.getElementById('file_input_edit');
     const uploadedImage = document.getElementById('uploadedImage');
     let currentIndex = 0;
 
@@ -239,7 +261,7 @@ $(document).ready(function() {
             // Set image path in the hidden input
             const reader = new FileReader();
             reader.onload = function(e) {
-                document.getElementById('image_path').value = e.target.result;
+                document.getElementById('image_pathedit').value = e.target.result;
             };
             reader.readAsDataURL(files[currentIndex]);
         }
@@ -263,22 +285,5 @@ $(document).ready(function() {
         }
     }, 3000); // Change image every 3 seconds
 
-    // Handle image file selection and preview
-    $(document).on('change', '#file_input_edit', function() {
-        var files = $(this)[0].files;
-        var previewContainer = $('#uploadedImagesEdit');
-        previewContainer.empty();
-        
-        if (files.length > 0) {
-            Array.from(files).forEach(file => {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    var img = $('<img>').attr('src', e.target.result).addClass('h-auto max-w-lg');
-                    previewContainer.append(img);
-                };
-                reader.readAsDataURL(file);
-            });
-        }
-    });
 
 });

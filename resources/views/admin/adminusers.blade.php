@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Users</title>
     @include('common.links')
+    @vite('resources/js/users.js')
 </head>
 <body class=" bg-yellow-50">
 @include('common.header')
