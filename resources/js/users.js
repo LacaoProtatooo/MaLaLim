@@ -1,7 +1,5 @@
-
 import 'datatables.net-dt';
 
-// CREATE
 $(document).ready(function() {
     // DATATABLE and Structure
     var userTable = $('#usersTable').DataTable({
@@ -25,43 +23,80 @@ $(document).ready(function() {
         ]
     });
 
-    
-    // CREATE
-    $('#userForm').on('submit', function (e) {
-        e.preventDefault();
-        var data = $('#userForm')[0];
-        let formData = new FormData(data);
-
-        $.ajax({
-            type: 'POST',
-            url: '/api/user',
-            data: formData,
-            processData: false,
-            contentType: false, 
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    // Validation for Create Form
+    $('#userForm').validate({
+        rules: {
+            fname: {
+                required: true,
+                maxlength: 255
             },
-            dataType: "json",
-
-            success: function(user) {
-                console.log("user response contains: ",user);
-                document.getElementById('createusermodal').close();
-                userTable.row.add({
-                    'id': user.id,
-                    'lname': user.lname,
-                    'fname': user.fname,
-                    'email': user.email,
-                    'address': user.address,
-                    'phone_number': user.phone_number,
-                    'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Details</button> ' +
-                               '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
-                }).draw(false);
+            lname: {
+                required: true,
+                maxlength: 255
             },
-            error: function(error) {
-                console.log(error);
-
+            email: {
+                required: true,
+                email: true,
+                maxlength: 255
+            },
+            phone_number: {
+                required: true,
+                maxlength: 20
             }
-        });
+        },
+        messages: {
+            fname: {
+                required: "Please enter the first name",
+                maxlength: "First name can not be longer than 255 characters"
+            },
+            lname: {
+                required: "Please enter the last name",
+                maxlength: "Last name can not be longer than 255 characters"
+            },
+            email: {
+                required: "Please enter the email",
+                email: "Please enter a valid email address",
+                maxlength: "Email can not be longer than 255 characters"
+            },
+            phone_number: {
+                required: "Please enter the phone number",
+                maxlength: "Phone number can not be longer than 20 characters"
+            }
+        },
+        submitHandler: function(form) {
+            var data = $('#userForm')[0];
+            let formData = new FormData(data);
+
+            $.ajax({
+                type: 'POST',
+                url: '/api/user',
+                data: formData,
+                processData: false,
+                contentType: false, 
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                dataType: "json",
+
+                success: function(user) {
+                    console.log("user response contains: ", user);
+                    document.getElementById('createusermodal').close();
+                    userTable.row.add({
+                        'id': user.id,
+                        'lname': user.lname,
+                        'fname': user.fname,
+                        'email': user.email,
+                        'address': user.address,
+                        'phone_number': user.phone_number,
+                        'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Details</button> ' +
+                                   '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
+                    }).draw(false);
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        }
     });
 
     // DETAILS
@@ -80,14 +115,20 @@ $(document).ready(function() {
             success: function (data) {
                 console.log(data);
 
-                $('#userno').val(data.id)
-                $('#emailedit').val(data.email)
-                $('#addressedit').val(data.address)
-                $('#createdatedit').val(data.created_at)
-                $('#fnameedit').val(data.fname)
-                $('#lnameedit').val(data.lname)
-                $('#phone_numberedit').val(data.phone_number)
-                $('#birthdateedit').val(data.birthdate)
+                $('#userno').val(data.id);
+                $('#emailedit').val(data.email);
+                $('#addressedit').val(data.address);
+                $('#createdatedit').val(data.created_at);
+                $('#fnameedit').val(data.fname);
+                $('#lnameedit').val(data.lname);
+                $('#phone_numberedit').val(data.phone_number);
+                $('#birthdateedit').val(data.birthdate);
+
+                if (data.image_path) {
+                    $('#imagePreview').attr('src', `{{ asset('${data.image_path}') }}`);
+                } else {
+                    $('#imagePreview').attr('src', 'https://www.svgrepo.com/show/530585/user.svg');
+                }
 
                 document.getElementById('editusermodal').showModal();
             },
@@ -97,38 +138,74 @@ $(document).ready(function() {
         });       
     });
 
-    // UPDATE 
-    $(document).on('submit', '#usereditForm', function (e) {
-        e.preventDefault();
-    
-        var userId = $('#userno').val();
-        var data = $('#usereditForm')[0];
-        let formData = new FormData(data);
-        formData.append("_method", "PUT");
-        
-        console.log("User id: " + userId);
-        console.log("Formdata:", formData);
-    
-        $.ajax({
-            type: 'POST',
-            url: `http://localhost:8000/api/user/${userId}`,
-            data: formData,
-            processData: false,
-            contentType: false, 
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-    
-            success: function(response) {
-                // console.log("User ID:", userId)
-                console.log("Response:", response);
-                document.getElementById('editusermodal').close();
-                userTable.ajax.reload();
+    // Validation for Update Form
+    $('#usereditForm').validate({
+        rules: {
+            fname: {
+                required: true,
+                maxlength: 255
             },
-            error: function(error) {
-                console.log("Error:", error);
+            lname: {
+                required: true,
+                maxlength: 255
+            },
+            email: {
+                required: true,
+                email: true,
+                maxlength: 255
+            },
+            phone_number: {
+                required: true,
+                maxlength: 20
             }
-        });
+        },
+        messages: {
+            fname: {
+                required: "Please enter the first name",
+                maxlength: "First name can not be longer than 255 characters"
+            },
+            lname: {
+                required: "Please enter the last name",
+                maxlength: "Last name can not be longer than 255 characters"
+            },
+            email: {
+                required: "Please enter the email",
+                email: "Please enter a valid email address",
+                maxlength: "Email can not be longer than 255 characters"
+            },
+            phone_number: {
+                required: "Please enter the phone number",
+                maxlength: "Phone number can not be longer than 20 characters"
+            }
+        },
+        submitHandler: function(form) {
+            var userId = $('#userno').val();
+            var data = $('#usereditForm')[0];
+            let formData = new FormData(data);
+            formData.append("_method", "PUT");
+            
+            console.log("User id: " + userId);
+            console.log("Formdata:", formData);
+
+            $.ajax({
+                type: 'POST',
+                url: `http://localhost:8000/api/user/${userId}`,
+                data: formData,
+                processData: false,
+                contentType: false, 
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+
+                success: function(response) {
+                    console.log("Response:", response);
+                    document.getElementById('editusermodal').close();
+                    userTable.ajax.reload();
+                },
+                error: function(error) {
+                    console.log("Error:", error);
+                }
+            });
+        }
     });
-    
 
     // DELETE
     $(document).on('click', '.user-delete', function() {
@@ -152,6 +229,4 @@ $(document).ready(function() {
             });
         }
     });
-
-
 });

@@ -263,11 +263,6 @@ $(document).ready(function() {
         }
     }, 3000); // Change image every 3 seconds
 
-    // Handle showing file input (DETAILS MODAL)
-    $('#showFileInput').on('click', function() {
-        $('#file_input_edit').click();
-    });
-
     // Handle image file selection and preview
     $(document).on('change', '#file_input_edit', function() {
         var files = $(this)[0].files;

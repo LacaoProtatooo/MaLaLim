@@ -64,8 +64,6 @@ class PromoController extends Controller
         return response()->json($promo, 201);
     }
 
-
-
     /**
      * Display the specified resource.
      */
