@@ -12,7 +12,7 @@ class Promo extends Model
     protected $fillable = [
         'name',
         'description',
-        'image',
+        'image_path',
         'discountRate',
     ];
 

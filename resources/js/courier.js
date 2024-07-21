@@ -2,7 +2,7 @@ import 'datatables.net-dt';
 
 // CREATE
 $(document).ready(function() {
-    var userTable = $('#couriersTable').DataTable({
+    var courierTable = $('#couriersTable').DataTable({
         ajax: {
             url: 'http://localhost:8000/api/couriers',
             dataSrc: ""
@@ -62,12 +62,12 @@ $(document).ready(function() {
                 success: function(data) {
                     console.log("Courier response contains: ", data);
                     document.getElementById('createcouriermodal').close();
-                    userTable.row.add({
+                    courierTable.row.add({
                         'id': data.id,
                         'name': data.name,
                         'rate': data.rate,
-                        'actions': '<button class="btn btn-primary user-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary user-delete" data-id="' + data.id + '">Deactivate</button>'
+                        'actions': '<button class="btn btn-primary courier-edit" data-id="' + data.id + '">Details</button> ' +
+                                   '<button class="btn btn-secondary courier-delete" data-id="' + data.id + '">Deactivate</button>'
                     }).draw(false);
                 },
                 error: function(error) {
@@ -127,7 +127,7 @@ $(document).ready(function() {
             success: function(response) {
                 console.log("Response:", response);
                 document.getElementById('editcouriermodal').close();
-                userTable.ajax.reload();
+                courierTable.ajax.reload();
             },
             error: function(error) {
                 console.log("Error:", error);
@@ -141,7 +141,7 @@ $(document).ready(function() {
         console.log('Delete button : courier ID:', courierId);
         
         // Confirm deletion
-        if (confirm("Are you sure you want to delete this user?")) {
+        if (confirm("Are you sure you want to delete this courier?")) {
             $.ajax({
                 type: 'DELETE',
                 url: `http://localhost:8000/api/courier/${courierId}`,
@@ -149,7 +149,7 @@ $(document).ready(function() {
                 success: function(response) {
                     console.log(response.message);
                     // Reload Table
-                    userTable.ajax.reload();
+                    courierTable.ajax.reload();
                 },
                 error: function(error) {
                     console.error("Delete error:", error);
