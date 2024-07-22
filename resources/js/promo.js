@@ -79,7 +79,8 @@ $(document).ready(function() {
                         'name': data.name,
                         'discountRate': data.discountRate,
                         'actions': '<button class="btn btn-primary promo-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button>'
+                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button>' +
+                                   '<button class="btn btn-success promo-jewelry" data-id="' + data.id + '">Assign Jewelry</button>'
                     }).draw(false);
                 },
                 error: function(error) {
@@ -219,6 +220,83 @@ $(document).ready(function() {
             });
         }
     });
+
+    // ASSIGN JEWELRY
+    $(document).on('click', '.promo-jewelry', function(e) {
+        e.preventDefault();
+    
+        var promoid = $(this).data('id');
+        console.log(promoid);
+    
+        // OPENING JEWELRY WITH PROMO MODAL
+        $.ajax({
+            type: "GET",
+            url: `/api/admin/getJewelries/${promoid}`, // Assuming this is the correct URL
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                $('#jewelryContainer').empty();
+  
+                data.forEach(function(jewelry) {
+                    var promoStatus = jewelry.hasPromo ? 'checked="checked"' : '';
+    
+                    var jewelryElement = `
+                        <div class="form-control">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">${jewelry.id}</span>
+                                <span class="label-text">${jewelry.name}</span>
+                                <input type="checkbox" ${promoStatus} class="checkbox checkbox-primary" data-id="${jewelry.id}" />
+                            </label>
+                        </div>`;
+    
+                    $('#jewelryContainer').append(jewelryElement);
+                });
+
+                $('#saveJewelryPromo').data('id', promoid);
+                document.getElementById('jewelrypromomodal').showModal();
+            },
+            error: function(error) {
+                console.log(error);
+            }
+        });
+    });
+    
+    // Save button click event
+    $(document).on('click', '#saveJewelryPromo', function() {
+        var promoid = $(this).data('id'); // Ensure promoId is correctly set
+        var formData = new FormData();
+    
+        $('#jewelryContainer input[type="checkbox"]:checked').each(function() {
+            formData.append('checkedJewelryIds[]', $(this).data('id'));
+        });
+        $('#jewelryContainer input[type="checkbox"]:not(:checked)').each(function() {
+            formData.append('uncheckedJewelryIds[]', $(this).data('id'));
+        });
+    
+        // DEBUGGING
+        // for (var pair of formData.entries()) {
+        //     console.log(pair[0] + ': ' + pair[1]);
+        // }
+    
+        $.ajax({
+            type: 'POST',
+            url: `http://localhost:8000/api/admin/jewelrypromosave/${promoid}`,
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: "json",
+            success: function(response) {
+                console.log("Response:", response);
+                document.getElementById('jewelrypromomodal').close();
+                promoTable.ajax.reload();
+            },
+            error: function(error) {
+                console.log("Error:", error);
+            }
+        });
+    });    
 
     // ======= IMAGE ========= //
 

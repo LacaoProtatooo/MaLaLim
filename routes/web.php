@@ -22,7 +22,7 @@ use App\Http\Controllers\CourierController;
 
 Route::get('/item', [ItemController::class, 'index'])->name('home');
 
-Route::get('/about', function () {
+Route::get('/', function () {
     return view('home.about');
 })->name('about');
 

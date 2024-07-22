@@ -31,29 +31,9 @@
     </div>
 </div>
 
-{{-- PROMO JEWELRY --}}
-{{-- <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
-    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createjewelrypromomodal').showModal()">Assign Jewelry to a Promo</button>
-    <div class="table-responsive">
-        <table class="table table-bordered" id="jewelrypromoTable">
-            <thead>
-                <tr>
-                    <th>Jewelry Promo No.</th>
-                    <th>Promo Name</th>
-                    <th>Promo Rate</th>
-                    <th>Jewelry Rate</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody id="jewelrypromoTable">
-
-            </tbody>
-        </table>
-    </div>
-</div> --}}
-
 @include('modal.promodetails')
 @include('modal.addpromo')
+@include('modal.jewelrypromo')
 
 @include('common.footer')
 </body>

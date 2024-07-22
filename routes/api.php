@@ -46,6 +46,14 @@ Route::post('/user/deactivate', [UserController::class, 'deactivate'])->middlewa
 Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
 Route::post('/user/permadelete/{id}', [UserController::class, 'permadelete'])->name('adminuser.permadelete');
 
+// Admin Assign Promo to Jewelries
+Route::get('/admin/getJewelries/{id}', [PromoController::class, 'getJewelry'])->name('admin.getpromoJewelries');
+Route::post('/admin/jewelrypromosave/{id}', [PromoController::class, 'jewelrypromosave'])->name('admin.jewelrypromosave');
+
+
+
+
+
 // AttachFave Jewelry
 Route::post('/user/fave', [ItemController::class, 'AddFave'])->middleware('auth:sanctum');
 // attach2Cart
