@@ -10,6 +10,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\JewelryController;
 use App\Http\Controllers\PromoController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\CourierController;
 
 /*
@@ -61,6 +62,7 @@ Route::post('/item/cartz', [ItemController::class, 'AddCart'])->middleware('auth
 // populate thingz
 Route::get('/fetchingFave', [ItemController::class, 'fetchFave'])->middleware('auth:sanctum');
 Route::get('/fetchCart', [CartController::class, 'CartPop'])->middleware('auth:sanctum');
+Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop'])->middleware('auth:sanctum');
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 // delete fave
 Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');

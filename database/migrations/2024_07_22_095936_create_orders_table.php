@@ -16,6 +16,8 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('courier_id')->constrained()->onDelete('cascade');
             $table->foreignId('payment_id')->constrained()->onDelete('cascade');
+            $table->string('name');
+            $table->string('address');
             $table->string('status');
             $table->softDeletes();
             $table->timestamps();

@@ -240,3 +240,60 @@ export function RemoveQuan(id)
     });
     popCart();
 }
+
+export function popCheck()
+{
+    $.ajax({
+        url: 'api/fetchCheck',
+        type: 'GET',
+        success: function(response)
+        {
+            const jewd = $('#JewelsKUH');
+            jewd.empty();
+            response.data.forEach(Jusq => {
+                const jewdHTML = `
+                    <tr class="border border-gray-600">
+                    <td class="text-left border border-gray-600 px-4 py-2">${Jusq.jewelry} - ${Jusq.color}</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">${Jusq.quantity}</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">₱${Jusq.price}</td>
+                    </tr>
+                `;
+                jewd.append(jewdHTML);
+            });
+
+            // COURRIER OPTIONS
+            const courr = $('#selCour');
+            courr.empty();
+            response.cour.forEach(pili => {
+                const courrHTML = `
+                        <option value="${pili.id}">${pili.name}</option>
+                `;
+                courr.append(courrHTML);
+            });
+            // =======================================================
+
+            // PAYMENT OPTIONS
+            const payss = $('#selPay');
+            courr.empty();
+            response.pay.forEach(pili => {
+                const payssHTML = `
+                        <option value="${pili.id}">${pili.method}</option>
+                `;
+                payss.append(payssHTML);
+            });
+            // =======================================================
+            if (response.success) {
+
+                console.log('Data received:', response.data);
+                console.log('Data received:', response.user);
+                console.log('Data received:', response.cour);
+
+            } else {
+                console.log('ERROR', response.message); // Fixed the console message
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', error);
+        }
+    });
+}
