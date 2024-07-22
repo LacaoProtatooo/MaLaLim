@@ -24,7 +24,7 @@ $(document).ready(function() {
             },
             address: {
                 required: true,
-                minlength: 5
+                minlength: 2
             },
             phone_number: {
                 required: true,

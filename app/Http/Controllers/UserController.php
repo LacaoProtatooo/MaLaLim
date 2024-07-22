@@ -41,7 +41,7 @@ class UserController extends Controller
             'phone_number' => 'required|string|max:11',
             'address' => 'required|string|max:255',
             'birthdate' => 'nullable|date',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'required|string|min:8',
         ]);
 
         $validatedData['password'] = Hash::make($validatedData['password']);
