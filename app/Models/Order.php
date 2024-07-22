@@ -10,21 +10,24 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = [
-        'quantity',
-        'price',
         'status',
     ];
 
     public function users()
     {
-        return $this->hasMany(User::class);
-    }
-    public function jewelries()
-    {
-        return $this->belongsToMany(Jewelry::class);
+        return $this->hasOne(User::class);
     }
     public function couriers()
     {
         return $this->hasOne(Courier::class);
+    }
+    public function payments()
+    {
+        return $this->hasOne(Payment::class);
+    }
+    public function colorJewelry()
+    {
+        return $this->belongsToMany(ColorJewelry::class)
+                    ->withPivot('quantity'); // Ensure the pivot table has 'quantity'
     }
 }
