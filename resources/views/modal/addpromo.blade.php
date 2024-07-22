@@ -1,4 +1,4 @@
-{{-- CREATE PROMO MODAL --}}
+<!-- CREATE PROMO MODAL -->
 <dialog id="createpromomodal" class="modal">
     <div class="modal-box">
         <div class="relative bg-white rounded-lg">
@@ -46,4 +46,3 @@
         </div>
     </div>
 </dialog>
-

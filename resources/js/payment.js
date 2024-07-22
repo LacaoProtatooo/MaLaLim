@@ -2,15 +2,14 @@ import 'datatables.net-dt';
 
 // CREATE
 $(document).ready(function() {
-    var courierTable = $('#couriersTable').DataTable({
+    var paymentTable = $('#paymentsTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/couriers',
+            url: 'http://localhost:8000/api/payments',
             dataSrc: ""
         },
         columns: [
             { data: 'id' },
-            { data: 'name' },
-            { data: 'rate' },
+            { data: 'method' },
             {
                 data: 'actions',
                 render: function(data) {
@@ -22,51 +21,40 @@ $(document).ready(function() {
 
     
     // CREATE
-    $('#courierForm').validate({
+    $('#paymentForm').validate({
         rules: {
-            name: {
+            method: {
                 required: true,
-                maxlength: 255
+                maxlength: 50
             },
-            rate: {
-                required: true,
-                number: true,
-                min: 0
-            }
         },
         messages: {
-            name: {
-                required: "Please enter the courier name",
-                maxlength: "Name can not be longer than 255 characters"
+            method: {
+                required: "Please enter the Payment Method",
+                maxlength: "Payment Method can not be longer than 50 characters"
             },
-            rate: {
-                required: "Please enter the rate",
-                number: "Please enter a valid number",
-                min: "Rate must be a positive number"
-            }
         },
         submitHandler: function(form) {
             // Form is valid, proceed with AJAX submission
-            var data = $('#courierForm')[0];
+            var data = $('#paymentForm')[0];
             let formData = new FormData(data);
 
             $.ajax({
                 type: 'POST',
-                url: '/api/courier',
+                url: '/api/payment',
                 data: formData,
                 processData: false,
                 contentType: false, 
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 dataType: "json",
                 success: function(data) {
-                    console.log("Courier response contains: ", data);
-                    document.getElementById('createcouriermodal').close();
-                    courierTable.row.add({
+                    console.log("Payment response contains: ", data);
+                    document.getElementById('createpaymentmodal').close();
+                    paymentTable.row.add({
                         'id': data.id,
-                        'name': data.name,
-                        'rate': data.rate,
-                        'actions': '<button class="btn btn-primary courier-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary courier-delete" data-id="' + data.id + '">Delete</button>'
+                        'method': data.method,
+                        'actions': '<button class="btn btn-primary payment-edit" data-id="' + data.id + '">Details</button> ' +
+                                   '<button class="btn btn-secondary payment-delete" data-id="' + data.id + '">Delete</button>'
                     }).draw(false);
                 },
                 error: function(error) {
@@ -77,27 +65,26 @@ $(document).ready(function() {
     });
 
     // DETAILS
-    $(document).on('click', '.courier-edit', function(e) {
+    $(document).on('click', '.payment-edit', function(e) {
         e.preventDefault();
 
-        var courierid = $(this).data('id');
-        console.log(courierid);
+        var paymentid = $(this).data('id');
+        console.log(paymentid);
         
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/courier/${courierid}`,
+            url: `http://localhost:8000/api/payment/${paymentid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
                 console.log(data);
 
-                $('#courierno').val(data.id)
-                $('#nameedit').val(data.name)
-                $('#rateedit').val(data.rate)
+                $('#paymentno').val(data.id)
+                $('#methodedit').val(data.method)
                 $('#createdatedit').val(data.created_at)
 
-                document.getElementById('editcouriermodal').showModal();
+                document.getElementById('editpaymentmodal').showModal();
             },
             error: function (error) {
                 console.log(error);
@@ -106,17 +93,17 @@ $(document).ready(function() {
     });
 
     // UPDATE 
-    $(document).on('submit', '#couriereditForm', function (e) {
+    $(document).on('submit', '#paymenteditForm', function (e) {
         e.preventDefault();
     
-        var courierId = $('#courierno').val();
-        var data = $('#couriereditForm')[0];
+        var paymentId = $('#paymentno').val();
+        var data = $('#paymenteditForm')[0];
         let formData = new FormData(data);
         formData.append("_method", "PUT");
     
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/courier/${courierId}`,
+            url: `http://localhost:8000/api/payment/${paymentId}`,
             data: formData,
             processData: false,
             contentType: false,
@@ -125,8 +112,8 @@ $(document).ready(function() {
 
             success: function(response) {
                 console.log("Response:", response);
-                document.getElementById('editcouriermodal').close();
-                courierTable.ajax.reload();
+                document.getElementById('editpaymentmodal').close();
+                paymentTable.ajax.reload();
             },
             error: function(error) {
                 console.log("Error:", error);
@@ -135,20 +122,20 @@ $(document).ready(function() {
     });
     
     // DELETE
-    $(document).on('click', '.courier-delete', function() {
-        var courierId = $(this).data('id');
-        console.log('Delete button : courier ID:', courierId);
+    $(document).on('click', '.payment-delete', function() {
+        var paymentId = $(this).data('id');
+        console.log('Delete button : payment ID:', paymentId);
         
         // Confirm deletion
-        if (confirm("Are you sure you want to delete this courier?")) {
+        if (confirm("Are you sure you want to delete this payment?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/courier/${courierId}`,
+                url: `http://localhost:8000/api/payment/${paymentId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);
                     // Reload Table
-                    courierTable.ajax.reload();
+                    paymentTable.ajax.reload();
                 },
                 error: function(error) {
                     console.error("Delete error:", error);

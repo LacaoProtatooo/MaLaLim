@@ -33,7 +33,8 @@ $(document).ready(function() {
             discountRate: {
                 required: true,
                 number: true,
-                min: 0
+                min: 0.1,
+                max: 0.9
             },
             images: { // Update validation rule for images
                 required: true,
@@ -52,7 +53,8 @@ $(document).ready(function() {
             discountRate: {
                 required: "Please enter the discount rate",
                 number: "Please enter a valid number",
-                min: "Rate must be a positive number"
+                min: "Rate must be a ranging from 0.1 to 0.9",
+                max: "Rate must be a ranging from 0.1 to 0.9"
             },
             images: { // Update validation message for images
                 required: "Please upload at least one image",
@@ -72,14 +74,14 @@ $(document).ready(function() {
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 dataType: "json",
                 success: function(data) {
-                    console.log("Promo response contains: ", data);
+                    // console.log("Promo response contains: ", data);
                     document.getElementById('createpromomodal').close();
                     promoTable.row.add({
                         'id': data.id,
                         'name': data.name,
                         'discountRate': data.discountRate,
                         'actions': '<button class="btn btn-primary promo-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button>' +
+                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button> ' +
                                    '<button class="btn btn-success promo-jewelry" data-id="' + data.id + '">Assign Jewelry</button>'
                     }).draw(false);
                 },
@@ -148,7 +150,8 @@ $(document).ready(function() {
             discountRate: {
                 required: true,
                 number: true,
-                min: 0
+                min: 0.1,
+                max: 0.9
             },
             images: {
                 extension: "jpg|jpeg|png|gif"
@@ -166,7 +169,8 @@ $(document).ready(function() {
             discountRate: {
                 required: "Please enter the discount rate",
                 number: "Please enter a valid number",
-                min: "Rate must be a positive number"
+                min: "Rate must be a ranging from 0.1 to 0.9",
+                max: "Rate must be a ranging from 0.1 to 0.9"
             },
             images: {
                 extension: "Please upload a valid image format (jpg, jpeg, png, gif)"
@@ -187,7 +191,7 @@ $(document).ready(function() {
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 dataType: "json",
                 success: function(response) {
-                    console.log("Response:", response);
+                    // console.log("Response:", response);
                     document.getElementById('editpromomodal').close();
                     promoTable.ajax.reload();
                 },
@@ -221,13 +225,45 @@ $(document).ready(function() {
         }
     });
 
-    // ASSIGN JEWELRY
+    let initialCheckboxStates = {};
+
+    // Function to capture the initial state of the checkboxes
+    function captureInitialStates() {
+        initialCheckboxStates = {};
+        $('#jewelryContainer input[type="checkbox"]').each(function() {
+            initialCheckboxStates[$(this).data('id')] = $(this).prop('checked');
+        });
+    }
+
+    // Function to get the changed states
+    function getChangedStates() {
+        let changedStates = {
+            checked: [],
+            unchecked: []
+        };
+
+        $('#jewelryContainer input[type="checkbox"]').each(function() {
+            let id = $(this).data('id');
+            let isChecked = $(this).prop('checked');
+            if (initialCheckboxStates[id] !== isChecked) {
+                if (isChecked) {
+                    changedStates.checked.push(id);
+                } else {
+                    changedStates.unchecked.push(id);
+                }
+            }
+        });
+
+        return changedStates;
+    }
+
+    // Assign Jewelry
     $(document).on('click', '.promo-jewelry', function(e) {
         e.preventDefault();
-    
+
         var promoid = $(this).data('id');
         console.log(promoid);
-    
+
         // OPENING JEWELRY WITH PROMO MODAL
         $.ajax({
             type: "GET",
@@ -235,12 +271,12 @@ $(document).ready(function() {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function(data) {
-                console.log(data);
+                // console.log(data);
                 $('#jewelryContainer').empty();
-  
+
                 data.forEach(function(jewelry) {
                     var promoStatus = jewelry.hasPromo ? 'checked="checked"' : '';
-    
+
                     var jewelryElement = `
                         <div class="form-control">
                             <label class="label cursor-pointer">
@@ -249,36 +285,35 @@ $(document).ready(function() {
                                 <input type="checkbox" ${promoStatus} class="checkbox checkbox-primary" data-id="${jewelry.id}" />
                             </label>
                         </div>`;
-    
+
                     $('#jewelryContainer').append(jewelryElement);
                 });
 
                 $('#saveJewelryPromo').data('id', promoid);
                 document.getElementById('jewelrypromomodal').showModal();
+                
+                // Capture the initial states of checkboxes
+                captureInitialStates();
             },
             error: function(error) {
                 console.log(error);
             }
         });
     });
-    
+
     // Save button click event
     $(document).on('click', '#saveJewelryPromo', function() {
         var promoid = $(this).data('id'); // Ensure promoId is correctly set
+        var changedStates = getChangedStates();
+
         var formData = new FormData();
-    
-        $('#jewelryContainer input[type="checkbox"]:checked').each(function() {
-            formData.append('checkedJewelryIds[]', $(this).data('id'));
+        changedStates.checked.forEach(function(id) {
+            formData.append('checkedJewelryIds[]', id);
         });
-        $('#jewelryContainer input[type="checkbox"]:not(:checked)').each(function() {
-            formData.append('uncheckedJewelryIds[]', $(this).data('id'));
+        changedStates.unchecked.forEach(function(id) {
+            formData.append('uncheckedJewelryIds[]', id);
         });
-    
-        // DEBUGGING
-        // for (var pair of formData.entries()) {
-        //     console.log(pair[0] + ': ' + pair[1]);
-        // }
-    
+
         $.ajax({
             type: 'POST',
             url: `http://localhost:8000/api/admin/jewelrypromosave/${promoid}`,
@@ -296,7 +331,8 @@ $(document).ready(function() {
                 console.log("Error:", error);
             }
         });
-    });    
+    });
+
 
     // ======= IMAGE ========= //
 
@@ -322,15 +358,12 @@ $(document).ready(function() {
         }
     });
     
-    // Handle single image preview from old code
-    const fileInput = document.getElementById('file_input_edit');
-    const uploadedImage = document.getElementById('uploadedImage');
-    let currentIndex = 0;
-
-    fileInput.addEventListener('change', handleFileSelect);
+    // Handle single image EDIT
+    const fileInputed = document.getElementById('file_input_edit');
+    fileInputed.addEventListener('change', handleFileSelect);
 
     function handleFileSelect() {
-        const files = fileInput.files;
+        const files = fileInputed.files;
 
         if (files.length > 0) {
             currentIndex = 0; // Reset index on file change
@@ -345,6 +378,11 @@ $(document).ready(function() {
         }
     }
 
+    const uploadedImage = document.getElementById('uploadedImage');
+    const fileInput = document.getElementById('file_input');
+    let currentIndex = 0;
+    let intervalId;
+
     function showImage(file) {
         const reader = new FileReader();
 
@@ -355,13 +393,17 @@ $(document).ready(function() {
         reader.readAsDataURL(file);
     }
 
-    // Handle sliding feature for multiple images
-    setInterval(() => {
-        if (fileInput.files.length > 0) {
-            currentIndex = (currentIndex + 1) % fileInput.files.length;
-            showImage(fileInput.files[currentIndex]);
-        }
-    }, 3000); // Change image every 3 seconds
+        fileInput.addEventListener('change', () => {
+            currentIndex = 0; // Reset index on new file selection
+            if (fileInput.files.length > 0) {
+                showImage(fileInput.files[currentIndex]); // Show the first image
+                if (intervalId) clearInterval(intervalId); // Clear any existing interval
+                intervalId = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % fileInput.files.length;
+                    showImage(fileInput.files[currentIndex]);
+                }, 3000); // Change image every 3 seconds
+            }
+        });
 
 
-});
+    });
