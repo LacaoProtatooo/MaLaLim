@@ -17,8 +17,6 @@ namespace App\Models{
  *
  * @property int $id
  * @property int $user_id
- * @property int $quantity
- * @property string $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorJewelry
@@ -29,8 +27,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Cart query()
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cart wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Cart whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Cart whereUserId($value)
  */
@@ -210,11 +206,11 @@ namespace App\Models{
  * @property string $status
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorJewelry
+ * @property-read int|null $color_jewelry_count
  * @property-read \App\Models\Courier|null $couriers
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jewelry> $jewelries
- * @property-read int|null $jewelries_count
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
- * @property-read int|null $users_count
+ * @property-read \App\Models\Payment|null $payments
+ * @property-read \App\Models\User|null $users
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
@@ -228,6 +224,18 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
  */
 	class Order extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property-read \App\Models\Order|null $payments
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ */
+	class Payment extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -260,7 +268,7 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $description
- * @property string $image_path
+ * @property string|null $image_path
  * @property string $discountRate
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -278,6 +286,29 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereUpdatedAt($value)
  */
 	class Promo extends \Eloquent {}
+}
+
+namespace App\Models{
+/**
+ * 
+ *
+ * @property int $id
+ * @property int $jewelry_id
+ * @property int $promo_id
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Promo $colors
+ * @property-read \App\Models\Jewelry $jewelry
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry query()
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry whereJewelryId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry wherePromoId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|PromoJewelry whereUpdatedAt($value)
+ */
+	class PromoJewelry extends \Eloquent {}
 }
 
 namespace App\Models{

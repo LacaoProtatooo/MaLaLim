@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Models\Promo;
+use App\Models\Jewelry;
+use App\Models\Price;
+use App\Models\PromoJewelry;
 
 class PromoController extends Controller
 {
@@ -26,7 +29,8 @@ class PromoController extends Controller
                 'description' => $promo->description,
                 'discountRate' => $promo->discountRate,
                 'actions' => '<button class="btn btn-primary promo-edit" data-id="' . $promo->id . '">Details</button> ' .
-                           '<button class="btn btn-secondary promo-delete" data-id="' . $promo->id . '">Delete</button>',
+                           '<button class="btn btn-secondary promo-delete" data-id="' . $promo->id . '">Delete</button> ' .
+                           '<button class="btn btn-success promo-jewelry" data-id="' . $promo->id . '">Assign Jewelry</button>',
                 'full_data' => $promo
             ];
         });
@@ -126,4 +130,81 @@ class PromoController extends Controller
         $promo->delete();
         return response()->json(['message' => 'Promo deleted successfully'], 200);
     }
+
+    public function getJewelry($id)
+    {
+        $promo = Promo::find($id);
+
+        if (!$promo) {
+            return response()->json(['error' => 'Promo not found'], 404);
+        }
+
+        $allJewelries = Jewelry::all();
+        $jewelriesWithPromo = PromoJewelry::where('promo_id', $id)->pluck('jewelry_id')->toArray();
+
+        // Add 'hasPromo' attribute to each jewelry
+        $allJewelries->each(function ($jewelry) use ($jewelriesWithPromo) {
+            $jewelry->hasPromo = in_array($jewelry->id, $jewelriesWithPromo);
+        });
+
+        return response()->json($allJewelries, 200);
+    }
+
+
+    public function jewelrypromosave(Request $request, string $id)
+    {
+        $promo = Promo::find($id);
+
+        if (!$promo) {
+            return response()->json(['error' => 'Promo not found'], 404);
+        }
+
+        // Process checked jewelry IDs
+        if ($request->checkedJewelryIds) {
+            foreach ($request->checkedJewelryIds as $jewelryId) {
+                $jewelryPrice = Price::where('jewelry_id', $jewelryId)->first();
+
+                if ($jewelryPrice) {
+                    $discount = $jewelryPrice->price * ($promo->discountRate / 100);
+                    $jewelryPrice->price = $jewelryPrice->price - $discount;
+                    $jewelryPrice->save();
+
+                    PromoJewelry::updateOrCreate(
+                        ['promo_id' => $promo->id, 'jewelry_id' => $jewelryId],
+                        ['promo_id' => $promo->id, 'jewelry_id' => $jewelryId]
+                    );
+                }
+            }
+        }
+
+        // Process unchecked jewelry IDs
+        if ($request->uncheckedJewelryIds) {
+            foreach ($request->uncheckedJewelryIds as $jewelryId) {
+                $jewelryPrice = Price::where('jewelry_id', $jewelryId)->first();
+
+                if ($jewelryPrice) {
+                    // Calculate original price
+                    $originalPrice = $jewelryPrice->price / (1 - ($promo->discountRate / 100));
+                    $jewelryPrice->price = $originalPrice;
+                    $jewelryPrice->save();
+
+                    PromoJewelry::where('promo_id', $promo->id)
+                        ->where('jewelry_id', $jewelryId)
+                        ->delete();
+                }
+            }
+        }
+
+        return response()->json(['message' => 'Promo prices set successfully'], 200);
+    }
+
+
+
+
+    
+
+
+
+
+
 }
