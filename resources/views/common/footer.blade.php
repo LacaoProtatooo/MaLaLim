@@ -1,4 +1,4 @@
-<footer class="rounded-lg shadow m-4">
+<footer class="rounded-lg shadow m-4 w-full">
     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between shadow-md">
         {{-- {{route('welcome')}} --}}
         <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2024 
