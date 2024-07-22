@@ -160,12 +160,13 @@ class PromoController extends Controller
         }
 
         // Process checked jewelry IDs
+        // Rate is 0.1 = 10% to 0.9 = 90% Discount
         if ($request->checkedJewelryIds) {
             foreach ($request->checkedJewelryIds as $jewelryId) {
                 $jewelryPrice = Price::where('jewelry_id', $jewelryId)->first();
 
                 if ($jewelryPrice) {
-                    $discount = $jewelryPrice->price * ($promo->discountRate / 100);
+                    $discount = $jewelryPrice->price * $promo->discountRate;
                     $jewelryPrice->price = $jewelryPrice->price - $discount;
                     $jewelryPrice->save();
 
@@ -184,7 +185,7 @@ class PromoController extends Controller
 
                 if ($jewelryPrice) {
                     // Calculate original price
-                    $originalPrice = $jewelryPrice->price / (1 - ($promo->discountRate / 100));
+                    $originalPrice = $jewelryPrice->price /  (1 - $promo->discountRate);
                     $jewelryPrice->price = $originalPrice;
                     $jewelryPrice->save();
 

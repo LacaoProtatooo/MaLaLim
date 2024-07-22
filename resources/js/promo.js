@@ -33,7 +33,8 @@ $(document).ready(function() {
             discountRate: {
                 required: true,
                 number: true,
-                min: 0
+                min: 0.1,
+                max: 0.9
             },
             images: { // Update validation rule for images
                 required: true,
@@ -52,7 +53,8 @@ $(document).ready(function() {
             discountRate: {
                 required: "Please enter the discount rate",
                 number: "Please enter a valid number",
-                min: "Rate must be a positive number"
+                min: "Rate must be a ranging from 0.1 to 0.9",
+                max: "Rate must be a ranging from 0.1 to 0.9"
             },
             images: { // Update validation message for images
                 required: "Please upload at least one image",
@@ -79,7 +81,7 @@ $(document).ready(function() {
                         'name': data.name,
                         'discountRate': data.discountRate,
                         'actions': '<button class="btn btn-primary promo-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button>' +
+                                   '<button class="btn btn-secondary promo-delete" data-id="' + data.id + '">Delete</button> ' +
                                    '<button class="btn btn-success promo-jewelry" data-id="' + data.id + '">Assign Jewelry</button>'
                     }).draw(false);
                 },
@@ -148,7 +150,8 @@ $(document).ready(function() {
             discountRate: {
                 required: true,
                 number: true,
-                min: 0
+                min: 0.1,
+                max: 0.9
             },
             images: {
                 extension: "jpg|jpeg|png|gif"
@@ -166,7 +169,8 @@ $(document).ready(function() {
             discountRate: {
                 required: "Please enter the discount rate",
                 number: "Please enter a valid number",
-                min: "Rate must be a positive number"
+                min: "Rate must be a ranging from 0.1 to 0.9",
+                max: "Rate must be a ranging from 0.1 to 0.9"
             },
             images: {
                 extension: "Please upload a valid image format (jpg, jpeg, png, gif)"
@@ -322,15 +326,12 @@ $(document).ready(function() {
         }
     });
     
-    // Handle single image preview from old code
-    const fileInput = document.getElementById('file_input_edit');
-    const uploadedImage = document.getElementById('uploadedImage');
-    let currentIndex = 0;
-
-    fileInput.addEventListener('change', handleFileSelect);
+    // Handle single image EDIT
+    const fileInputed = document.getElementById('file_input_edit');
+    fileInputed.addEventListener('change', handleFileSelect);
 
     function handleFileSelect() {
-        const files = fileInput.files;
+        const files = fileInputed.files;
 
         if (files.length > 0) {
             currentIndex = 0; // Reset index on file change
@@ -345,6 +346,11 @@ $(document).ready(function() {
         }
     }
 
+    const uploadedImage = document.getElementById('uploadedImage');
+    const fileInput = document.getElementById('file_input');
+    let currentIndex = 0;
+    let intervalId;
+
     function showImage(file) {
         const reader = new FileReader();
 
@@ -355,13 +361,17 @@ $(document).ready(function() {
         reader.readAsDataURL(file);
     }
 
-    // Handle sliding feature for multiple images
-    setInterval(() => {
-        if (fileInput.files.length > 0) {
-            currentIndex = (currentIndex + 1) % fileInput.files.length;
-            showImage(fileInput.files[currentIndex]);
-        }
-    }, 3000); // Change image every 3 seconds
+        fileInput.addEventListener('change', () => {
+            currentIndex = 0; // Reset index on new file selection
+            if (fileInput.files.length > 0) {
+                showImage(fileInput.files[currentIndex]); // Show the first image
+                if (intervalId) clearInterval(intervalId); // Clear any existing interval
+                intervalId = setInterval(() => {
+                    currentIndex = (currentIndex + 1) % fileInput.files.length;
+                    showImage(fileInput.files[currentIndex]);
+                }, 3000); // Change image every 3 seconds
+            }
+        });
 
 
-});
+    });
