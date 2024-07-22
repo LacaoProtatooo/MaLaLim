@@ -25,4 +25,6 @@ $(document).on('click', '.completeButt', function() {
 
     CompleteOrder(courrierId, paymId, namee, addd, carTT, coljel);
 
+    window.location.href = '/orderhistory';
+
 });
