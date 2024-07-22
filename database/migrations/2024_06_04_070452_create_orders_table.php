@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('courier_id')->constrained()->onDelete('cascade');
-            $table->integer('quantity');
-            $table->decimal('price', 8, 2);
+            $table->foreignId('payment_id')->constrained()->onDelete('cascade');
             $table->string('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -47,3 +47,8 @@ $(document).on('click', '.openMod', function() {
     popCart();
 });
 
+// $(document).on('click', '.CheckCheck', function() {
+//     popCart();
+// });
+
+

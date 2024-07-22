@@ -1,4 +1,4 @@
-import { ModalDisplay, deTach } from './exportable.js';
+import { ModalDisplay, deTach, AutoDisplay } from './exportable.js';
 
 $(document).ready(function() {
     function popFave() {
@@ -69,6 +69,13 @@ $(document).ready(function() {
         const itemId = $(this).data('id');
         deTach(itemId);
         popFave();
+    });
+
+    $(document).on('click', '.viewColorBtn', function() {
+        const colId = $(this).data('id');
+        const itemId = $(this).data('item-id');
+        AutoDisplay(colId, itemId);
+
     });
 
 
