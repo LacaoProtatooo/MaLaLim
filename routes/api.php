@@ -24,13 +24,14 @@ use App\Http\Controllers\CourierController;
 */
 
 Route::resource('user', UserController::class);
-Route::apiResource('courier', CourierController::class)->middleware('web');
+Route::apiResource('courier', CourierController::class);
 Route::apiResource('promo', PromoController::class);
 Route::apiResource('jewelry', JewelryController::class);
 
 // DataTable
 Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
 Route::get('/couriers', [CourierController::class, 'dtpopulate'])->name('admin.getCouriers');
+Route::get('/promos', [PromoController::class, 'dtpopulate'])->name('admin.getPromos');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');
@@ -40,6 +41,11 @@ Route::post('/user/logout', [LoginController::class, 'logout'])->middleware(['we
 Route::get('/userprofile', [UserController::class, 'getUserProfile'])->middleware('auth:sanctum');
 Route::post('/updateProfile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
 Route::post('/user/deactivate', [UserController::class, 'deactivate'])->middleware('auth:sanctum');
+
+// Admin Users
+Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
+Route::post('/user/permadelete/{id}', [UserController::class, 'permadelete'])->name('adminuser.permadelete');
+
 // AttachFave Jewelry
 Route::post('/user/fave', [ItemController::class, 'AddFave'])->middleware('auth:sanctum');
 // attach2Cart
@@ -50,9 +56,7 @@ Route::get('/fetchCart', [CartController::class, 'CartPop'])->middleware('auth:s
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 // delete fave
 Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+
 
 Route::post('/add/jewel2Cart', [CartController::class, 'Increase'])->middleware('auth:sanctum');
 Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease'])->middleware('auth:sanctum');
@@ -62,4 +66,10 @@ Route::post('/delete/jewel2Cart', [CartController::class, 'Remove'])->middleware
 
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
+
+
+// ===================================================================== //
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ac0ddae58fb1576a4ffb42618fcf584b",
+    "content-hash": "7fbdbccdc6d6c273fc89f4413f410bb9",
     "packages": [
         {
             "name": "barryvdh/laravel-dompdf",
@@ -6810,6 +6810,54 @@
                 "source": "https://github.com/tijsverkoyen/CssToInlineStyles/tree/v2.2.7"
             },
             "time": "2023-12-08T13:03:43+00:00"
+        },
+        {
+            "name": "vitopedro/laravel-chartjs",
+            "version": "1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/vitopedro/laravel-chartjs.git",
+                "reference": "6aae56abdaa478853f2620b70878d43e5743a9df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/vitopedro/laravel-chartjs/zipball/6aae56abdaa478853f2620b70878d43e5743a9df",
+                "reference": "6aae56abdaa478853f2620b70878d43e5743a9df",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.6"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "vitopedro\\chartjs\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pedro Vito",
+                    "email": "pedrogilvito@gmail.com"
+                }
+            ],
+            "description": "chartjs wrapper for laravel",
+            "keywords": [
+                "PHP7",
+                "chartjs",
+                "laravel",
+                "laravel-framework",
+                "laravel-package",
+                "php"
+            ],
+            "support": {
+                "issues": "https://github.com/vitopedro/laravel-chartjs/issues",
+                "source": "https://github.com/vitopedro/laravel-chartjs/tree/1.4.0"
+            },
+            "time": "2024-02-04T01:15:05+00:00"
         },
         {
             "name": "vlucas/phpdotenv",

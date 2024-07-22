@@ -10,12 +10,7 @@
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
 
 <!--Tailwind Utility & Flowbite-->
-@vite(['resources/css/app.css','resources/js/app.js',
-// Custom Javascript Files
-'resources/js/users.js',
-'resources/js/login.js',
-'resources/js/register.js',
-])
+@vite(['resources/css/app.css','resources/js/app.js'])
 
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}

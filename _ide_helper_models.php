@@ -21,8 +21,8 @@ namespace App\Models{
  * @property string $price
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jewelry> $jewelries
- * @property-read int|null $jewelries_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorJewelry
+ * @property-read int|null $color_jewelry_count
  * @property-read \App\Models\User|null $users
  * @method static \Illuminate\Database\Eloquent\Builder|Cart newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Cart newQuery()
@@ -91,6 +91,8 @@ namespace App\Models{
  * @property int $color_id
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cart> $carts
+ * @property-read int|null $carts_count
  * @property-read \App\Models\Color $colors
  * @property-read \App\Models\Jewelry $jewelry
  * @property-read \App\Models\Stock|null $stocks
@@ -135,12 +137,14 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string|null $image_path
+ * @property int $classification_id
  * @property string|null $description
+ * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cart> $carts
  * @property-read int|null $carts_count
- * @property-read \App\Models\Classification|null $classification
+ * @property-read \App\Models\Classification $classification
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorjewelries
  * @property-read int|null $colorjewelries_count
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Color> $colors
@@ -158,7 +162,9 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereClassificationId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Jewelry whereImagePath($value)
@@ -304,6 +310,7 @@ namespace App\Models{
  * @property int $id
  * @property int $color_jewelry_id
  * @property int $quantity
+ * @property string|null $image_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ColorJewelry|null $colorjewelry
@@ -314,6 +321,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereColorJewelryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Stock whereImagePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
  */
@@ -328,6 +336,7 @@ namespace App\Models{
  * @property string $lname
  * @property string $fname
  * @property string $phone_number
+ * @property string $address
  * @property string $email
  * @property string $password
  * @property string|null $birthdate
@@ -349,6 +358,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|User newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|User onlyTrashed()
  * @method static \Illuminate\Database\Eloquent\Builder|User query()
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereBirthdate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereDeletedAt($value)

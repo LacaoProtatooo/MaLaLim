@@ -24,18 +24,18 @@
         <!-- User Profile Pic -->
         <div class="col-span-full xl:col-auto">
             <div class="p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 dark:bg-gray-800">
-                <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                    @if(isset($userinfo->image_path) && $userinfo->image_path)
-                        <img id="imagePreview" class="mb-6 rounded-lg w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="{{ asset($userinfo->image_path) }}" alt="user picture">
-                    @else
-                        <img id="imagePreview" class="mb-6 rounded-lg w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="https://www.svgrepo.com/show/530585/user.svg" alt="user picture">
-                    @endif
-                    <div>
-                        <h3 id="userfullname" class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">User: <br>
- 
-                        </h3>
-                    </div>
+            <div class="flex flex-col items-center">
+                @if(isset($userinfo->image_path) && $userinfo->image_path)
+                <img id="imagePreview" class="mb-6 rounded-full w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="{{ asset($userinfo->image_path) }}" alt="user picture">
+                @else
+                <img id="imagePreview" class="mb-6 rounded-full w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="https://www.svgrepo.com/show/530585/user.svg" alt="user picture">
+                @endif
+                <div>
+                <h3 id="userfullname" class="mb-2 text-2xl font-bold text-gray-900 dark:text-white">User: <br>
+     
+                </h3>
                 </div>
+            </div>
             </div>
         </div>
 
@@ -93,7 +93,7 @@
                         
                         <!-- Save button -->
                         <div class="col-span-6 sm:col-span-3 flex items-center">
-                            <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 mr-5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-purple-600 to-blue-500 group-hover:from-purple-600 group-hover:to-blue-500 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800">
+                            <button type="submit" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 mr-5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-yellow-400 to-yellow-300 group-hover:from-yellow-400 group-hover:to-yellow-300 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-yellow-200 dark:focus:ring-yellow-800">
                                 <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Save</span>
                             </button>
 
@@ -109,17 +109,22 @@
                                 </div>
                             </label>
                         </div>
-
+                        {{-- DEACTIVATE ACCOUNT --}}
+            <a id="deactivateAccount" href="#" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 mr-5 text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
+                <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Deactivate Account</span>
+            </a>
+        </div>
+        </div>
                     </div>
                 </form>    
             </div>
             
-            {{-- DEACTIVATE ACCOUNT --}}
+            <!-- {{-- DEACTIVATE ACCOUNT --}}
             <a id="deactivateAccount" href="#" class="relative inline-flex items-center justify-center p-0.5 mb-2 me-2 mr-5 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-pink-500 to-orange-400 group-hover:from-pink-500 group-hover:to-orange-400 hover:text-white dark:text-white focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800">
                 <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-opacity-0">Deactivate Account</span>
             </a>
         </div>
-    </div>
+    </div> -->
 
     <script>
         function previewImage(event) {

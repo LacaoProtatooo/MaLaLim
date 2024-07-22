@@ -5,18 +5,7 @@
         <div class="relative bg-white rounded-lg">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('registeruserModal').close()">✕</button>
             <h3 class="text-lg font-bold mb-4"> USER REGISTRATION </h3>
-
-            {{-- PICTURE UPLOAD (MULTIPLE?)
-            <div class="p-6 mb-6 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 dark:bg-gray-800">
-                <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
-                    @if(isset($userinfo->image_path) && $userinfo->image_path)
-                        <img id="imagePreview" class="mb-6 rounded-lg w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="{{ asset($userinfo->image_path) }}" alt="user picture">
-                    @else
-                        <img id="imagePreview" class="mb-6 rounded-lg w-48 h-48 sm:mb-0 xl:mb-6 2xl:mb-0" src="https://www.svgrepo.com/show/530585/user.svg" alt="user picture">
-                    @endif
-                </div>
-            </div> --}}
-
+            
             <form class="max-w-md mx-auto" id="userregisterForm" method="#" action="#" enctype="multipart/form-data">
                 {{-- email --}}
                 <div class="relative z-0 w-full mb-5 group">
