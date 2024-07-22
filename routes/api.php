@@ -67,7 +67,10 @@ Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 // delete fave
 Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');
 
+// Transac Final Momints:
+Route::post('/Fin', [CheckoutController::class, 'Endo'])->middleware('auth:sanctum');
 
+// CART + - x ACTIONS BRUHHHHHH
 Route::post('/add/jewel2Cart', [CartController::class, 'Increase'])->middleware('auth:sanctum');
 Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease'])->middleware('auth:sanctum');
 Route::post('/delete/jewel2Cart', [CartController::class, 'Remove'])->middleware('auth:sanctum');

@@ -134,7 +134,7 @@ export function deTach(itemId) {
                                     </div>
 
                                     <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                                    <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">PHP${ilagay.price}</p>
+                                    <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">PHP${parseFloat(ilagay.price).toFixed(2)}</p>
                                     </div>
                                 </div>
 
@@ -160,8 +160,9 @@ export function deTach(itemId) {
                             </li>
                         `;
                         cartDom.append(cartHTML);
-                        tot += ilagay.price;
+                        tot += parseFloat(ilagay.price);
                     });
+                    tot = tot.toFixed(2);
                     $('#subtot').html('<span class="text-xs font-normal text-gray-400">PHP</span>'+ tot);
 
                 } else {
@@ -241,6 +242,11 @@ export function RemoveQuan(id)
     popCart();
 }
 
+
+export let GlobalCheckResponse = {};
+export let selectedCourierId = null;
+export let selectedPayId = null;
+
 export function popCheck()
 {
     $.ajax({
@@ -248,6 +254,8 @@ export function popCheck()
         type: 'GET',
         success: function(response)
         {
+            GlobalCheckResponse = response;
+            let medjTotal = 0;
             const jewd = $('#JewelsKUH');
             jewd.empty();
             response.data.forEach(Jusq => {
@@ -255,9 +263,10 @@ export function popCheck()
                     <tr class="border border-gray-600">
                     <td class="text-left border border-gray-600 px-4 py-2">${Jusq.jewelry} - ${Jusq.color}</td>
                     <td class="text-right border border-gray-600 px-4 py-2">${Jusq.quantity}</td>
-                    <td class="text-right border border-gray-600 px-4 py-2">₱${Jusq.price}</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">₱${parseFloat(Jusq.price).toFixed(2)}</td>
                     </tr>
                 `;
+                medjTotal += Jusq.price;
                 jewd.append(jewdHTML);
             });
 
@@ -274,14 +283,62 @@ export function popCheck()
 
             // PAYMENT OPTIONS
             const payss = $('#selPay');
-            courr.empty();
+            payss.empty();
             response.pay.forEach(pili => {
                 const payssHTML = `
                         <option value="${pili.id}">${pili.method}</option>
                 `;
                 payss.append(payssHTML);
             });
+
             // =======================================================
+
+            // Listener for select
+            let rate = 0;
+            document.getElementById('selCour').addEventListener('change', function() {
+                const selectedValue = this.value;
+                selectedCourierId = selectedValue;
+                const targetDiv = document.getElementById('Cour');
+                const targetDiv2 = document.getElementById('CourPr');
+
+                // Clear the targetDivs before updating
+                targetDiv.innerHTML = '';
+                targetDiv2.innerHTML = '';
+
+                // Assuming response.cour is available and contains the necessary data
+                response.cour.forEach(laman => {
+                  if (selectedValue == laman.id) {
+                    targetDiv.textContent = "Courier - " + laman.name;
+                    targetDiv2.textContent = "₱" + laman.rate;
+                    var tut = medjTotal
+                    caolc(tut, laman.rate);
+                  }
+                });
+              });
+              document.getElementById('selPay').addEventListener('change', function() {
+                const selectedValue = this.value;
+                selectedPayId = selectedValue;
+
+              });
+            // ========================================================
+
+            function caolc(hihi, rate) {
+                // Ensure hihi and rate are numbers
+                let hihiNumber = parseFloat(hihi);
+                let rateNumber = parseFloat(rate);
+
+                // Ensure response.totD is a number
+                let totDNumber = parseFloat(response.totD);
+
+                let OaTot = hihiNumber + rateNumber;
+                let overall = OaTot - totDNumber;
+
+                $('#DC').text('₱' + totDNumber.toFixed(2));
+                $('#OverallTotal').text('₱' + overall.toFixed(2));
+            }
+
+            $('#CusN').val(response.user.name);
+            $('#CusA').val(response.user.address);
             if (response.success) {
 
                 console.log('Data received:', response.data);
@@ -290,6 +347,33 @@ export function popCheck()
 
             } else {
                 console.log('ERROR', response.message); // Fixed the console message
+            }
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', error);
+        }
+    });
+}
+
+export function CompleteOrder(Cour, Pay, namer, ads, Cartid, pivId)
+{
+    $.ajax({
+        url: '/api/Fin',
+        type: 'post',
+        data: {
+            coJelId: pivId,
+            courierId: Cour,
+            payId: Pay,
+            name: namer,
+            address: ads,
+            cartId: Cartid,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(response) {
+            if (response.success) {
+                // console.log(response);
+            } else {
+                console.log('Error attaching item:', response.message); // Fixed the console message
             }
         },
         error: function(xhr, status, error) {

@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Color;
 use App\Models\Courier;
 use App\Models\Material;
+use App\Models\Payment;
 use App\Models\Stock;
 class DatabaseSeeder extends Seeder
 {
@@ -54,6 +55,10 @@ class DatabaseSeeder extends Seeder
             'diamond clear',
         ];
 
+        $payment = [
+            'Gcash', 'Paymaya', 'Bank Transfer', 'Cash on Delivery'
+        ];
+
         function mat(){
 
             $jewelryItems = Jewelry::all();
@@ -78,7 +83,10 @@ class DatabaseSeeder extends Seeder
 
         // User::factory(10)->create();
 
-
+        foreach ($payment as $pay)
+        {
+            Payment::create(['method' => $pay]);
+        }
         foreach ($classifications as $classification) {
             Classification::create(['classification' => $classification]);
         }

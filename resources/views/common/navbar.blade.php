@@ -10,7 +10,7 @@
         <dialog id="my_modal_3" class="modal">
             <div class="modal-box">
                 <form method="dialog" class="">
-                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 refresher">✕</button>
                 </form>
                 @include('common.cart')
             </div>

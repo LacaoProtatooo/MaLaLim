@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Cart;
-use App\Models\Promo;
+use App\Models\Order;
 use App\Models\Jewelry;
 use App\Models\Courier;
 use App\Models\Payment;
@@ -23,6 +23,7 @@ class CheckoutController extends Controller
         $paymentser = Payment::all();
 
         $Usercart = Cart::where('user_id', $userId)->first();
+        $cartID = $Usercart->id;
         if (!$Usercart)
         {
             return response()->json(['success' => false, 'message' => 'No cart found for user'], 404);
@@ -83,7 +84,62 @@ class CheckoutController extends Controller
             'totalDc' => $totalDiscount,
             'cour'=> $courier,
             'pay' => $paymentser,
+            'totD' =>  $totalDiscount,
+            'cartID'=> $cartID,
         ]);
     }
 
+    public function Endo(Request $request)
+{
+    // Retrieve inputs
+    $colorJewId = $request->input('coJelId');
+    $courierId = $request->input('courierId');
+    $paymentId = $request->input('payId');
+    $CusName = $request->input('name');
+    $Address = $request->input('address');
+    $CartoId = $request->input('cartId');
+    $userId = Auth::id();
+
+    // Validate inputs (Optional, but recommended)
+    $request->validate([
+        'coJelId' => 'required|array',
+        'courierId' => 'required|integer',
+        'payId' => 'required|integer',
+        'name' => 'required|string',
+        'address' => 'required|string',
+        'cartId' => 'required|integer',
+    ]);
+
+    try {
+        // Create a new order
+        $order = Order::create([
+            'user_id' => $userId,
+            'courier_id' => $courierId,
+            'payment_id' => $paymentId,
+            'name' => $CusName,
+            'address' => $Address,
+            'status' => 'pending',
+        ]);
+
+        // Attach color jewelry to the order with quantities
+        foreach ($colorJewId as $colorJewelry) {
+            // Ensure $colorJewelry is an associative array with keys 'id' and 'quantity'
+            $order->colorJewelry()->attach(
+                $colorJewelry['pivotId'],  // ID of the color jewelry
+                ['quantity' => $colorJewelry['quantity']]  // Additional fields for the pivot table
+            );
+        }
+
+        // Delete the cart
+        Cart::where('id', $CartoId)->delete();
+
+        return response()->json(['success' => true, 'message' => 'Order created successfully']);
+    } catch (\Exception $e) {
+        // Handle exception
+        return response()->json(['success' => false, 'message' => 'An error occurred: ' . $e->getMessage()]);
+    }
 }
+
+
+}
+

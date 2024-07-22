@@ -16,7 +16,7 @@
 
           <div class="mt-6 flex items-center justify-between">
             <p class="text-sm font-medium text-gray-900">Sub-Total</p>
-            <p id = "subtot" class="text-2xl font-semibold text-gray-900"> 2499.00</p>
+            <p id = "subtot" class="text-2xl font-semibold text-gray-900"></p>
           </div>
 
           <div class="mt-6 text-center">

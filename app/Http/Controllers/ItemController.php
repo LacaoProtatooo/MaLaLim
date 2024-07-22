@@ -134,9 +134,16 @@ class ItemController extends Controller
         $jewelId = $request->input('item_id');
         $colId = $request->input('col_id');
         $quantity = 1; // Default quantity to 1 if not provided
-        $cart = Cart::where('user_id', $userId)->first();
 
-        $colorJewelry = $cart->colorJewelry()
+
+        $carttz = Cart::where('user_id', $userId)->first();
+        if(!$carttz)
+        {
+            $carttz = Cart::create([
+                'user_id' => $userId,
+            ]);
+        }
+        $colorJewelry = $carttz->colorJewelry()
         ->where('jewelry_id', $jewelId)
         ->where('color_id', $colId)
         ->first();
