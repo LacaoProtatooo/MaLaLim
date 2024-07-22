@@ -33,20 +33,13 @@
 
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <select class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none">
-                    <option value="bank_transfer">Cash on Delivery</option>
-                    <option value="credit_card">Credit Card</option>
-                      <option value="paypal">PayPal</option>
-                      <option value="bank_transfer">GCash</option>
-                      <option value="bank_transfer">Bank Transfer</option>
+                    <select id = "selPay" class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none">
+                        {{--  --}}
                     </select>
                   </div>
                     <div>
-                    <select class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none">
-                      <option value="credit_card">LaLamove</option>
-                      <option value="paypal">Grab</option>
-                      <option value="bank_transfer">Uber</option>
-                      <option value="courier">MoveIT</option>
+                    <select id = "selCour" class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none">
+                      {{--  --}}
                     </select>
                     </div>
                 </div>
@@ -56,37 +49,31 @@
             </form>
           </div>
 
-            <div class="bg-yellow-100 p-6 rounded-md">
-              <table class="mt-8 w-full">
-                <tbody>
-                  <tr>
-                    <td class="text-left border border-gray-600 px-4 py-2">Earings</td>
-                    <td class="text-right border border-gray-600 px-4 py-2">2</td>
-                    <td class="text-right border border-gray-600 px-4 py-2">$150.00</td>
-                  </tr>
-                  <tr>
-                    <td class="text-left border border-gray-600 px-4 py-2">Ring</td>
-                    <td class="text-right border border-gray-600 px-4 py-2">1</td>
-                    <td class="text-right border border-gray-600 px-4 py-2">$90.00</td>
-                  </tr>
-                  <tr class="border border-gray-600">
-                    <td class="text-left px-4 py-2">Courier</td>
-                    <td class=" px-4 py-2"></td>
-                    <td class="text-right  px-4 py-2">MoveIT</td>
-                  </tr>
-                  <tr class="border border-gray-600">
-                    <td class="px-4 py-2">Total Discount</td>
-                    <td class="px-4 py-2"></td>
-                    <td class="text-right  px-4 py-2">$10.00</td>
-                  </tr>
-                  <tr class="border border-gray-600">
-                    <td class="text-left font-bold border-t-2 pt-4 px-4 py-2">Total</td>
-                    <td class="border-t-2 pt-4 px-4 py-2"></td>
-                    <td class="text-right border-t-2 pt-4 px-4 py-2">$230.00</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+          <div class="bg-yellow-100 p-6 rounded-md">
+            <table class="mt-8 w-full">
+              <tbody id="JewelsKUH">
+                <!-- Dynamic rows will be appended here -->
+              </tbody>
+              <tbody>
+                <tr class="border border-gray-600">
+                  <td id = "Cour" class="text-left px-4 py-2">Courier</td>
+                  <td class="px-4 py-2">---></td>
+                  <td id = "CourPr" class="text-right px-4 py-2">MoveIT</td>
+                </tr>
+                <tr class="border border-gray-600">
+                  <td class="px-4 py-2">Total Discount</td>
+                  <td class="px-4 py-2"></td>
+                  <td id = "totDc" class="text-right px-4 py-2">₱10.00</td>
+                </tr>
+                <tr class="border border-gray-600">
+                  <td class="text-left font-bold border-t-2 pt-4 px-4 py-2">Total</td>
+                  <td class="border-t-2 pt-4 px-4 py-2"></td>
+                  <td id = "OverallTotal" class="text-right border-t-2 pt-4 px-4 py-2">₱230.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
             </div>
             </div>
             </div>

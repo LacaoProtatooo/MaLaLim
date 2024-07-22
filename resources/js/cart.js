@@ -1,8 +1,8 @@
-import { addCart, popCart, AddQuan, RemoveQuan, MinusQuan  } from './exportable.js';
+import { addCart, popCart, AddQuan, RemoveQuan, MinusQuan, popCheck  } from './exportable.js';
 
 $(document).ready(function() {
 
-    // popCart();
+    popCheck();
 
 });
 
@@ -47,8 +47,8 @@ $(document).on('click', '.openMod', function() {
     popCart();
 });
 
-// $(document).on('click', '.CheckCheck', function() {
-//     popCart();
-// });
+$(document).on('click', '.CheckCheck', function() {
+
+});
 
 
