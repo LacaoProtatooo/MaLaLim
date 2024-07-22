@@ -27,19 +27,28 @@
                 </div>
 
                 <div class="flex bg-gray-100 border rounded-md focus-within:border-purple-500 focus-within:bg-transparent overflow-hidden">
-                  <input type="number" placeholder="Card Number"
-                    class="px-4 py-3.5 text-gray-800 w-full text-sm outline-none bg-transparent" />
+                  <input type="text" placeholder="Address"
+                  class="px-4 py-3.5 text-gray-800 w-full text-sm outline-none bg-transparent" />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
                   <div>
-                    <input type="address" placeholder="Address"
-                      class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none" />
+                    <select class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none">
+                    <option value="bank_transfer">Cash on Delivery</option>
+                    <option value="credit_card">Credit Card</option>
+                      <option value="paypal">PayPal</option>
+                      <option value="bank_transfer">GCash</option>
+                      <option value="bank_transfer">Bank Transfer</option>
+                    </select>
                   </div>
-                  <div>
-                    <input type="Courier" placeholder="Courier"
-                      class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none" />
-                  </div>
+                    <div>
+                    <select class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none">
+                      <option value="credit_card">LaLamove</option>
+                      <option value="paypal">Grab</option>
+                      <option value="bank_transfer">Uber</option>
+                      <option value="courier">MoveIT</option>
+                    </select>
+                    </div>
                 </div>
               </div>
 
@@ -47,19 +56,40 @@
             </form>
           </div>
 
-          <div class="bg-yellow-100 p-6 rounded-md">
-            <h2 class="text-3xl font-extrabold text-gray-800">$240.00</h2>
-
-            <ul class="text-gray-800 mt-8 space-y-4">
-              <li class="flex flex-wrap gap-4 text-sm">Earings<span class="ml-auto font-bold">$150.00</span></li>
-              <li class="flex flex-wrap gap-4 text-sm">Ring <span class="ml-auto font-bold">$90.00</span></li>
-              <li class="flex flex-wrap gap-4 text-sm">Discount <span class="ml-auto font-bold">$10.00</span></li>
-              <li class="flex flex-wrap gap-4 text-sm font-bold border-t-2 pt-4">Total <span class="ml-auto">$240.00</span></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </div>
+            <div class="bg-yellow-100 p-6 rounded-md">
+              <table class="mt-8 w-full">
+                <tbody>
+                  <tr>
+                    <td class="text-left border border-gray-600 px-4 py-2">Earings</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">2</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">$150.00</td>
+                  </tr>
+                  <tr>
+                    <td class="text-left border border-gray-600 px-4 py-2">Ring</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">1</td>
+                    <td class="text-right border border-gray-600 px-4 py-2">$90.00</td>
+                  </tr>
+                  <tr class="border border-gray-600">
+                    <td class="text-left px-4 py-2">Courier</td>
+                    <td class=" px-4 py-2"></td>
+                    <td class="text-right  px-4 py-2">MoveIT</td>
+                  </tr>
+                  <tr class="border border-gray-600">
+                    <td class="px-4 py-2">Total Discount</td>
+                    <td class="px-4 py-2"></td>
+                    <td class="text-right  px-4 py-2">$10.00</td>
+                  </tr>
+                  <tr class="border border-gray-600">
+                    <td class="text-left font-bold border-t-2 pt-4 px-4 py-2">Total</td>
+                    <td class="border-t-2 pt-4 px-4 py-2"></td>
+                    <td class="text-right border-t-2 pt-4 px-4 py-2">$230.00</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            </div>
+            </div>
+            </div>
 
     @include('common.footer')
 </body>
