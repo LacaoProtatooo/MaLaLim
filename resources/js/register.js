@@ -29,10 +29,12 @@ $(document).ready(function() {
             phone_number: {
                 required: true,
                 minlength: 11,
-                pattern: /^[0-9]{11}$/
+                maxlength: 11, // Ensure exact length
+                digits: true // Use digits rule for phone number
             },
             birthdate: {
-                required: false
+                required: true,
+                date: true // Validate the date format
             }
         },
         messages: {
@@ -59,20 +61,24 @@ $(document).ready(function() {
             },
             address: {
                 required: "Please enter your address",
-                minlength: "Your address must be at least 5 characters long"
+                minlength: "Your address must be at least 2 characters long"
             },
             phone_number: {
                 required: "Please enter your phone number",
                 minlength: "Your phone number must be exactly 11 digits long",
-                pattern: "Phone number must be 11 digits"
+                maxlength: "Your phone number must be exactly 11 digits long",
+                digits: "Phone number must be exactly 11 digits"
             },
             birthdate: {
-                required: "Please enter your birthdate"
+                required: "Please enter your birthdate",
+                date: "Please enter a valid date"
             }
         },
         submitHandler: function(form) {
             var data = $('#userregisterForm')[0];
             let formData = new FormData(data);
+
+            console.log(data);
 
             $.ajax({
                 type: 'POST',
@@ -86,7 +92,7 @@ $(document).ready(function() {
                     console.log("Registration Successful: ", user);
                     document.getElementById('registeruserModal').close();
                 },
-                error: function(xhr, status, error) {
+                error: function(error) {
                     console.error('Error:', error);
                 }
             });

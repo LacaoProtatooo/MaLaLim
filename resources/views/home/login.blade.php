@@ -4,15 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> --}}
     <title>Login</title>
 
-    @include('common.links')
     @vite(['resources/js/login.js', 'resources/js/register.js'])
+
+    @include('common.links')
+    
 </head>
 <body>
     @include('common.header')
-    @include('modal.userregister')
 
     <div class="text-black min-h-screen flex flex-col items-center justify-center bg-gray-100 mt-10">
         <div class="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full p-4 m-4 rounded-md bg-white shadow-2xl px-10 py-10">
@@ -61,6 +61,7 @@
         </div>
     </div>
 
+    @include('modal.userregister')
     @include('common.footer')
 </body>
 </html>
