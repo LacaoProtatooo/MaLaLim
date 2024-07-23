@@ -50,13 +50,23 @@ $(document).ready(function() {
                     `;
                     jewels.append(jewelHTML);
                 });
+                if (response.data.length > 0) {
+                    page++;
+                    $(window).on('scroll', onScroll);
+                }
                 hideLoadingModal();
             },
             error: function(xhr, status, error) {
                 console.error('Error:', status, error);
             }
         });
-        $(window).on('scroll', onScroll);
+    }
+
+    function onScroll() {
+        if ($(window).scrollTop() + $(window).height() >= $(document).height() - 200) {
+            $(window).off('scroll', onScroll);
+            popItems(page, search);
+        }
     }
 
     popItems(page, search);
