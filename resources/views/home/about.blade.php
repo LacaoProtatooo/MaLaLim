@@ -10,6 +10,17 @@
 <body>
 @include('common.header')
 
+<!-- <button class="btn" onclick="my_modal_10.showModal()">open modal</button>
+<dialog id="my_modal_10" class="modal">
+  <div class="modal-box">
+    <form method="dialog">
+      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+    </form>
+    @include('common.newmodal')
+  </div>
+</dialog>  -->
+
+
 <div class="card lg:card-side shadow-xl rounded-md bg-base-100">
   <figure><img src="../storage/jewelryabt.jpg" alt="Album"/></figure>
   <div class="card-body rounded">

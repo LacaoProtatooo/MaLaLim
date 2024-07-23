@@ -14,7 +14,7 @@
 @include('common.navbar')
 
     <div class="font-[sans-serif] bg-white p-4">
-      <div class="md:max-w-5xl max-w-xl mx-auto">
+      <div class="md:max-w-5xl max-w-xl mx-auto ma">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           <div class="lg:col-span-2 max-md:order-1">
             <h2 class="text-3xl font-extrabold text-gray-800">Checkout</h2>
@@ -50,35 +50,35 @@
             </form>
           </div>
 
-          <div class="bg-yellow-100 p-6 rounded-md">
-            <table class="mt-8 w-full">
+            <div class="bg-yellow-100 p-6 rounded-md w-full">
+            <table class="mt-8 w-full text-lg">
               <tbody id="JewelsKUH">
-                <!-- Dynamic rows will be appended here -->
+              <!-- Dynamic rows will be appended here -->
               </tbody>
               <tbody>
-                <tr class="border border-gray-600">
-                  <td id = "Cour" class="text-left px-4 py-2"></td>
-                  <td class="px-4 py-2">-></td>
-                  <td id = "CourPr" class="text-right px-4 py-2"></td>
-                </tr>
-                <tr class="border border-gray-600">
-                  <td class="px-4 py-2">Total Discount</td>
-                  <td class="px-4 py-2"></td>
-                  <td id = "DC" class="text-right px-4 py-2"></td>
-                </tr>
-                <tr class="border border-gray-600">
-                  <td class="text-left font-bold border-t-2 pt-4 px-4 py-2">Total</td>
-                  <td class="border-t-2 pt-4 px-4 py-2"></td>
-                  <td id = "OverallTotal" class="text-right border-t-2 pt-4 px-4 py-2"></td>
-                </tr>
+              <tr class="border border-gray-600">
+                <td id = "Cour" class="text-left px-4 py-2"></td>
+                <td class="px-4 py-2">-></td>
+                <td id = "CourPr" class="text-right px-4 py-2"></td>
+              </tr>
+              <tr class="border border-gray-600">
+                <td class="px-4 py-2">Total Discount</td>
+                <td class="px-4 py-2"></td>
+                <td id = "DC" class="text-right px-4 py-2"></td>
+              </tr>
+              <tr class="border border-gray-600">
+                <td class="text-left font-bold border-t-2 pt-4 px-4 py-2">Total</td>
+                <td class="border-t-2 pt-4 px-4 py-2"></td>
+                <td id = "OverallTotal" class="text-right border-t-2 pt-4 px-4 py-2"></td>
+              </tr>
               </tbody>
             </table>
-          </div>
-
-            </div>
-            </div>
             </div>
 
+            </div>
+            </div>
+            </div>
+            
     @include('common.footer')
 </body>
 </html>

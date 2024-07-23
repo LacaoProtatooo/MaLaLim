@@ -393,17 +393,17 @@ $(document).ready(function() {
         reader.readAsDataURL(file);
     }
 
-        fileInput.addEventListener('change', () => {
-            currentIndex = 0; // Reset index on new file selection
-            if (fileInput.files.length > 0) {
-                showImage(fileInput.files[currentIndex]); // Show the first image
-                if (intervalId) clearInterval(intervalId); // Clear any existing interval
-                intervalId = setInterval(() => {
-                    currentIndex = (currentIndex + 1) % fileInput.files.length;
-                    showImage(fileInput.files[currentIndex]);
-                }, 3000); // Change image every 3 seconds
-            }
-        });
-
-
+    fileInput.addEventListener('change', () => {
+        currentIndex = 0; // Reset index on new file selection
+        if (fileInput.files.length > 0) {
+            showImage(fileInput.files[currentIndex]); // Show the first image
+            if (intervalId) clearInterval(intervalId); // Clear any existing interval
+            intervalId = setInterval(() => {
+                currentIndex = (currentIndex + 1) % fileInput.files.length;
+                showImage(fileInput.files[currentIndex]);
+            }, 3000); // Change image every 3 seconds
+        }
     });
+
+
+});

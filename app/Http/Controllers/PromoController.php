@@ -106,9 +106,9 @@ class PromoController extends Controller
                 $image->move(public_path('storage'), $filename); // Store images in a 'promos' directory
                 $imagePaths[] = 'storage/' . $filename;
             }
+
+            $validatedData['image_path'] = implode(',', $imagePaths); // Store paths as a comma-separated string
         }
-        
-        $validatedData['image_path'] = implode(',', $imagePaths); // Store paths as a comma-separated string
 
         $promo->update($validatedData);
 
