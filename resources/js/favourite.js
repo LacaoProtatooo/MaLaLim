@@ -1,11 +1,14 @@
-import { ModalDisplay, deTach, AutoDisplay } from './exportable.js';
+import { ModalDisplay, deTach, AutoDisplay,showLoadingModal, hideLoadingModal } from './exportable.js';
 
 $(document).ready(function() {
+    showLoadingModal();
     function popFave() {
+
         $.ajax({
             url: `api/fetchingFave`,
             type: `GET`,
             success: function(response) {
+
                 console.log('API Response:', response); // Log the entire response for debugging
 
                 const jews = $('#popJEW');
@@ -47,12 +50,15 @@ $(document).ready(function() {
                         `;
                         jews.append(jewHTML);
                     });
+                    hideLoadingModal();
 
             },
             error: function(xhr, status, error) {
                 console.error('Failed to fetch data:', error);
             }
+
         });
+
     }
     // Populate Fave
 
@@ -61,17 +67,20 @@ $(document).ready(function() {
     // Modal Display
 
     $(document).on('click', '.faveButt', function() {
+        showLoadingModal();
         const itemId = $(this).data('id');
         ModalDisplay(itemId);
     });
 
     $(document).on('click', '.delfaveButt', function() {
+        showLoadingModal();
         const itemId = $(this).data('id');
         deTach(itemId);
         popFave();
     });
 
     $(document).on('click', '.viewColorBtn', function() {
+        
         const colId = $(this).data('id');
         const itemId = $(this).data('item-id');
         AutoDisplay(colId, itemId);

@@ -8,11 +8,15 @@
 <script src="https://cdn.jsdelivr.net/npm/flowbite@2.4.1/dist/flowbite.min.js"></script>
 {{-- JQuery Validation --}}
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.19.5/jquery.validate.min.js"></script>
-
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <!--Tailwind Utility & Flowbite-->
 @vite(['resources/css/app.css','resources/js/app.js',
 // CUSTOM JS FILES
-'resources/js/login.js'])
+'resources/js/login.js']);
+
+@include('modal.alert');
+@include('modal.loading');
 
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}

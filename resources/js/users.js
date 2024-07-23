@@ -1,3 +1,5 @@
+import { showLoadingModal, hideLoadingModal  } from './exportable.js';
+
 import 'datatables.net-dt';
 
 $(document).ready(function() {
@@ -63,15 +65,16 @@ $(document).ready(function() {
             }
         },
         submitHandler: function(form) {
+
             var data = $('#userForm')[0];
             let formData = new FormData(data);
-
+            showLoadingModal();
             $.ajax({
                 type: 'POST',
                 url: '/api/user',
                 data: formData,
                 processData: false,
-                contentType: false, 
+                contentType: false,
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
@@ -90,6 +93,7 @@ $(document).ready(function() {
                         'actions': '<button class="btn btn-primary user-edit" data-id="' + user.id + '">Details</button> ' +
                                    '<button class="btn btn-secondary user-delete" data-id="' + user.id + '">Deactivate</button>'
                     }).draw(false);
+                    hideLoadingModal();
                 },
                 error: function(error) {
                     console.log(error);
@@ -104,7 +108,7 @@ $(document).ready(function() {
 
         var userId = $(this).data('id');
         // console.log('Edit button : user ID:', userId);
-        
+
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
@@ -132,7 +136,7 @@ $(document).ready(function() {
             error: function (error) {
                 console.log(error);
             }
-        });       
+        });
     });
 
     // Validation for Update Form
@@ -180,7 +184,7 @@ $(document).ready(function() {
             var data = $('#usereditForm')[0];
             let formData = new FormData(data);
             formData.append("_method", "PUT");
-            
+
             console.log("User id: " + userId);
             console.log("Formdata:", formData);
 
@@ -189,7 +193,7 @@ $(document).ready(function() {
                 url: `http://localhost:8000/api/user/${userId}`,
                 data: formData,
                 processData: false,
-                contentType: false, 
+                contentType: false,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
 
                 success: function(response) {
@@ -208,7 +212,7 @@ $(document).ready(function() {
     $(document).on('click', '.user-delete', function() {
         var userId = $(this).data('id');
         console.log('Delete button : user ID:', userId);
-        
+
         // Confirm deletion
         if (confirm("Are you sure you want to delete this user?")) {
             $.ajax({
@@ -231,7 +235,7 @@ $(document).ready(function() {
     $(document).on('click', '.user-activate', function() {
         var userId = $(this).data('id');
         console.log('Activate button : user ID:', userId);
-        
+
         // Confirm activation
         if (confirm("Activate this user?")) {
             $.ajax({
@@ -254,7 +258,7 @@ $(document).ready(function() {
     $(document).on('click', '.user-permadelete', function() {
         var userId = $(this).data('id');
         console.log('Permanent Deletion button : user ID:', userId);
-        
+
         // Confirm permanent deletion
         if (confirm("Permanently Delete this user?")) {
             $.ajax({
@@ -272,5 +276,5 @@ $(document).ready(function() {
             });
         }
     });
-    
+
 });

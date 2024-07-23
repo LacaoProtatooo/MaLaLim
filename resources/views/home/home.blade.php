@@ -12,10 +12,12 @@
     @vite('resources/js/home.js',)
 </head>
 <body>
-   
+
     @include('common.header') <!-- Include header component -->
     @include('common.navbar') <!-- Include navbar component -->
     @include('common.banner2')
+    
+
     <div id="jewelry" class="w-full mx-auto max-w-screen-xl p-4 md:grid md:grid-cols-4 gap-4 shadow-md">
         {{-- Content will be dynamically loaded here --}}
     </div>
@@ -25,6 +27,6 @@
 
     @include('common.productview')
 
-    
+
 </body>
 </html>

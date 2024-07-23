@@ -1,4 +1,5 @@
 export function ModalDisplay(itemId) {
+    showLoadingModal();
     $.ajax({
         url: `api/item/description/${itemId}`,
         type: 'GET',
@@ -34,6 +35,7 @@ export function ModalDisplay(itemId) {
             } else {
                 console.error('Item not found:', response.message);
             }
+            hideLoadingModal();
         },
         error: function(xhr) {
             console.error('An error occurred:', xhr);
@@ -62,6 +64,7 @@ export function AutoDisplay(colId, itemId) {
 }
 
 export function deTach(itemId) {
+    showLoadingModal();
     $.ajax({
         url: `api/user/${itemId}/jewelry`,
         type: 'DELETE',
@@ -70,15 +73,16 @@ export function deTach(itemId) {
         },
         success: function(response) {
             console.log('Success:', response.message);
-
+            hideLoadingModal();
         },
         error: function(xhr, status, error) {
             console.log('Error:', error);
         }
+
     });
 }
 
-    export function addCart(itemId, colId)
+    export function addCart(itemId, colId, thiss)
     {
         $.ajax({
             url: '/api/item/cartz',
@@ -101,6 +105,10 @@ export function deTach(itemId) {
             },
             error: function(xhr, status, error) {
                 console.error('AJAX error:', error);
+            },
+            complete: function() {
+                // Set button back to normal state
+                setButtonLoading(thiss, false);
             }
         });
 
@@ -108,6 +116,7 @@ export function deTach(itemId) {
 
     export function popCart()
     {
+        showLoadingModal();
         $.ajax({
             url: 'api/fetchCart',
             type: 'GET',
@@ -164,7 +173,7 @@ export function deTach(itemId) {
                     });
                     tot = tot.toFixed(2);
                     $('#subtot').html('<span class="text-xs font-normal text-gray-400">PHP</span>'+ tot);
-
+                    hideLoadingModal();
                 } else {
                     console.log('ERROR', response.message); // Fixed the console message
                 }
@@ -249,6 +258,7 @@ export let selectedPayId = null;
 
 export function popCheck()
 {
+    showLoadingModal();
     $.ajax({
         url: 'api/fetchCheck',
         type: 'GET',
@@ -348,6 +358,7 @@ export function popCheck()
             } else {
                 console.log('ERROR', response.message); // Fixed the console message
             }
+            hideLoadingModal();
         },
         error: function(xhr, status, error) {
             console.error('AJAX error:', error);
@@ -430,6 +441,7 @@ export function popOrder()
                 `;
                 urdir.append(urdirHTML);
             });
+            hideLoadingModal();
         },
         error: function(xhr, status, error) {
             console.error('AJAX error:', xhr.responseText);
@@ -437,4 +449,40 @@ export function popOrder()
     });
 
 
+
 }
+
+export function showLoadingModal() {
+    document.getElementById('loading-modal').classList.remove('hidden');
+  }
+
+  export function hideLoadingModal() {
+    document.getElementById('loading-modal').classList.add('hidden');
+  }
+
+  export function setButtonLoading(button, isLoading = true) {
+    if (isLoading) {
+        // Save the original text
+        button.data('original-text', button.text());
+
+        // Set loading text and add loading animation
+        button.text('Loading...');
+        button.prop('disabled', true);
+
+        // Create and append loading animation
+        button.addClass('relative');
+        let spinner = $('<div class="absolute inset-0 flex items-center justify-center">' +
+                        '<div class="w-6 h-6 border-4 border-t-4 border-white border-solid rounded-full animate-spin"></div>' +
+                        '</div>');
+        button.append(spinner);
+    } else {
+        // Restore the original text and remove loading animation
+        button.text(button.data('original-text'));
+        button.prop('disabled', false);
+
+        // Remove the spinner
+        button.find('div.absolute').remove();
+        button.removeClass('relative');
+    }
+}
+

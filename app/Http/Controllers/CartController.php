@@ -15,7 +15,10 @@ class CartController extends Controller
 
         $Usercart = Cart::where('user_id', $userID)->first();
         if (!$Usercart) {
-            return response()->json(['success' => false, 'message' => 'No cart found for user'], 404);
+            $Usercart = new Cart();
+            $Usercart->user_id = $userID;
+           
+            $Usercart->save();
         }
 
         // Retrieve the color_jewelry records along with pivot data

@@ -1,9 +1,9 @@
-import { ModalDisplay, AutoDisplay } from './exportable.js';
+import { ModalDisplay, AutoDisplay, showLoadingModal, hideLoadingModal } from './exportable.js';
 
 $(document).ready(function() {
     let page = 1;
     let search = '';
-
+    showLoadingModal();
     function popItems(page, search = '') {
         $.ajax({
             url: `/api/item?page=${page}&search=${search}`,
@@ -50,6 +50,7 @@ $(document).ready(function() {
                     `;
                     jewels.append(jewelHTML);
                 });
+                hideLoadingModal();
             },
             error: function(xhr, status, error) {
                 console.error('Error:', status, error);
@@ -76,8 +77,10 @@ $(document).ready(function() {
 
     // For modal populate
     $(document).on('click', '.viewProductBtn', function() {
+        showLoadingModal();
         const itemId = $(this).data('id');
         ModalDisplay(itemId);
+
     });
 
     // For modal item color & stock
@@ -90,6 +93,7 @@ $(document).ready(function() {
 
     // Add to favorite
     $(document).on('click', '.add2Fave', function() {
+        showLoadingModal();
         const itemId = $(this).data('id');
         $.ajax({
             url: 'api/user/fave',
@@ -104,6 +108,7 @@ $(document).ready(function() {
                 } else {
                     console.log('Error attaching item, ', response.message);
                 }
+                    hideLoadingModal();
             },
             error: function(xhr, status, error) {
                 console.error('AJAX error:', error);
@@ -119,6 +124,6 @@ $(document).ready(function() {
         }
     });
 
-    
+
 
 });
