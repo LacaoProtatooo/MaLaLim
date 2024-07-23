@@ -36,6 +36,7 @@ Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
 Route::get('/couriers', [CourierController::class, 'dtpopulate'])->name('admin.getCouriers');
 Route::get('/promos', [PromoController::class, 'dtpopulate'])->name('admin.getPromos');
 Route::get('/payments', [PaymentController::class, 'dtpopulate'])->name('admin.getPayments');
+Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');
