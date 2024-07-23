@@ -10,6 +10,12 @@ class ColorJewelry extends Model
     use HasFactory;
     protected $table = 'color_jewelry';
 
+    protected $fillable = [
+        'jewelry_id',
+        'color_id',
+        'image_path',
+    ];
+
     public function stocks(){
         return $this->hasOne(Stock::class);
     }

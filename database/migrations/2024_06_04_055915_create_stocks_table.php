@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('color_jewelry_id')->references('id')->on('color_jewelry')->onDelete('cascade');
             $table->integer('quantity');
-            $table->longText('image_path')->nullable();
             $table->timestamps();
         });
     }

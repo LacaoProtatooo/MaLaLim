@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('jewelry_id')->constrained()->onDelete('cascade');
             $table->foreignId('color_id')->constrained()->onDelete('cascade');
+            $table->longText('image_path')->nullable();
             $table->timestamps();
         });
     }

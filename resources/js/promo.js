@@ -267,7 +267,7 @@ $(document).ready(function() {
         // OPENING JEWELRY WITH PROMO MODAL
         $.ajax({
             type: "GET",
-            url: `/api/admin/getJewelries/${promoid}`, // Assuming this is the correct URL
+            url: `/api/admin/getJewelries/${promoid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function(data) {

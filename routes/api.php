@@ -13,6 +13,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\StockController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,7 @@ Route::apiResource('courier', CourierController::class);
 Route::apiResource('promo', PromoController::class);
 Route::apiResource('jewelry', JewelryController::class);
 Route::apiResource('payment', PaymentController::class);
+Route::apiResource('stock', StockController::class);
 
 // DataTable
 Route::get('/users', [UserController::class, 'show'])->name('admin.getUsers');
@@ -37,6 +39,7 @@ Route::get('/couriers', [CourierController::class, 'dtpopulate'])->name('admin.g
 Route::get('/promos', [PromoController::class, 'dtpopulate'])->name('admin.getPromos');
 Route::get('/payments', [PaymentController::class, 'dtpopulate'])->name('admin.getPayments');
 Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
+Route::get('/stocks', [JewelryController::class, 'dtpopulate'])->name('admin.getStocks');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');

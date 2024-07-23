@@ -105,6 +105,7 @@ $(document).ready(function() {
     // DETAILS
     $(document).on('click', '.user-edit', function(e) {
         e.preventDefault();
+        showLoadingModal();
 
         var userId = $(this).data('id');
         // console.log('Edit button : user ID:', userId);
@@ -133,6 +134,7 @@ $(document).ready(function() {
                 $('#imagePreview').attr('src', imageUrl);
 
                 document.getElementById('editusermodal').showModal();
+                hideLoadingModal();
             },
             error: function (error) {
                 console.log(error);

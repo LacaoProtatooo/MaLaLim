@@ -111,13 +111,16 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $rate
+ * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Order|null $orders
  * @method static \Database\Factories\CourierFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Courier newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Courier newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Courier query()
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Courier whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Courier whereRate($value)
@@ -201,24 +204,28 @@ namespace App\Models{
  * @property int $id
  * @property int $user_id
  * @property int $courier_id
- * @property int $quantity
- * @property string $price
+ * @property int $payment_id
+ * @property string $name
+ * @property string $address
  * @property string $status
+ * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\ColorJewelry> $colorJewelry
  * @property-read int|null $color_jewelry_count
- * @property-read \App\Models\Courier|null $couriers
- * @property-read \App\Models\Payment|null $payments
+ * @property-read \App\Models\Courier $courier
+ * @property-read \App\Models\Payment $payment
  * @property-read \App\Models\User|null $users
  * @method static \Illuminate\Database\Eloquent\Builder|Order newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Order query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCourierId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Order whereQuantity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Order wherePaymentId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereStatus($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Order whereUserId($value)
@@ -230,10 +237,18 @@ namespace App\Models{
 /**
  * 
  *
- * @property-read \App\Models\Order|null $payments
+ * @property int $id
+ * @property string $method
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Order|null $orders
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
  */
 	class Payment extends \Eloquent {}
 }
@@ -270,6 +285,7 @@ namespace App\Models{
  * @property string $description
  * @property string|null $image_path
  * @property string $discountRate
+ * @property string|null $deleted_at
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Jewelry> $jewelries
@@ -278,6 +294,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Promo newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Promo query()
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Promo whereDeletedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereDescription($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereDiscountRate($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Promo whereId($value)
