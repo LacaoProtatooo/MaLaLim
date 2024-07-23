@@ -67,6 +67,8 @@ Route::get('/fetchingFave', [ItemController::class, 'fetchFave'])->middleware('a
 Route::get('/fetchCart', [CartController::class, 'CartPop'])->middleware('auth:sanctum');
 Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop'])->middleware('auth:sanctum');
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
+Route::get('/fetchOrder', [CheckoutController::class, 'OrderPop'])->middleware('auth:sanctum');
+
 // delete fave
 Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');
 

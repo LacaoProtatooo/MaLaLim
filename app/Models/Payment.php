@@ -13,8 +13,8 @@ class Payment extends Model
         'method'
     ];
 
-    public function payments()
+    public function orders()
     {
-        return $this->belongsTo(Order::class);
+        return $this->hasOne(Order::class);
     }
 }

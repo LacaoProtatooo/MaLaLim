@@ -38,6 +38,12 @@ $(document).ready(function(){
 
 });
 
+$(document).on('click', '.Urders', function() {
+    window.location.href = '/orderhistory';
+});
+
+
+
 function logout() {
     $.ajax({
         type: 'POST',

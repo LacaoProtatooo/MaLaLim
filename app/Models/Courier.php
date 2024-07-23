@@ -13,6 +13,9 @@ class Courier extends Model
         'name',
         'rate',
     ];
+    public function orders()
+    {
+        return $this->hasOne(Order::class);
+    }
 
-   
 }

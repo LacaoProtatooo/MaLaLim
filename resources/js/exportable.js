@@ -381,3 +381,60 @@ export function CompleteOrder(Cour, Pay, namer, ads, Cartid, pivId)
         }
     });
 }
+
+export function popOrder()
+{
+    $.ajax({
+        url: '/api/fetchOrder',
+        type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ensure CSRF token is included
+        },
+        success: function(response) {
+            const urdir = $('#urdir');
+            urdir.empty();
+            console.log(response.orders);
+
+            response.orders.forEach(ord=> {
+                const createdAt = new Date(ord.created_at);
+                const araw = createdAt.toLocaleDateString('en-US', {
+                    year: 'numeric',
+                    month: 'short',  // Use 'short' for abbreviated month names
+                    day: 'numeric'
+                });
+                const urdirHTML = `
+                     <div
+                                class="box p-8 rounded-3xl bg-gray-100 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto ">
+
+
+                            <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center ">
+                                <p class="font-semibold text-xl leading-8 text-indigo-600 text-center">${ord.id}</p>
+                            </div>
+
+                            <div
+                                class="col-span-8 sm:col-span-4 lg:col-span-3 flex h-full justify-center pl-4 flex-col max-lg:items-center">
+                                <h5 class="font-manrope font-semibold text-2xl leading-9 text-black mb-1 whitespace-nowrap">
+                                    ${ord.name}</h5>
+                                <p class="font-normal text-base leading-7 text-gray-600 max-md:text-center">${ord.address}</p>
+                            </div>
+
+                            <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center">
+                                <p class="font-semibold text-xl leading-8 text-black">${araw}</p>
+                            </div>
+                            <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center ">
+                                <p class="font-semibold text-xl leading-8 text-indigo-600 text-center">${ord.status}</p>
+                            </div>
+                            <div class="col-span-8 sm:col-span-4 lg:col-span-2 flex items-center justify-center ">
+                                <p class="font-semibold text-xl leading-8 text-black">${ord.payment.method}</p>
+                            </div>
+                `;
+                urdir.append(urdirHTML);
+            });
+        },
+        error: function(xhr, status, error) {
+            console.error('AJAX error:', xhr.responseText);
+        }
+    });
+
+
+}
