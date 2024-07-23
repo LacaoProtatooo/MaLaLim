@@ -126,7 +126,7 @@ $(document).ready(function() {
 
                 if (imagePaths.length > 0) {
                     imagePaths.forEach(function(imagePath) {
-                        let imgElement = $('<img>').attr('src', `/${imagePath}?t=${new Date().getTime()}`).attr('alt', 'Promo Image');
+                        let imgElement = $('<img>').attr('src', `/${imagePath}?t=${new Date().getTime()}`).attr('alt', 'Jewelry Image');
                         imageContainer.append(imgElement);
                     });
                 } else {
@@ -237,12 +237,11 @@ $(document).ready(function() {
     });
 
     // ======= IMAGE ========= //
-
+    // Handle file selection and preview images
     $('#showFileInput').on('click', function() {
         $('#file_input_edit').click();
     });
 
-    // Handle file selection and preview images
     $('#file_input_edit').on('change', function() {
         var files = $(this).get(0).files;
         var previewContainer = $('#uploadedImagesEdit');
@@ -254,31 +253,17 @@ $(document).ready(function() {
                 reader.onload = function(e) {
                     var img = $('<img>').attr('src', e.target.result).addClass('h-auto max-w-lg');
                     previewContainer.append(img);
+
+                    // Set image path in the hidden input for the first file
+                    if (index === 0) {
+                        document.getElementById('image_pathedit').value = e.target.result;
+                    }
                 };
                 reader.readAsDataURL(file);
             });
         }
     });
-    
-    // Handle single image | EDIT
-    const fileInputed = document.getElementById('file_input_edit');
-    fileInputed.addEventListener('change', handleFileSelect);
 
-    function handleFileSelect() {
-        const files = fileInputed.files;
-
-        if (files.length > 0) {
-            currentIndex = 0; // Reset index on file change
-            showImage(files[currentIndex]);
-
-            // Set image path in the hidden input
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                document.getElementById('image_pathedit').value = e.target.result;
-            };
-            reader.readAsDataURL(files[currentIndex]);
-        }
-    }
 
     // CREATE
 

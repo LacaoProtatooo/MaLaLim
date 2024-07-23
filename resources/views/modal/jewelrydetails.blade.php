@@ -68,8 +68,8 @@
                     max-width: 800px;
                 }
                 .image-container img {
-                    max-height: 200px;
-                    max-width: 200px;
+                    max-height: 400px;
+                    max-width: 400px;
                     margin-right: 10px;
                     margin-bottom: 10px;
                 }
