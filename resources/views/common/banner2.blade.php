@@ -1,5 +1,6 @@
 <style>
-    .carousel{
+    /* Fade-in animation for carousel */
+    .carousel-item {
         opacity: 0;
         animation: fadeIn 1s ease-in-out forwards;
     }
@@ -10,6 +11,37 @@
         }
         100% {
             opacity: 1;
+        }
+    }
+
+    /* Slide animation for carousel items */
+    .slide-in {
+        animation: slideIn 1s ease-in-out forwards;
+    }
+
+    .slide-out {
+        animation: slideOut 1s ease-in-out forwards;
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateX(0%);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideOut {
+        0% {
+            transform: translateX(0%);
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(100%);
+            opacity: 0;
         }
     }
 </style>
@@ -106,4 +138,41 @@
             <a href="#slide1" class="btn btn-circle">❯</a>
         </div>
     </div>
+    
 </div>
+
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let currentIndex = 1;
+
+        function showSlide(nextIndex) {
+            const currentSlide = carouselItems[currentIndex];
+            const nextSlide = carouselItems[nextIndex];
+        
+            currentSlide.classList.remove('active');
+            currentSlide.classList.add('slide-out');
+            nextSlide.classList.add('active', 'slide-in');
+        
+            currentIndex = nextIndex;
+        
+            setTimeout(() => {
+                currentSlide.classList.remove('slide-out');
+                nextSlide.classList.remove('slide-in');
+            }, 1000); // Adjust this timeout to match your animation duration
+        }
+
+        // Initialize first slide
+        carouselItems[0].classList.add('active');
+
+        // Event listeners for navigation buttons
+        document.querySelectorAll('.btn-circle').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                e.preventDefault();
+                const direction = this.getAttribute('href').substr(1).replace('slide', '');
+                const nextIndex = (direction == '4') ? currentIndex - 1 : currentIndex + 1;
+                showSlide((nextIndex + carouselItems.length) % carouselItems.length);
+            });
+        });
+    });
+</script> -->
