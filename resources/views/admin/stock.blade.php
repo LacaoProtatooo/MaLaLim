@@ -13,7 +13,7 @@
 @include('common.header')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
-    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createstockmodal').showModal()">Create Jewelry Variant</button>
+    <button id="createJewelryVariantButton" class="btn btn-primary mt-4 mb-4">Create Jewelry Variant</button>
     <div class="table-responsive">
         <table class="table table-bordered" id="stocksTable">
             <thead>

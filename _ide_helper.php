@@ -5,7 +5,7 @@
 
 /**
  * A helper file for Laravel, to provide autocomplete information to your IDE
- * Generated for Laravel 10.48.16.
+ * Generated for Laravel 10.48.17.
  *
  * This file should not be included in your code, only analyzed by your IDE!
  *
@@ -20207,6 +20207,17 @@ namespace  {
              */            public static function importAs($filename, $mapping, $disk = null, $readerType = null)
             {
                                 return \Illuminate\Database\Eloquent\Builder::importAs($filename, $mapping, $disk, $readerType);
+            }
+                            /**
+             * 
+             *
+             * @see \Algolia\ScoutExtended\ScoutExtendedServiceProvider::registerMacros()
+             * @param array $array
+             * @param array|null $transformers
+             * @static 
+             */            public static function transform($array, $transformers = null)
+            {
+                                return \Illuminate\Database\Eloquent\Builder::transform($array, $transformers);
             }
                             /**
              * Set the columns to be selected.

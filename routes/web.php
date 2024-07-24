@@ -21,22 +21,12 @@ use App\Http\Controllers\CourierController;
 */
 
 Route::get('/item', [ItemController::class, 'index'])->name('home');
+Route::get('/', function () { return view('home.about'); })->name('about');
 
-Route::get('/', function () {
-    return view('home.about');
-})->name('about');
 
-Route::get('/orderhistory', function () {
-   return view('home.orderhistory');
-})->name('orderhistory');
-
-Route::get('/favorites', function () {
-    return view('home.favorites');
- })->name('favorites');
-
-Route::get('/checkout', function () {
-    return view('home.checkout');
-})->name('checkout');
+Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');
+Route::get('/favorites', function () { return view('home.favorites'); })->name('favorites');
+Route::get('/checkout', function () { return view('home.checkout'); })->name('checkout');
 
 
 // Admin

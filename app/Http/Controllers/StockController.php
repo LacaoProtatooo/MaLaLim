@@ -20,7 +20,13 @@ class StockController extends Controller
      */
     public function index()
     {
-        //
+        $jewelries = Jewelry::all();
+        $colors = Color::all();
+
+        return response()->json([
+            'jewelries' => $jewelries,
+            'colors' => $colors
+        ]);
     }
 
     /**
@@ -33,22 +39,8 @@ class StockController extends Controller
 
     // CUSTOM
     public function dtpopulate(){
-        // $stocks = ColorJewelry::with(['color', 'jewelry', 'stock'])->get();
-        // Debugbar::info($stocks);
-
-        // foreach($stocks as $stock) {
-        //     $color = $stock->color;
-        //     $jewelry = $stock->jewelry;
-        //     $vstock = $stock->stock;
-
-        //     // New Properties
-        //     $stock->jewelryname = $jewelry->name;
-        //     $stock->colorname = $color->color;
-        //     $stock->stockquanity = $vstock->quantity;
-        // }
-
         $stocks = ColorJewelry::all();
-        //Debugbar::info($stocks);
+        // Debugbar::info($stocks);
 
         foreach ($stocks as $stock) {
             $color = Color::find($stock->color_id);
@@ -73,7 +65,6 @@ class StockController extends Controller
             ];
         });
 
-        
         return response()->json($stocks);
     }
 
@@ -88,15 +79,23 @@ class StockController extends Controller
             'jewelry' => 'required|string|max:255',
             'color' => 'required|string|max:255',
             'quantity' => 'required|numeric|min:0',
-            // 'images.*' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:2048', // Validate each image file
         ]);
 
-        $jewelry = Jewelry::where('name', $validatedData['jewelry'])->first();
-        $color = Color::where('color', $validatedData['color'])->first();
+        $jewelry = Jewelry::find($validatedData['jewelry']);
+        $color = Color::find($validatedData['color']);
         
+        if (!$jewelry || !$color) {
+            return response()->json(['message' => 'Jewelry or Color not found'], 404);
+        }
+
+        $checkcolorjewel = ColorJewelry::where('jewelry_id', $jewelry->id)->where('color_id', $color->id)->first();
+        if ($checkcolorjewel) {
+            return response()->json(['message' => 'Jewelry Variant already exists'], 400);
+        }
+
         $stock = new ColorJewelry();
-        $stock->jewelry_id = $jewelry;
-        $stock->color_id = $color;
+        $stock->jewelry_id = $jewelry->id;
+        $stock->color_id = $color->id;
 
         $imagePaths = [];
         
@@ -104,7 +103,7 @@ class StockController extends Controller
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
                 $filename = uniqid() . '_' . $image->getClientOriginalName();
-                $image->move(public_path('storage'), $filename); // Use public_path
+                $image->move(public_path('storage'), $filename);
                 $imagePaths[] = 'storage/' . $filename;
             }
 
@@ -118,27 +117,42 @@ class StockController extends Controller
         $vstock->quantity = $validatedData['quantity'];
         $vstock->save();
 
-        return response()->json($stock, 201);
+        $response = [
+            'id' => $stock->id,
+            'name' => $jewelry->name,
+            'color' => $color->color,
+            'quantity' => $vstock->quantity,
+            'actions' => '<button class="btn btn-primary stock-edit" data-id="' . $stock->id . '">Details</button> ' .
+                        '<button class="btn btn-secondary stock-delete" data-id="' . $stock->id . '">Delete</button>',
+        ];
+
+        return response()->json($response, 201);
     }
+
+
+
 
     /**
      * Display the specified resource.
      */
     public function show(string $id)
     {
-        $stock = ColorJewelry::with(['color', 'jewelry', 'stock'])->find($id);
-    
-        if (!$stock) {
-            return response()->json(['message' => 'Jewelry Variant not found'], 404);
-        }
+        $stock = ColorJewelry::find($id);
 
-        $color = $stock->color;
-        $jewelry = $stock->jewelry;
-        $vstock = $stock->stock;
-        
-        $stock->jewelryname = $jewelry->name;
-        $stock->colorname = $color->color;
-        $stock->quantity = $vstock->quantity;
+        $color = Color::find($stock->color_id);
+        $jewelry = Jewelry::find($stock->jewelry_id);
+        $vstock = Stock::where('color_jewelry_id', $stock->id)->first();
+
+        $stock = [
+            'id' => $stock->id,
+            'name' => $jewelry->name,
+            'color' => $color->color,
+            'quantity' => $vstock->quantity,
+            'created_at' => $stock->created_at,
+            'image_path' => $stock->image_path,
+            'actions' => '<button class="btn btn-primary stock-edit" data-id="' . $stock->id . '">Details</button> ' .
+                        '<button class="btn btn-secondary stock-delete" data-id="' . $stock->id . '">Delete</button>',
+        ];
 
         return response()->json($stock);
     }
@@ -155,14 +169,14 @@ class StockController extends Controller
         }
 
         $validatedData = $request->validate([
-            'quantity' => 'required|numeric|min:0',
+            'stock' => 'required|numeric|min:0',
         ]);
 
         $vstock = Stock::where('color_jewelry_id', $stock->id)->first();
         if (!$vstock) {
             return response()->json(['message' => 'Stock not found'], 404);
         }
-        $vstock->quantity = $validatedData['quantity'];
+        $vstock->quantity = $validatedData['stock'];
         $vstock->save();
 
         $imagePaths = [];

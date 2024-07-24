@@ -362,7 +362,7 @@ namespace App\Models{
  * @property int $quantity
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\ColorJewelry|null $colorjewelry
+ * @property-read \App\Models\ColorJewelry $colorjewelry
  * @method static \Database\Factories\StockFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stock newQuery()

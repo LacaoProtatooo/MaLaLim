@@ -16,6 +16,6 @@ class Stock extends Model
 
     public function colorjewelry()
     {
-        return $this->belongsTo(ColorJewelry::class);
+        return $this->belongsTo(ColorJewelry::class, 'color_jewelry_id');
     }
 }

@@ -20,6 +20,36 @@ $(document).ready(function() {
         ]
     });
 
+    // CREATE MODAL
+    var createButton = document.getElementById('createJewelryVariantButton');
+    createButton.addEventListener('click', function() {
+        $.ajax({
+            type: "GET",
+            url: `http://localhost:8000/api/stock`,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: "json",
+            success: function (data) {
+                $('#jewelryDropdown').empty().append('<option value="" disabled selected>Select Jewelry</option>');
+                $('#colorDropdown').empty().append('<option value="" disabled selected>Select Color</option>');
+
+                // Populate jewelry dropdown
+                data.jewelries.forEach(function(jewelry) {
+                    $('#jewelryDropdown').append(new Option(jewelry.name, jewelry.id));
+                });
+                // Populate color dropdown
+                data.colors.forEach(function(color) {
+                    $('#colorDropdown').append(new Option(color.color, color.id));
+                });
+
+                document.getElementById('createstockmodal').showModal();
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    });
+
+
     // CREATE
     $('#stockForm').validate({
         rules: {
@@ -64,6 +94,10 @@ $(document).ready(function() {
             var data = $('#stockForm')[0];
             let formData = new FormData(data);
 
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ': ' + pair[1]);
+            }
+
             $.ajax({
                 type: 'POST',
                 url: '/api/stock',
@@ -77,9 +111,9 @@ $(document).ready(function() {
                     document.getElementById('createstockmodal').close();
                     stockTable.row.add({
                         'id': data.id,
-                        'jewelry': data.jewelry,
+                        'name': data.name,
                         'color': data.color,
-                        'stock': data.quantity,
+                        'quantity': data.quantity,
                         'actions': '<button class="btn btn-primary stock-edit" data-id="' + data.id + '">Details</button> ' +
                                    '<button class="btn btn-secondary stock-delete" data-id="' + data.id + '">Delete</button> ' 
                     }).draw(false);
@@ -105,10 +139,10 @@ $(document).ready(function() {
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
-                // console.log(data);
+                console.log(data);
 
                 $('#stockno').val(data.id);
-                $('#jewelryedit').val(data.jewelry);
+                $('#jewelryedit').val(data.name);
                 $('#coloredit').val(data.color);
                 $('#stockedit').val(data.quantity);
                 $('#createdatedit').val(data.created_at);
