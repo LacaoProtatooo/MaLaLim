@@ -85,6 +85,7 @@ namespace App\Models{
  * @property int $id
  * @property int $jewelry_id
  * @property int $color_id
+ * @property string|null $image_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Cart> $carts
@@ -98,6 +99,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereColorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereImagePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereJewelryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|ColorJewelry whereUpdatedAt($value)
  */
@@ -358,7 +360,6 @@ namespace App\Models{
  * @property int $id
  * @property int $color_jewelry_id
  * @property int $quantity
- * @property string|null $image_path
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\ColorJewelry|null $colorjewelry
@@ -369,7 +370,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereColorJewelryId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Stock whereImagePath($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereQuantity($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Stock whereUpdatedAt($value)
  */

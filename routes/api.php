@@ -39,7 +39,7 @@ Route::get('/couriers', [CourierController::class, 'dtpopulate'])->name('admin.g
 Route::get('/promos', [PromoController::class, 'dtpopulate'])->name('admin.getPromos');
 Route::get('/payments', [PaymentController::class, 'dtpopulate'])->name('admin.getPayments');
 Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
-Route::get('/stocks', [JewelryController::class, 'dtpopulate'])->name('admin.getStocks');
+Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getStocks');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');

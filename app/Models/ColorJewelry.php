@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class ColorJewelry extends Model
 {
     use HasFactory;
@@ -17,7 +18,7 @@ class ColorJewelry extends Model
     ];
 
     public function stocks(){
-        return $this->hasOne(Stock::class);
+        return $this->hasOne(Stock::class, 'color_jewelry_id');
     }
     public function jewelry()
     {
