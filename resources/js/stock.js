@@ -8,9 +8,9 @@ $(document).ready(function() {
         },
         columns: [
             { data: 'id' },
-            { data: 'jewelry' },
+            { data: 'name' },
             { data: 'color' },
-            { data: 'stock' },
+            { data: 'quantity' },
             {
                 data: 'actions',
                 render: function(data) {

@@ -48,7 +48,7 @@ class StockController extends Controller
         // }
 
         $stocks = ColorJewelry::all();
-        Debugbar::info($stocks);
+        //Debugbar::info($stocks);
 
         foreach ($stocks as $stock) {
             $color = Color::find($stock->color_id);
@@ -56,17 +56,17 @@ class StockController extends Controller
             $vstock = Stock::where('color_jewelry_id', $stock->id)->first();
 
             // New Properties
-            $stock->jewelryname = $jewelry ? $jewelry->name : 'N/A';
-            $stock->colorname = $color ? $color->color : 'N/A';
-            $stock->stockquanity = $vstock ? $vstock->quantity : 0;
+            $stock->jewelryname = $jewelry->name;
+            $stock->colorname = $color->color;
+            $stock->stockquanity = $vstock->quantity;
         }
 
         $stocks = $stocks->map(function($stock) {
             return [
                 'id' => $stock->id,
-                'jewelryname' => $stock->jewelryname,
-                'colorname' => $stock->colorname,
-                'stockquanity' => $stock->stockquanity,
+                'name' => $stock->jewelryname,
+                'color' => $stock->colorname,
+                'quantity' => $stock->stockquanity,
                 'actions' => '<button class="btn btn-primary stock-edit" data-id="' . $stock->id . '">Details</button> ' .
                            '<button class="btn btn-secondary stock-delete" data-id="' . $stock->id . '">Delete</button> ' ,
                 'full_data' => $stock
