@@ -7,20 +7,34 @@ use App\Models\Jewelry;
 use App\Models\Stock;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Classification;
 use Auth;
 class ItemController extends Controller
 {
     public function home(Request $request)
     {
         $search = $request->input('search');
-        $query = Jewelry::with('prices');
 
         if ($search) {
-            $query->where('name', 'like', '%' . $search . '%');
+            // Perform the search query using Algolia
+            $jewelryIds = Jewelry::search($search)->get()->pluck('id');
+            $classIds = Classification::search($search)->get()->pluck('id');
+            if ($classIds->isNotEmpty()) {
+                    $jewelry = Jewelry::with(['prices', 'classification'])
+                    ->whereIn('classification_id', $classIds)
+                    ->paginate(10);
+                    return response()->json($jewelry);
+                };
+            // Fetch the actual models with the related data using the retrieved IDs
+            $jewelry = Jewelry::with(['prices', 'classification'])
+                ->whereIn('id', $jewelryIds)
+                ->paginate(10);
+        } else {
+            // If no search query, fetch all jewelry with related data
+            $jewelry = Jewelry::with(['prices', 'classification'])->paginate(10);
         }
 
-        $jewelry = $query->paginate(10);
-
+        // Return the results as JSON
         return response()->json($jewelry);
     }
 
@@ -43,7 +57,8 @@ class ItemController extends Controller
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Item not found'
+                'message' => 'Item not found',
+
             ], 404);
         }
     }
@@ -194,6 +209,18 @@ class ItemController extends Controller
         // $cart->colorJewelry()->attach($colorJewelryId, ['quantity' => $quantity]);
 
         return response()->json(['success' => 'Item added to cart']);
+    }
+
+    public function popopop(Request $request)
+    {
+        $query = $request->input('Querie');
+        $class = Classification::search($query)->get()->pluck('classification');
+        $Jewe = Jewelry::search($query)->get()->pluck('name');
+        return response()->json([
+            'success' => 'NOICE',
+            'Classi' => $class,
+            'Jewewe' => $Jewe,
+        ]);
     }
 
 

@@ -415,7 +415,8 @@ export function popOrder()
                 });
                 const urdirHTML = `
                      <div
-                                class="box p-8 rounded-3xl bg-gray-100 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto ">
+                        class="box p-8 rounded-3xl bg-gray-100 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto modsss"
+                        data-id="${ord.id}">
 
 
                             <div class="col-span-8 sm:col-span-4 lg:col-span-1 flex items-center justify-center ">
@@ -485,4 +486,161 @@ export function showLoadingModal() {
         button.removeClass('relative');
     }
 }
+
+export function popOrderMod(id)
+{
+    showLoadingModal();
+    $.ajax({
+        url: `api/fetchModCheck?cart=${id}`,
+        type: 'GET',
+        success: function(response)
+        {
+            console.log(response);
+            const jewer = $('#jewewe');
+            jewer.empty();
+            let totDD = 0;
+            let sum = 0;
+            response.order.color_jewelry.forEach(alahas => {
+                const jewerHTML =
+                `
+                    <tr class="border border-gray-600">
+                        <td class="text-left px-4 py-2 border border-gray-600">${alahas.jewelry.name} - ${alahas.colors.color}</td>
+                        <td class="px-4 py-2 border border-gray-600">${alahas.pivot.quantity}</td>
+                        <td class="text-right px-4 py-2 border border-gray-600">₱ ${alahas.jewelry.prices.price * alahas.pivot.quantity} </td>
+                    </tr>
+                `;
+                let dcRate = alahas.jewelry.promos.discountRate ? parseFloat(alahas.jewelry.promos.discountRate) : 0;
+                let PRC = parseFloat(alahas.jewelry.prices.price);
+
+
+                totDD += dcRate * PRC * alahas.pivot.quantity;
+                sum += PRC * alahas.pivot.quantity;
+
+
+                jewer.append(jewerHTML);
+            });
+
+            let courierRate = parseFloat(response.order.courier.rate);
+            let bawas = parseFloat(totDD);
+            let huli = 0;
+            if (isNaN(bawas)) {
+                bawas = 0;
+            }
+
+            if (isNaN(courierRate)) {
+                courierRate = 0;
+            }
+
+
+            if (bawas < 1) {
+                huli = sum + courierRate;
+            } else {
+                huli = (sum + courierRate) - bawas;
+            }
+
+
+            if (isNaN(huli)) {
+                huli = 0;
+            }
+
+
+            $('#Couri').text('Courier: ' + response.order.courier.name);
+            $('#CourPri').text('₱ ' + courierRate.toFixed(2));
+            $('#DCI').text('₱ ' + bawas.toFixed(2));
+            $('#OverallTotali').text('₱ ' + huli.toFixed(2));
+            hideLoadingModal();
+            $('#btnn').data('OrderId', id);
+            if(response.order.status === 'Cancelled')
+            {
+                $('#btnn').prop('disabled', true);
+                $('#btnn').text('Cancelled');
+            }
+
+            if(response.order.status === 'Shipping')
+                {
+                    $('#btnn').prop('disabled', true);
+                    $('#btnn').text('Shipping');
+                }
+
+
+        },
+        error: function(xhr, status, error) {
+            console.error('Error Status:', status);
+            console.error('Error Thrown:', error);
+            console.error('Response Text:', xhr.responseText);
+            console.error('Full Error Object:', xhr);
+        }
+    });
+}
+
+export function cancelButt(id)
+{
+    // showLoadingModal();
+    $.ajax({
+        url: 'api/cancel',
+        type: 'PUT',
+        data: {
+            _token: '{{ csrf_token() }}',
+            OrderId: id,
+        },
+        success: function(response) {
+            console.log('Record updated successfully:', response);
+            hideLoadingModal();
+
+        },
+        error: function(xhr, status, error) {
+            console.error('Error updating record:', status, error);
+            console.error('Response Text:', xhr.responseText);
+        }
+    });
+}
+
+export function auto(query)
+{
+    $.ajax({
+        url: 'api/AUTOCOM',
+        type: 'GET',
+        data: {
+            _token: '{{ csrf_token() }}',
+            Querie: query,
+        },
+        success: function(response) {
+            console.log('Record updated successfully:', response);
+            if(response.Classi)
+            {
+                const Djew = $('#jewelries-hits');
+                const JEWEHTML = `<li>Jewelries==========</li>`;
+                const CLASSHTML = `<li>Classification========</li>`;
+                Djew.empty();
+                Djew.append(JEWEHTML);
+                response.Jewewe.forEach(cls => {
+
+
+                        // Create the HTML string with the decoded cls value
+                        const DjewHTML = 
+                        `
+                            <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 moves" data-serch="${cls}">${cls}</a></li>
+                        `;
+
+                        // Append the generated HTML to the Djew element
+                        Djew.append(DjewHTML);
+                });
+                Djew.append(CLASSHTML);
+                response.Classi.forEach(cls => {
+                    const DjewHTML = 
+                    `
+                        <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 moves"data-serch = ${cls} >${cls}</a></li>
+                    `;
+                    Djew.append(DjewHTML);
+                });
+            }
+
+        },
+        error: function(xhr, status, error) {
+            console.error('Error updating record:', status, error);
+            console.error('Response Text:', xhr.responseText);
+        }
+    });
+}
+
 

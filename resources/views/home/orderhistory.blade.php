@@ -43,6 +43,7 @@
             </div>
         </div>
     </section>
+    @include('common.newmodal');
 
     @include('common.footer')
 </body>

@@ -4,10 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Jewelry extends Model
 {
     use HasFactory;
+    use Searchable;
 
     protected $fillable = [
         'name',
@@ -56,5 +58,15 @@ class Jewelry extends Model
     public function colorjewelries()
     {
         return $this->hasMany(ColorJewelry::class);
+    }
+
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        // Add related model attributes to the searchable array
+        $array['classification'] = $this->classification ? $this->classification->classification : null;
+
+        return $array;
     }
 }

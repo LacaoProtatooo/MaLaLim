@@ -1,4 +1,5 @@
 @vite('resources/js/cart.js')
+@vite('resources/js/autoComplete.js')
 <div class="navbar flex justify-between items-center p-4">
 
     <div class="flex">
@@ -10,6 +11,7 @@
         <dialog id="my_modal_3" class="modal">
             <div class="modal-box">
                 <form method="dialog" class="">
+
                     <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2 refresher">✕</button>
                 </form>
                 @include('common.cart')
@@ -20,7 +22,14 @@
     </div>
 
     <div class="relative p-3 border border-white rounded-lg w-full max-w-lg">
-        <input type="text" id="searchinput" class="rounded-md p-3 w-full" placeholder="Search Jewelry | Categories | Brand">
+
+        <header class="relative">
+            <input type="text" id="searchinput" class="rounded-md p-3 w-full inpp" placeholder="Search Jewelry | Categories | Brand ">
+            <ul id="jewelries-hits" class="py-2 px-4 absolute w-full mt-1 bg-white border border-gray-300 rounded-lg hidden z-50">
+                {{--  --}}
+            </ul>
+
+        </header>
 
         <button type="submit" id="searchButton" class="absolute right-6 top-6">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
@@ -29,6 +38,7 @@
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
             </svg>
         </button>
+
     </div>
 
 </div>

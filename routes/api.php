@@ -69,6 +69,9 @@ Route::get('/fetchCart', [CartController::class, 'CartPop'])->middleware('auth:s
 Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop'])->middleware('auth:sanctum');
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 Route::get('/fetchOrder', [CheckoutController::class, 'OrderPop'])->middleware('auth:sanctum');
+Route::get('/fetchModCheck', [CheckoutController::class, 'ModCheckPop'])->middleware('auth:sanctum');
+Route::get('/AUTOCOM', [ItemController::class, 'popopop'])->middleware('auth:sanctum');
+
 
 // delete fave
 Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry'])->middleware('auth:sanctum');
@@ -81,6 +84,8 @@ Route::post('/add/jewel2Cart', [CartController::class, 'Increase'])->middleware(
 Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease'])->middleware('auth:sanctum');
 Route::post('/delete/jewel2Cart', [CartController::class, 'Remove'])->middleware('auth:sanctum');
 
+// Cancell Order
+Route::put('/cancel', [CheckoutController::class, 'Kansel'])->middleware('auth:sanctum');
 
 
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');

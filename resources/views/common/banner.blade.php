@@ -1,4 +1,4 @@
-<div class="card lg:card-side bg-gradient-to-r from-yellow-200 to-yellow-300 shadow-xl h-36 m-5">
+<div class="card lg:card-side bg-gradient-to-r from-yellow-200 to-yellow-300 shadow-xl h-36 m-5 ">
     <figure>
         <img
             src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp"

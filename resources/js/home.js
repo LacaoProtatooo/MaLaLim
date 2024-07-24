@@ -13,7 +13,9 @@ $(document).ready(function() {
                     $('#jewelry').empty();
                 }
                 const jewels = $('#jewelry');
+
                 response.data.forEach(jewel => {
+                    
                     const jewelHTML = `
                         <div class="col-span-1 bg-white p-4">
                             <div class="group my-10 flex w-full max-w-md flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg">

@@ -154,5 +154,32 @@ class CheckoutController extends Controller
         ]);
     }
 
+    public function ModCheckPop(Request $request)
+    {
+        $Orderid = $request->input('cart');
+
+        $order = Order::with(['courier', 'payment', 'colorJewelry','colorJewelry.jewelry','colorJewelry.jewelry.promos','colorJewelry.jewelry.prices', 'colorJewelry.colors'])
+        ->findOrFail($Orderid);
+
+        return response()->json(['order' => $order]);
+
+    }
+
+    public function Kansel(Request $request)
+    {
+        $id = $request->input('OrderId');
+
+        $order = Order::findOrFail($id);
+
+        // Update the status to 'Cancelled'
+        $order->status = 'Cancelled';
+        $order->save();
+
+        return response()->json([
+            'data' => $id,
+            'message' => 'cancelled',
+        ]);
+    }
+
 }
 
