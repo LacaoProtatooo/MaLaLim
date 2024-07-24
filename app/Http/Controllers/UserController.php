@@ -98,6 +98,9 @@ class UserController extends Controller
     public function edit(string $id)
     {
         $user = User::find($id);
+        $userrole = Role::where('user_id', $user->id)->first();
+
+        $user->title = $userrole ? $userrole->title : null;
 
         if (!$user) {
             return response()->json(['message' => 'User not found'], 404);
@@ -123,6 +126,14 @@ class UserController extends Controller
             'email' => 'required|string|email|max:255',
             'password' => 'sometimes|nullable|string|min:8|confirmed',
         ]);
+
+        if ($request->filled('title')) {
+            $userrole = Role::where('user_id', $user->id)->first();
+            if ($userrole) {
+                $userrole->title = $request->title;
+                $userrole->save();
+            }
+        }
 
         // Handle password update
         if ($request->filled('password')) {

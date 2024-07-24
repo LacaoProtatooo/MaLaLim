@@ -11,7 +11,7 @@ class Stock extends Model
 
     protected $fillable = [
         'quantity',
-        'price',
+        'color_jewelry_id',
     ];
 
     public function colorjewelry()

@@ -166,9 +166,9 @@ class PromoController extends Controller
                 $jewelryPrice = Price::where('jewelry_id', $jewelryId)->first();
 
                 if ($jewelryPrice) {
-                    $discount = $jewelryPrice->price * $promo->discountRate;
-                    $jewelryPrice->price = $jewelryPrice->price - $discount;
-                    $jewelryPrice->save();
+                    // $discount = $jewelryPrice->price * $promo->discountRate;
+                    // $jewelryPrice->price = $jewelryPrice->price - $discount;
+                    // $jewelryPrice->save();
 
                     PromoJewelry::updateOrCreate(
                         ['promo_id' => $promo->id, 'jewelry_id' => $jewelryId],
@@ -185,9 +185,9 @@ class PromoController extends Controller
 
                 if ($jewelryPrice) {
                     // Calculate original price
-                    $originalPrice = $jewelryPrice->price /  (1 - $promo->discountRate);
-                    $jewelryPrice->price = $originalPrice;
-                    $jewelryPrice->save();
+                    // $originalPrice = $jewelryPrice->price /  (1 - $promo->discountRate);
+                    // $jewelryPrice->price = $originalPrice;
+                    // $jewelryPrice->save();
 
                     PromoJewelry::where('promo_id', $promo->id)
                         ->where('jewelry_id', $jewelryId)
@@ -198,14 +198,6 @@ class PromoController extends Controller
 
         return response()->json(['message' => 'Promo prices set successfully'], 200);
     }
-
-
-
-
-    
-
-
-
 
 
 }

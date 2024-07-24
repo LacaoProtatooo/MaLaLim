@@ -105,6 +105,7 @@ $(document).ready(function() {
     // DETAILS
     $(document).on('click', '.user-edit', function(e) {
         e.preventDefault();
+        showLoadingModal();
 
         var userId = $(this).data('id');
         // console.log('Edit button : user ID:', userId);
@@ -127,11 +128,13 @@ $(document).ready(function() {
                 $('#phone_numberedit').val(data.phone_number);
                 $('#birthdateedit').val(data.birthdate);
                 $('#image_pathedit').val(data.image_path);
+                $('#titleedit').val(data.title);
 
                 var imageUrl = data.image_path ? `http://localhost:8000/${data.image_path}` : 'https://www.svgrepo.com/show/530585/user.svg';
                 $('#imagePreview').attr('src', imageUrl);
 
                 document.getElementById('editusermodal').showModal();
+                hideLoadingModal();
             },
             error: function (error) {
                 console.log(error);

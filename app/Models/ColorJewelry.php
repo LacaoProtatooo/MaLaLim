@@ -5,13 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+
 class ColorJewelry extends Model
 {
     use HasFactory;
     protected $table = 'color_jewelry';
 
+    protected $fillable = [
+        'jewelry_id',
+        'color_id',
+        'image_path',
+    ];
+
     public function stocks(){
-        return $this->hasOne(Stock::class);
+        return $this->hasOne(Stock::class, 'color_jewelry_id');
     }
     public function jewelry()
     {
