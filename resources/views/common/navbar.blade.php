@@ -24,9 +24,9 @@
     <div class="relative p-3 border border-white rounded-lg w-full max-w-lg">
 
         <header class="relative">
-            <input type="text" id="searchinput" class="rounded-md p-3 w-full inpp" placeholder="Search Jewelry | Categories | Brand ">
+            <input type="text" id="searchinput" class="rounded-md p-4 w-72 inpp" placeholder="Search Jewelry | Categories | Brand ">
             <ul id="jewelries-hits" class="py-2 px-4 absolute w-full mt-1 bg-white border border-gray-300 rounded-lg hidden z-50">
-                {{--  --}}
+            {{--  --}}
             </ul>
 
         </header>
