@@ -18,6 +18,48 @@ $(document).ready(function() {
             }
         ]
     });
+
+    // Excel Import
+    $(document).on('submit', '#importjewelryForm', function (e) {
+        e.preventDefault();
+    
+        var formData = new FormData(this);
+        var fileInput = document.querySelector('input[name="jewelry_file"]');
+    
+        if (!fileInput || !fileInput.files.length) {
+            alert('Please select a file to upload.');
+            return;
+        }
+
+        var file = fileInput.files[0];
+        var allowedExtensions = ['xlsx', 'xls', 'csv'];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+            alert('Please upload a valid Excel file (xlsx, xls, csv).');
+            return;
+        }
+    
+        $.ajax({
+            type: 'POST',
+            url: '/api/import-jewelry',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                console.log('Success:', response);
+   
+                document.getElementById('importjewelrymodal').close();
+                jewelryTable.ajax.reload();
+            },
+            error: function (xhr) {
+                console.log('Error:', xhr.responseText);
+            }
+        });
+    });    
     
     // CREATE
     $('#jewelryForm').validate({

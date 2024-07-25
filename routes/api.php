@@ -45,7 +45,8 @@ Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getSt
 // Excel Import
 Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name('courier.import');
 Route::post('/import-promo', [ExcelController::class, 'importPromo'])->name('promo.import');
-
+Route::post('/import-jewelry', [ExcelController::class, 'importJewelry'])->name('jewelry.import');
+Route::post('/import-jewelryvariant', [ExcelController::class, 'importJewelryVariant'])->name('jewelryvariant.import');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');

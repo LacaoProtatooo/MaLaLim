@@ -14,6 +14,7 @@
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createjewelrymodal').showModal()">Create Jewelry</button>
+    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('importjewelrymodal').showModal()">Import Jewelry</button>
     <div class="table-responsive">
         <table class="table table-bordered" id="jewelriesTable">
             <thead>
@@ -32,6 +33,7 @@
 
 @include('modal.jewelrydetails')
 @include('modal.addjewelry')
+@include('modal.jewelryimport')
 
 @include('common.footer')
 </body>

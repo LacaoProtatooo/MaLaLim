@@ -15,6 +15,7 @@ class Jewelry extends Model
         'name',
         'image_path',
         'description',
+        'classification_id',
     ];
 
     public function colors()
