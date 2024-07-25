@@ -78,7 +78,9 @@ Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop'])->middleware('
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 Route::get('/fetchOrder', [CheckoutController::class, 'OrderPop'])->middleware('auth:sanctum');
 Route::get('/fetchModCheck', [CheckoutController::class, 'ModCheckPop'])->middleware('auth:sanctum');
-Route::get('/AUTOCOM', [ItemController::class, 'popopop'])->middleware('auth:sanctum');
+Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
+Route::get('/carousel', [PromoController::class, 'carouu']);
+
 
 
 // delete fave

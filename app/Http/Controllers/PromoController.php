@@ -50,7 +50,7 @@ class PromoController extends Controller
         ]);
 
         $imagePaths = [];
-        
+
         // Handle multiple image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -61,7 +61,7 @@ class PromoController extends Controller
 
             $validatedData['image_path'] = implode(',', $imagePaths);
         }
-        
+
         $promo = Promo::create($validatedData);
 
         return response()->json($promo, 201);
@@ -76,7 +76,7 @@ class PromoController extends Controller
         if (!$promo) {
             return response()->json(['message' => 'Promo not found'], 404);
         }
-        
+
         return response()->json($promo);
     }
 
@@ -98,7 +98,7 @@ class PromoController extends Controller
         ]);
 
         $imagePaths = [];
-        
+
         // Handle multiple image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -199,5 +199,15 @@ class PromoController extends Controller
         return response()->json(['message' => 'Promo prices set successfully'], 200);
     }
 
+    public function carouu()
+    {
+        $promo = Promo::all();
 
-}
+        return response()->json([
+            'success' => true,
+            'promo' => $promo,
+        ]);
+    }
+    }
+
+

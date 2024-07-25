@@ -617,7 +617,7 @@ export function auto(query)
 
 
                         // Create the HTML string with the decoded cls value
-                        const DjewHTML = 
+                        const DjewHTML =
                         `
                             <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 moves" data-serch="${cls}">${cls}</a></li>
                         `;
@@ -627,7 +627,7 @@ export function auto(query)
                 });
                 Djew.append(CLASSHTML);
                 response.Classi.forEach(cls => {
-                    const DjewHTML = 
+                    const DjewHTML =
                     `
                         <li><a href="#" class="block py-2 px-4 hover:bg-gray-200 moves"data-serch = ${cls} >${cls}</a></li>
                     `;
@@ -641,6 +641,111 @@ export function auto(query)
             console.error('Response Text:', xhr.responseText);
         }
     });
+}
+
+export function promoCarou()
+{
+
+    $.ajax({
+        url: 'api/carousel',
+        type: 'GET',
+        data: {
+            _token: '{{ csrf_token() }}',
+        },
+        success: function(response) {
+            const carouu = $('#carous');
+
+
+            carouu.empty();
+
+
+            response.promo.forEach(prom => {
+                const carouuHTML = `
+                    <div id="slide${prom.id}" class="carousel-item relative w-full flex justify-center items-center nyaa" data-id="${prom.id}">
+                        <div class="card lg:card-side bg-gradient-to-r from-yellow-200 to-yellow-300 shadow-xl h-36 m-5">
+                            <figure>
+                                <img src="${prom.image_path}" alt="${prom.name}" />
+                            </figure>
+                            <div class="card-body justify-center">
+                                <h2 class="card-title text-xl">${prom.name}</h2>
+                                <p>${prom.description}</p>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                carouu.append(carouuHTML);
+            });
+
+
+            if (response.promo.length > 1) {
+                const ButtHTML = `
+                    <div class="absolute top-1/2 transform -translate-y-1/2 left-5">
+                        <button class="bg-gray-800 text-white px-4 py-2 rounded prev">&lt;</button>
+                    </div>
+                    <div class="absolute top-1/2 transform -translate-y-1/2 right-5">
+                        <button class="bg-gray-800 text-white px-4 py-2 rounded next">&gt;</button>
+                    </div>
+                `;
+                carouu.append(ButtHTML);
+
+
+                const nextButton = document.querySelector('.next');
+                const prevButton = document.querySelector('.prev');
+
+                if (nextButton && prevButton) {
+                    nextButton.addEventListener('click', nextSlide);
+                    prevButton.addEventListener('click', prevSlide);
+                }
+            }
+
+            let currentSlideIndex = 0;
+            const ids = [];
+
+
+            response.promo.forEach(promu => {
+                ids.push(promu.id);
+            });
+
+            const totalSlides = ids.length;
+
+            function showSlide(slideIndex) {
+                // Hide all slides
+                ids.forEach(id => {
+                    const slide = document.getElementById('slide' + id);
+                    if (slide) {
+                        slide.style.display = 'none';
+                    }
+                });
+
+                const currentSlideId = ids[slideIndex];
+                const currentSlideElem = document.getElementById('slide' + currentSlideId);
+                if (currentSlideElem) {
+                    currentSlideElem.style.display = 'flex';
+                }
+            }
+
+            function nextSlide() {
+                currentSlideIndex = (currentSlideIndex + 1) % totalSlides;
+                showSlide(currentSlideIndex);
+            }
+
+            function prevSlide() {
+                currentSlideIndex = (currentSlideIndex - 1 + totalSlides) % totalSlides;
+                showSlide(currentSlideIndex);
+            }
+
+
+            showSlide(currentSlideIndex);
+
+            console.log(response);
+        },
+        error: function(xhr, status, error) {
+            console.error('Error updating record:', status, error);
+            console.error('Response Text:', xhr.responseText);
+        }
+    });
+
+
 }
 
 

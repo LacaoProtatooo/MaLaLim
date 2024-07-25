@@ -46,8 +46,8 @@
                     </div>
 
                     <div class="flex gap-4">
-                        <button type="button" class="min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-white text-sm font-semibold rounded-md">Buy now</button>
-                        <button type="button" class="min-w-[200px] px-4 py-2.5 border border-gray-800 bg-transparent hover:bg-gray-50 text-gray-800 text-sm font-semibold rounded-md cartcart">Add to cart</button>
+                        {{-- <button type="button" class="min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-white text-sm font-semibold rounded-md">Buy now</button> --}}
+                        <button type="button" class="min-w-[200px] px-4 py-3 bg-yellow-300 hover:bg-yellow-400 text-white text-sm font-semibold rounded-md cartcart">Add to cart</button>
                     </div>
                 </div>
             </div>

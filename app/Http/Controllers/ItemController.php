@@ -7,6 +7,7 @@ use App\Models\Jewelry;
 use App\Models\Stock;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Promo;
 use App\Models\Classification;
 use Auth;
 class ItemController extends Controller
@@ -15,7 +16,7 @@ class ItemController extends Controller
     {
         $search = $request->input('search');
 
-        if ($search) {
+        if ($search && !is_numeric($search)) {
             // Perform the search query using Algolia
             $jewelryIds = Jewelry::search($search)->get()->pluck('id');
             $classIds = Classification::search($search)->get()->pluck('id');
@@ -29,8 +30,16 @@ class ItemController extends Controller
             $jewelry = Jewelry::with(['prices', 'classification'])
                 ->whereIn('id', $jewelryIds)
                 ->paginate(10);
-        } else {
-            // If no search query, fetch all jewelry with related data
+        } elseif(is_numeric($search)) {
+
+            $promos = Promo::find($search);
+            $jewelry = $promos->jewelries()
+            ->with(['classification', 'prices'])
+            ->paginate(10);
+
+            return response()->json($jewelry);
+        }
+        elseif(!$search){
             $jewelry = Jewelry::with(['prices', 'classification'])->paginate(10);
         }
 
