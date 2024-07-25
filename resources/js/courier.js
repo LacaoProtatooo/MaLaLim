@@ -20,6 +20,32 @@ $(document).ready(function() {
         ]
     });
 
+    // Excel Import
+    $(document).on('submit', '#importcourierForm', function (e) {
+        e.preventDefault();
+    
+        var formData = new FormData(this);
+    
+        $.ajax({
+            type: 'POST',
+            url: '/api/import-courier',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                console.log('Success:', response);
+   
+                document.getElementById('importcouriermodal').close();
+            },
+            error: function (xhr) {
+                console.log('Error:', xhr.responseText);
+            }
+        });
+    });    
+
     
     // CREATE
     $('#courierForm').validate({

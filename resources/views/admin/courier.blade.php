@@ -14,6 +14,7 @@
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createcouriermodal').showModal()">Create Courier</button>
+    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('importcouriermodal').showModal()">Import Courier</button>
     <div class="table-responsive">
         <table class="table table-bordered" id="couriersTable">
             <thead>
@@ -32,6 +33,7 @@
 </div>
 
 @include('modal.courierdetails')
+@include('modal.courierimport')
 @include('modal.addcourier')
 
 @include('common.footer')

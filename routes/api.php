@@ -14,6 +14,7 @@ use App\Http\Controllers\CheckOutController;
 use App\Http\Controllers\CourierController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StockController;
+use App\Http\Controllers\ExcelController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,10 @@ Route::get('/promos', [PromoController::class, 'dtpopulate'])->name('admin.getPr
 Route::get('/payments', [PaymentController::class, 'dtpopulate'])->name('admin.getPayments');
 Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
 Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getStocks');
+
+// Excel Import
+Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name('courier.import');
+
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');
