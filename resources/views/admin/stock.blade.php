@@ -10,7 +10,7 @@
     @vite('resources/js/stock.js')
 </head>
 <body class=" bg-yellow-50">
-@include('common.header')
+@include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <button id="createJewelryVariantButton" class="btn btn-primary mt-4 mb-4">Create Jewelry Variant</button>

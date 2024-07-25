@@ -10,7 +10,7 @@
     @vite('resources/js/courier.js')
 </head>
 <body class=" bg-yellow-50">
-@include('common.header')
+@include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createcouriermodal').showModal()">Create Courier</button>
