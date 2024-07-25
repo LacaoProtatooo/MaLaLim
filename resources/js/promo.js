@@ -19,6 +19,48 @@ $(document).ready(function() {
         ]
     });
 
+    // Excel Import
+    $(document).on('submit', '#importpromoForm', function (e) {
+        e.preventDefault();
+
+        var formData = new FormData(this);
+        var fileInput = document.querySelector('input[name="promo_file"]');
+    
+        if (!fileInput || !fileInput.files.length) {
+            alert('Please select a file to upload.');
+            return;
+        }
+
+        var file = fileInput.files[0];
+        var allowedExtensions = ['xlsx', 'xls', 'csv'];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+            alert('Please upload a valid Excel file (xlsx, xls, csv).');
+            return;
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '/api/import-promo',
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function (response) {
+                console.log('Success:', response);
+                document.getElementById('importpromomodal').close();
+                promoTable.ajax.reload();
+            },
+            error: function (xhr) {
+                console.log('Error:', xhr.responseText);
+            }
+        });
+    });
+
+
     // CREATE
     $('#promoForm').validate({
         rules: {

@@ -25,6 +25,21 @@ $(document).ready(function() {
         e.preventDefault();
     
         var formData = new FormData(this);
+        var fileInput = document.querySelector('input[name="courier_file"]');
+    
+        if (!fileInput || !fileInput.files.length) {
+            alert('Please select a file to upload.');
+            return;
+        }
+
+        var file = fileInput.files[0];
+        var allowedExtensions = ['xlsx', 'xls', 'csv'];
+        var fileExtension = file.name.split('.').pop().toLowerCase();
+
+        if (!allowedExtensions.includes(fileExtension)) {
+            alert('Please upload a valid Excel file (xlsx, xls, csv).');
+            return;
+        }
     
         $.ajax({
             type: 'POST',
@@ -39,6 +54,7 @@ $(document).ready(function() {
                 console.log('Success:', response);
    
                 document.getElementById('importcouriermodal').close();
+                courierTable.ajax.reload();
             },
             error: function (xhr) {
                 console.log('Error:', xhr.responseText);

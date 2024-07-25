@@ -3,10 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\CourierImport;
-use App\Models\Courier;
-use App\Models\Promo;
-use App\Models\Jewelry;
-use App\Models\Payment;
+use App\Imports\PromoImport;
 
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -23,6 +20,16 @@ class ExcelController extends Controller
         return response()->json(['success' => 'Couriers imported successfully!']);
     }
 
-
+    public function importPromo(Request $request){
+        $request->validate([
+            'promo_file' => 'required|mimes:xlsx,csv',
+        ]);
     
+        Excel::import(new PromoImport, $request->file('promo_file'));
+    
+        return response()->json(['success' => 'Promos imported successfully!']);
+    }
+
+
+
 }

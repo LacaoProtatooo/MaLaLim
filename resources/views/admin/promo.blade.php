@@ -14,6 +14,7 @@
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createpromomodal').showModal()">Create Promo</button>
+    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('importpromomodal').showModal()">Import Promo</button>
     <div class="table-responsive">
         <table class="table table-bordered" id="promosTable">
             <thead>
@@ -33,6 +34,7 @@
 
 @include('modal.promodetails')
 @include('modal.addpromo')
+@include('modal.promoimport')
 @include('modal.jewelrypromo')
 
 @include('common.footer')

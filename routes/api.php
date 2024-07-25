@@ -44,6 +44,7 @@ Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getSt
 
 // Excel Import
 Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name('courier.import');
+Route::post('/import-promo', [ExcelController::class, 'importPromo'])->name('promo.import');
 
 
 // Login | Logout
