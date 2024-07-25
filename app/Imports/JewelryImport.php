@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Jewelry;
+use App\Models\Price;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class JewelryImport implements ToModel
@@ -14,10 +15,15 @@ class JewelryImport implements ToModel
     */
     public function model(array $row)
     {
-        return new Jewelry([
+         $jewelry = Jewelry::create([
             'name' => $row[0],
             'description' => $row[1],
             'classification_id' => $row[2],
+        ]);
+
+        Price::create([
+            'jewelry_id' => $jewelry->id,
+            'price' => $row[3],
         ]);
     }
 }

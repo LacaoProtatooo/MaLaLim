@@ -10,7 +10,8 @@ class Price extends Model
     use HasFactory;
 
     protected $fillable = [
-        'price'
+        'price',
+        'jewelry_id'
     ];
 
     public function jewelries(){
