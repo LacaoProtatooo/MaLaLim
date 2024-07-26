@@ -1,12 +1,12 @@
 
-<div class="navbar bg-yellow-300 w-full">
+<div class="navbar bg-yellow-300 shadow-sm">
   <div class="flex-1">
     <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">MaLaLim</a>
   </div>
 
   {{-- LOGIN :: USER PROFILE --}}
   @if (!Auth::user())
-    <button class="btn" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
+    <button class="btn w-24 h-5 bg-yellow-50 rounded-md shadow-md hover:bg-yellow-100" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
   @else
   <a class="btn btn-ghost text-xl">{{ Auth::user()->fname }}</a>
     <div class="dropdown dropdown-end">

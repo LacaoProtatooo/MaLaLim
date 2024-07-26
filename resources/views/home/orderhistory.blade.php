@@ -9,7 +9,7 @@
     @include('common.links')
     @vite('resources/js/order.js',)
 </head>
-<body class="bg-yellow-50">
+<body class="bg-gray-100">
     @include('common.header')
     @include('common.navbar')
 

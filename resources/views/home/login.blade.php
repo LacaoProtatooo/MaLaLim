@@ -11,7 +11,7 @@
     @include('common.links')
     
 </head>
-<body class="bg-yellow-50">
+<body class="bg-gray-100">
     @include('common.header')
 
     <div class="text-black min-h-screen flex flex-col items-center justify-center bg-gray-100 mt-10">
@@ -49,7 +49,7 @@
                         </div> --}}
                     </div>
                     <div class="mt-12">
-                        <button type="submit" class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold bg-yellow-300 rounded-full hover:bg-yellow-500 hover:text-white focus:outline-none">
+                        <button type="submit" class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold bg-yellow-300 rounded-full hover:bg-yellow-400 hover:text-white focus:outline-none">
                             Sign in
                         </button>
                     </div>

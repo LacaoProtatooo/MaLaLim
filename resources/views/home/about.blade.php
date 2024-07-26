@@ -7,18 +7,20 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @include('common.links')
 </head>
-<body class="bg-yellow-50">
+<body class="bg-white">
 @include('common.header')
 
 
-<div class="card lg:card-side shadow-xl rounded-md bg-base-100">
-  <figure><img src="../storage/jewelryabt.jpg" alt="Album"/></figure>
+<div class="card lg:card-side shadow-xl rounded-md mt-11 mr-4 ml-4 bg-yellow-300">
+<figure>
+    <img class="p-10 border-r-pink-900" src="../storage/jewelryabt.png" alt="Album"/>
+</figure>
   <div class="card-body rounded">
   <section class="">
         <div class="py-12 bg-white rounded-md">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="lg:text-center">
-                    <h2 class="font-heading mb-4 bg-orange-100 px-4 py-2 rounded-lg md:w-64 md:mx-auto text-xs font-semibold tracking-widest text-black uppercase title-font">
+                    <h2 class="font-heading mb-4 bg-yellow-100 px-4 py-2 rounded-lg md:w-64 md:mx-auto text-xs font-semibold tracking-widest text-black uppercase title-font">
                         Choose MaLaLim
                     </h2>
                     <p class="font-heading mt-2 text-3xl leading-8 font-semibold tracking-tight text-gray-900 sm:text-4xl">
