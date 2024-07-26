@@ -2,13 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use app\Models\User;
-use app\Models\Role;
-
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class UserMiddleware
 {
@@ -17,32 +16,34 @@ class UserMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next): Response
     {
         $currentUser = Auth::user();
 
         if ($currentUser) {
             $userinfo = User::with('role')->where('id', $currentUser->id)->first();
-            // $userinfo = User::leftJoin('roles', 'roles.user_id', '=', 'users.id')
-            //     ->where('users.id', $currentUser->id)
-            //     ->first(['users.*', 'roles.*']);
 
-            if ($userinfo->role->title == 'customer') {
+            if ($userinfo->role->title == 'customer' || $userinfo->role->title == 'customerplus') {
                 return $next($request);
-            } 
-            elseif ($userinfo->role->title == 'customerplus') {
-                    return $next($request);
-            } 
-            else {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                return redirect()->route('login');
-                // return response()->json(['error' => 'Unauthorized'], 403);
+            } else {
+                // Delete the current bearer token
+                $token = $request->bearerToken();
+                if ($token) {
+                    $sanctumToken = PersonalAccessToken::findToken($token);
+                    if ($sanctumToken) {
+                        $sanctumToken->delete();
+                    }
+                }
+
+                // Auth::logout();
+                // $request->session()->invalidate();
+                // $request->session()->regenerateToken();
+
+                // return redirect()->route('login');
+                return redirect()->back()->with('error','User not Authorized');
             }
         }
 
         return redirect()->route('login');
     }
-
 }

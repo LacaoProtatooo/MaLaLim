@@ -3,6 +3,10 @@ $(document).ready(function() {
         $.ajax({
             url: apiUrl,
             method: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+            },
             success: function(data) {
                 var ctx = document.getElementById(canvasId).getContext('2d');
                 var chart = new Chart(ctx, {

@@ -2,12 +2,12 @@
 
 namespace App\Http\Middleware;
 
-use app\Models\User;
-
+use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Sanctum\PersonalAccessToken;
 
 class AdminMiddleware
 {
@@ -24,19 +24,24 @@ class AdminMiddleware
             $userinfo = User::with('role')->where('id', $currentUser->id)->first();
             if ($userinfo->role->title == 'admin') {
                 return $next($request);
-            }
-            else
-            {
-                Auth::logout();
-                $request->session()->invalidate();
-                $request->session()->regenerateToken();
-                return redirect()->route('login');
-                // return response()->json(['error' => 'Unauthorized'], 403);
+            } else {
+                $token = $request->bearerToken();
+                if ($token) {
+                    $sanctumToken = PersonalAccessToken::findToken($token);
+                    if ($sanctumToken) {
+                        $sanctumToken->delete();
+                    }
+                }
+
+                // Auth::logout();
+                // $request->session()->invalidate();
+                // $request->session()->regenerateToken();
+
+                // return redirect()->route('login');
+                return redirect()->back()->with('error','User not Authorized');
             }
         }
 
         return redirect()->route('login');
     }
-
-    
 }
