@@ -51,9 +51,9 @@ class User extends Authenticatable
         ];
     }
 
-    public function roles()
+    public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->hasOne(Role::class, 'user_id');
     }
 
     public function jewelries()

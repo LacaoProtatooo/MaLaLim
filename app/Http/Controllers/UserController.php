@@ -62,10 +62,10 @@ class UserController extends Controller
      */
     public function show()
     {
-        $users = User::all();
-        $softDeletedUsers = User::onlyTrashed()->get(); // Get only soft-deleted users
-
-        $users = $users->merge($softDeletedUsers);
+        $users = User::withTrashed() // Include both active and soft-deleted users
+        ->whereHas('role', function ($query) {
+            $query->where('title', '!=', 'admin');
+        })->get();
 
         $users = $users->map(function($user) {
             if ($user->trashed()) {

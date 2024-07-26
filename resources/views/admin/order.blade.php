@@ -10,7 +10,7 @@
 
 </head>
 <body class=" bg-yellow-50">
-@include('common.header')
+@include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
 

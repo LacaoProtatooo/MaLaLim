@@ -1,16 +1,13 @@
 $(document).ready(function() {
     $.ajax({
-        type: 'POST',
-        url: '/api/sidebar',
-        data: formData,
-        processData: false,
-        contentType: false,
+        url: "/api/sidebar",
+        method: 'GET',
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         dataType: "json",
         success: function(data) {
-            $('#promoCount').text(response.promocount);
-            $('#pendingJewelry').text(response.pendingjewelry);
-            
+            console.log("data contains: ", data);
+            $('#promoCount').text(data.promocount);
+            $('#pendingJewelry').text(data.pendingjewelry);
         },
         error: function(error) {
             console.log(error);
