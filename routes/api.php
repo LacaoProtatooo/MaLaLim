@@ -16,6 +16,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\OrderController;
+use App\Http\Controllers\ChartController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,11 @@ Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name(
 Route::post('/import-promo', [ExcelController::class, 'importPromo'])->name('promo.import');
 Route::post('/import-jewelry', [ExcelController::class, 'importJewelry'])->name('jewelry.import');
 Route::post('/import-jewelryvariant', [ExcelController::class, 'importJewelryVariant'])->name('jewelryvariant.import');
+
+// Charts
+Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
+Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
+Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
 
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');
