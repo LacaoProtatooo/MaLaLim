@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AdminController;
 
 use App\Http\Controllers\JewelryController;
 use App\Http\Controllers\PromoController;
@@ -31,6 +32,7 @@ Route::get('/checkout', function () { return view('home.checkout'); })->name('ch
 
 
 // Admin
+Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 Route::get('/admin/couriers', function () { return view('admin.courier'); })->name('admin.courier');
 Route::get('/admin/jewelries', function () { return view('admin.jewelry'); })->name('admin.jewelry');
