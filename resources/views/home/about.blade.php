@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @include('common.links')
 </head>
-<body>
+<body class="bg-yellow-50">
 @include('common.header')
 
 <!-- <button class="btn" onclick="my_modal_10.showModal()">open modal</button>

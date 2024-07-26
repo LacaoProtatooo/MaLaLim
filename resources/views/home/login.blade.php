@@ -11,7 +11,7 @@
     @include('common.links')
     
 </head>
-<body>
+<body class="bg-yellow-50">
     @include('common.header')
 
     <div class="text-black min-h-screen flex flex-col items-center justify-center bg-gray-100 mt-10">

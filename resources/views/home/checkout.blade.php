@@ -9,7 +9,7 @@
     @include('common.links')
     @vite('resources/js/checkout.js')
 </head>
-<body>
+<body class="bg-yellow-50">
 @include('common.header')
 @include('common.navbar')
 

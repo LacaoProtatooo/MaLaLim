@@ -11,7 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
-<body class="">
+<body class="bg-yellow-50">
     @include('common.header')
     
     

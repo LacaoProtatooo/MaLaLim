@@ -41,6 +41,7 @@
         </ul>
       </div>
     @endif
-  
-  </div>
+</div>
+
+@include('common.sidebar')
   
