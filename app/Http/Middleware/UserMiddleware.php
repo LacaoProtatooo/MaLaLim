@@ -29,15 +29,20 @@ class UserMiddleware
 
             if ($userinfo->role->title == 'customer') {
                 return $next($request);
-            } else {
-                // Auth::logout();
-                // $request->session()->invalidate();
-                // $request->session()->regenerateToken();
-                return response()->json(['error' => 'Unauthorized'], 403);
+            } 
+            elseif ($userinfo->role->title == 'customerplus') {
+                    return $next($request);
+            } 
+            else {
+                Auth::logout();
+                $request->session()->invalidate();
+                $request->session()->regenerateToken();
+                return redirect()->route('login');
+                // return response()->json(['error' => 'Unauthorized'], 403);
             }
         }
 
-        return redirect()->route('home.login');
+        return redirect()->route('login');
     }
 
 }

@@ -2,7 +2,7 @@ import 'datatables.net-dt';
 $(document).ready(function() {
     var materialTable = $('#materialsTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/materials',
+            url: '/api/materials',
             dataSrc: ""
         },
         columns: [
@@ -84,7 +84,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/materials`,
+            url: `/api/materials`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             data: {
@@ -179,7 +179,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this jewelry?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/materials/${materialId}`,
+                url: `/api/materials/${materialId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);

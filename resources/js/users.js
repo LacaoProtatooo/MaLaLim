@@ -6,7 +6,7 @@ $(document).ready(function() {
     // DATATABLE and Structure
     var userTable = $('#usersTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/users', // Your endpoint to fetch user data
+            url: '/api/users', // Your endpoint to fetch user data
             dataSrc: ""
         },
         columns: [
@@ -113,7 +113,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/user/${userId}/edit`,
+            url: `/api/user/${userId}/edit`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -193,7 +193,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'POST',
-                url: `http://localhost:8000/api/user/${userId}`,
+                url: `/api/user/${userId}`,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -220,7 +220,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this user?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/user/${userId}`,
+                url: `/api/user/${userId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);

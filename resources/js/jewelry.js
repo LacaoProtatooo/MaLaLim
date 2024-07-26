@@ -4,7 +4,7 @@ import 'datatables.net-dt';
 $(document).ready(function() {
     var jewelryTable = $('#jewelriesTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/jewelries',
+            url: '/api/jewelries',
             dataSrc: ""
         },
         columns: [
@@ -149,7 +149,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/jewelry/${jewelryid}`,
+            url: `/api/jewelry/${jewelryid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -238,7 +238,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'POST',
-                url: `http://localhost:8000/api/jewelry/${jewelryId}`,
+                url: `/api/jewelry/${jewelryId}`,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -265,7 +265,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this jewelry?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/jewelry/${jewelryId}`,
+                url: `/api/jewelry/${jewelryId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);
@@ -396,7 +396,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/savematerialstoJewelry/${jewelid}`,
+            url: `/api/savematerialstoJewelry/${jewelid}`,
             data: formData,
             processData: false,
             contentType: false,

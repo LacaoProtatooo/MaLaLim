@@ -27,26 +27,30 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/item', [ItemController::class, 'index'])->name('home');
 Route::get('/', function () { return view('home.about'); })->name('about');
 
+Route::middleware('admin')->group(function () {
+    // Admin
+    Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
+    Route::get('/admin/profile', [UserController::class, 'adminprofile'])->name('admin.profile');
+    Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
+    Route::get('/admin/couriers', function () { return view('admin.courier'); })->name('admin.courier');
+    Route::get('/admin/jewelries', function () { return view('admin.jewelry'); })->name('admin.jewelry');
+    Route::get('/admin/promos', function () { return view('admin.promo'); })->name('admin.promo');
+    Route::get('/admin/payments', function () { return view('admin.payment'); })->name('admin.payment');
+    Route::get('/admin/stocks', function () { return view('admin.stock'); })->name('admin.stock');
+    Route::get('/admin/orders', function () { return view('admin.order'); })->name('admin.order');
+    Route::get('/admin/materials', function () { return view('admin.material'); })->name('admin.material');
 
-// Admin
-Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
-Route::get('/admin/profile', [UserController::class, 'adminprofile'])->name('admin.profile');
-Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
-Route::get('/admin/couriers', function () { return view('admin.courier'); })->name('admin.courier');
-Route::get('/admin/jewelries', function () { return view('admin.jewelry'); })->name('admin.jewelry');
-Route::get('/admin/promos', function () { return view('admin.promo'); })->name('admin.promo');
-Route::get('/admin/payments', function () { return view('admin.payment'); })->name('admin.payment');
-Route::get('/admin/stocks', function () { return view('admin.stock'); })->name('admin.stock');
-Route::get('/admin/orders', function () { return view('admin.order'); })->name('admin.order');
-Route::get('/admin/materials', function () { return view('admin.material'); })->name('admin.material');
+});
+
+Route::middleware('user')->group(function () {
+    // Customer
+    Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');
+    Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');
+    Route::get('/favorites', function () { return view('home.favorites'); })->name('favorites');
+    Route::get('/checkout', function () { return view('home.checkout'); })->name('checkout');
+});
 
 
-
-// Customer
-Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');
-Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');
-Route::get('/favorites', function () { return view('home.favorites'); })->name('favorites');
-Route::get('/checkout', function () { return view('home.checkout'); })->name('checkout');
 
 
 

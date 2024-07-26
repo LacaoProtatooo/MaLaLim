@@ -5,7 +5,7 @@ $(document).ready(function() {
     function popFave() {
 
         $.ajax({
-            url: `api/fetchingFave`,
+            url: `/api/fetchingFave`,
             type: `GET`,
             success: function(response) {
 

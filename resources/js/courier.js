@@ -4,7 +4,7 @@ import 'datatables.net-dt';
 $(document).ready(function() {
     var courierTable = $('#couriersTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/couriers',
+            url: '/api/couriers',
             dataSrc: ""
         },
         columns: [
@@ -128,7 +128,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/courier/${courierid}`,
+            url: `/api/courier/${courierid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -158,7 +158,7 @@ $(document).ready(function() {
     
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/courier/${courierId}`,
+            url: `/api/courier/${courierId}`,
             data: formData,
             processData: false,
             contentType: false,
@@ -185,7 +185,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this courier?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/courier/${courierId}`,
+                url: `/api/courier/${courierId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);

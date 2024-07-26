@@ -108,7 +108,7 @@ $(document).ready(function() {
         showLoadingModal();
         const itemId = $(this).data('id');
         $.ajax({
-            url: 'api/user/fave',
+            url: '/api/user/fave',
             type: 'POST',
             data: {
                 item_id: itemId,

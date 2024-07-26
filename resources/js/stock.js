@@ -3,7 +3,7 @@ import 'datatables.net-dt';
 $(document).ready(function() {
     var stockTable = $('#stocksTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/stocks',
+            url: '/api/stocks',
             dataSrc: ""
         },
         columns: [
@@ -25,7 +25,7 @@ $(document).ready(function() {
     createButton.addEventListener('click', function() {
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/stock`,
+            url: `/api/stock`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -135,7 +135,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/stock/${stockid}`,
+            url: `/api/stock/${stockid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -217,7 +217,7 @@ $(document).ready(function() {
     
             $.ajax({
                 type: 'POST',
-                url: `http://localhost:8000/api/stock/${stockId}`,
+                url: `/api/stock/${stockId}`,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -244,7 +244,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this Variant?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/stock/${stockId}`,
+                url: `/api/stock/${stockId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);
@@ -257,115 +257,6 @@ $(document).ready(function() {
             });
         }
     });
-
-    // let initialCheckboxStates = {};
-
-    // // Function to capture the initial state of the checkboxes
-    // function captureInitialStates() {
-    //     initialCheckboxStates = {};
-    //     $('#jewelryContainer input[type="checkbox"]').each(function() {
-    //         initialCheckboxStates[$(this).data('id')] = $(this).prop('checked');
-    //     });
-    // }
-
-    // // Function to get the changed states
-    // function getChangedStates() {
-    //     let changedStates = {
-    //         checked: [],
-    //         unchecked: []
-    //     };
-
-    //     $('#jewelryContainer input[type="checkbox"]').each(function() {
-    //         let id = $(this).data('id');
-    //         let isChecked = $(this).prop('checked');
-    //         if (initialCheckboxStates[id] !== isChecked) {
-    //             if (isChecked) {
-    //                 changedStates.checked.push(id);
-    //             } else {
-    //                 changedStates.unchecked.push(id);
-    //             }
-    //         }
-    //     });
-
-    //     return changedStates;
-    // }
-
-    // // Assign Jewelry
-    // $(document).on('click', '.promo-jewelry', function(e) {
-    //     e.preventDefault();
-
-    //     var promoid = $(this).data('id');
-    //     console.log(promoid);
-
-    //     // OPENING JEWELRY WITH PROMO MODAL
-    //     $.ajax({
-    //         type: "GET",
-    //         url: `/api/admin/getJewelries/${promoid}`,
-    //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-    //         dataType: "json",
-    //         success: function(data) {
-    //             // console.log(data);
-    //             $('#jewelryContainer').empty();
-
-    //             data.forEach(function(jewelry) {
-    //                 var promoStatus = jewelry.hasPromo ? 'checked="checked"' : '';
-
-    //                 var jewelryElement = `
-    //                     <div class="form-control">
-    //                         <label class="label cursor-pointer">
-    //                             <span class="label-text">${jewelry.id}</span>
-    //                             <span class="label-text">${jewelry.name}</span>
-    //                             <input type="checkbox" ${promoStatus} class="checkbox checkbox-primary" data-id="${jewelry.id}" />
-    //                         </label>
-    //                     </div>`;
-
-    //                 $('#jewelryContainer').append(jewelryElement);
-    //             });
-
-    //             $('#saveJewelryPromo').data('id', promoid);
-    //             document.getElementById('jewelrypromomodal').showModal();
-                
-    //             // Capture the initial states of checkboxes
-    //             captureInitialStates();
-    //         },
-    //         error: function(error) {
-    //             console.log(error);
-    //         }
-    //     });
-    // });
-
-    // // Save button click event
-    // $(document).on('click', '#saveJewelryPromo', function() {
-    //     var promoid = $(this).data('id'); // Ensure promoId is correctly set
-    //     var changedStates = getChangedStates();
-
-    //     var formData = new FormData();
-    //     changedStates.checked.forEach(function(id) {
-    //         formData.append('checkedJewelryIds[]', id);
-    //     });
-    //     changedStates.unchecked.forEach(function(id) {
-    //         formData.append('uncheckedJewelryIds[]', id);
-    //     });
-
-    //     $.ajax({
-    //         type: 'POST',
-    //         url: `http://localhost:8000/api/admin/jewelrypromosave/${promoid}`,
-    //         data: formData,
-    //         processData: false,
-    //         contentType: false,
-    //         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
-    //         dataType: "json",
-    //         success: function(response) {
-    //             console.log("Response:", response);
-    //             document.getElementById('jewelrypromomodal').close();
-    //             promoTable.ajax.reload();
-    //         },
-    //         error: function(error) {
-    //             console.log("Error:", error);
-    //         }
-    //     });
-    // });
-
 
     // ======= IMAGE ========= //
 

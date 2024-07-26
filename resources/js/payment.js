@@ -4,7 +4,7 @@ import 'datatables.net-dt';
 $(document).ready(function() {
     var paymentTable = $('#paymentsTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/payments',
+            url: '/api/payments',
             dataSrc: ""
         },
         columns: [
@@ -74,7 +74,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/payment/${paymentid}`,
+            url: `/api/payment/${paymentid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -103,7 +103,7 @@ $(document).ready(function() {
     
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/payment/${paymentId}`,
+            url: `/api/payment/${paymentId}`,
             data: formData,
             processData: false,
             contentType: false,
@@ -130,7 +130,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this payment?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/payment/${paymentId}`,
+                url: `/api/payment/${paymentId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);

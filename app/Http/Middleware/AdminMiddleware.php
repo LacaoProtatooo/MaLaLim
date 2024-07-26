@@ -30,11 +30,12 @@ class AdminMiddleware
                 Auth::logout();
                 $request->session()->invalidate();
                 $request->session()->regenerateToken();
-                return response()->json(['error' => 'Unauthorized'], 403);
+                return redirect()->route('login');
+                // return response()->json(['error' => 'Unauthorized'], 403);
             }
         }
 
-        return redirect()->route('home.login');
+        return redirect()->route('login');
     }
 
     

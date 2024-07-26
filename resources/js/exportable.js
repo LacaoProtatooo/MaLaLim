@@ -1,7 +1,7 @@
 export function ModalDisplay(itemId) {
     showLoadingModal();
     $.ajax({
-        url: `api/item/description/${itemId}`,
+        url: `/api/item/description/${itemId}`,
         type: 'GET',
         success: function(response) {
             if (response.success) {
@@ -45,7 +45,7 @@ export function ModalDisplay(itemId) {
 
 export function AutoDisplay(colId, itemId) {
     $.ajax({
-        url: `api/item/description?col=${colId}&ite=${itemId}`,
+        url: `/api/item/description?col=${colId}&ite=${itemId}`,
         type: 'GET',
         success: function(response) {
             if (response.success) {
@@ -66,7 +66,7 @@ export function AutoDisplay(colId, itemId) {
 export function deTach(itemId) {
     showLoadingModal();
     $.ajax({
-        url: `api/user/${itemId}/jewelry`,
+        url: `/api/user/${itemId}/jewelry`,
         type: 'DELETE',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
@@ -118,7 +118,7 @@ export function deTach(itemId) {
     {
         showLoadingModal();
         $.ajax({
-            url: 'api/fetchCart',
+            url: '/api/fetchCart',
             type: 'GET',
             success: function(response) {
                 if (response.success) {
@@ -260,7 +260,7 @@ export function popCheck()
 {
     showLoadingModal();
     $.ajax({
-        url: 'api/fetchCheck',
+        url: '/api/fetchCheck',
         type: 'GET',
         success: function(response)
         {
@@ -491,7 +491,7 @@ export function popOrderMod(id)
 {
     showLoadingModal();
     $.ajax({
-        url: `api/fetchModCheck?cart=${id}`,
+        url: `/api/fetchModCheck?cart=${id}`,
         type: 'GET',
         success: function(response)
         {
@@ -577,7 +577,7 @@ export function cancelButt(id)
 {
     // showLoadingModal();
     $.ajax({
-        url: 'api/cancel',
+        url: '/api/cancel',
         type: 'PUT',
         data: {
             _token: '{{ csrf_token() }}',
@@ -598,7 +598,7 @@ export function cancelButt(id)
 export function auto(query)
 {
     $.ajax({
-        url: 'api/AUTOCOM',
+        url: '/api/AUTOCOM',
         type: 'GET',
         data: {
             _token: '{{ csrf_token() }}',
@@ -647,7 +647,7 @@ export function promoCarou()
 {
 
     $.ajax({
-        url: 'api/carousel',
+        url: '/api/carousel',
         type: 'GET',
         data: {
             _token: '{{ csrf_token() }}',

@@ -7,7 +7,7 @@ OrderTable;
 
     var OrderTable = $('#ordersTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/orders',
+            url: '/api/orders',
             dataSrc: ""
         },
         columns: [
@@ -26,7 +26,7 @@ OrderTable;
         var OrderId = $(this).data('id');
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/InfoOrder?id=${OrderId}`,
+            url: `/api/InfoOrder?id=${OrderId}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
 
             success: function (response) {
@@ -105,7 +105,7 @@ OrderTable;
         var OrderStat = $(this).data('stat');
         console.log(OrderStat);
         $.ajax({
-            url: `http://localhost:8000/api/Manipulate`,
+            url: `/api/Manipulate`,
             type: 'POST',
             data: {
                 order: OrderId,
@@ -127,7 +127,7 @@ OrderTable;
         var OrderId = $(this).data('id');
         var OrderStat = $(this).data('stat');
         $.ajax({
-            url: `http://localhost:8000/api/Manipulate`,
+            url: `/api/Manipulate`,
             type: 'POST',
             data: {
                 order: OrderId,
@@ -150,7 +150,7 @@ OrderTable;
         var OrderStat = $(this).data('stat');
         console.log(OrderStat);
         $.ajax({
-            url: `http://localhost:8000/api/Manipulate`,
+            url: `/api/Manipulate`,
             type: 'POST',
             data: {
                 order: OrderId,
@@ -158,8 +158,6 @@ OrderTable;
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
-
-
                 OrderTable.ajax.reload();
             },
             error: function(error) {

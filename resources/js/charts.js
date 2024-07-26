@@ -43,11 +43,11 @@ $(document).ready(function() {
     }
 
     // Line Chart
-    createChart('line', 'http://localhost:8000/api/chart-line', 'lineChart', 'NIGGA Chart');
+    createChart('line', "/api/chart-line", 'lineChart', 'Line Chart');
 
     // Pie Chart
-    createChart('pie', 'http://localhost:8000/api/chart-pie', 'pieChart', 'Cutie Pie Chart', { scales: {} });
+    createChart('pie', "/api/chart-pie", 'pieChart', 'Pie Chart', { scales: {} });
 
     // Bar Chart
-    createChart('bar', 'http://localhost:8000/api/chart-bar', 'barChart', 'Barsss Chart');
+    createChart('bar', "/api/chart-bar", 'barChart', 'Bar Chart');
 });

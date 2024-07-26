@@ -3,7 +3,7 @@ import 'datatables.net-dt';
 $(document).ready(function() {
     var promoTable = $('#promosTable').DataTable({
         ajax: {
-            url: 'http://localhost:8000/api/promos',
+            url: '/api/promos',
             dataSrc: ""
         },
         columns: [
@@ -144,7 +144,7 @@ $(document).ready(function() {
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
-            url: `http://localhost:8000/api/promo/${promoid}`,
+            url: `/api/promo/${promoid}`,
             headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
             dataType: "json",
             success: function (data) {
@@ -226,7 +226,7 @@ $(document).ready(function() {
     
             $.ajax({
                 type: 'POST',
-                url: `http://localhost:8000/api/promo/${promoId}`,
+                url: `/api/promo/${promoId}`,
                 data: formData,
                 processData: false,
                 contentType: false,
@@ -253,7 +253,7 @@ $(document).ready(function() {
         if (confirm("Are you sure you want to delete this promo?")) {
             $.ajax({
                 type: 'DELETE',
-                url: `http://localhost:8000/api/promo/${promoId}`,
+                url: `/api/promo/${promoId}`,
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 success: function(response) {
                     console.log(response.message);
@@ -358,7 +358,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: `http://localhost:8000/api/admin/jewelrypromosave/${promoid}`,
+            url: `/api/admin/jewelrypromosave/${promoid}`,
             data: formData,
             processData: false,
             contentType: false,

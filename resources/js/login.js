@@ -16,7 +16,13 @@ $(document).ready(function(){
                 if (response.message === 'Login successful') {
                     console.log("Login Success");
                     localStorage.setItem('auth_token', response.token);
-                    window.location.href = '/item';
+
+                    // Redirect based on role
+                    if (response.isAdmin) {
+                        window.location.href = '/admin/home'; // Admin redirect
+                    } else {
+                        window.location.href = '/item'; // Regular user redirect
+                    }
                 } else {
                     showError("Username or Password Incorrect. Please Check");
                 }
@@ -30,12 +36,11 @@ $(document).ready(function(){
             }
         });
     });
+});
 
-    $('#logoutLink').on('click', function(e) {
-        e.preventDefault();
-        logout();
-    });
-
+$('#logoutLink').on('click', function(e) {
+    e.preventDefault();
+    logout();
 });
 
 $(document).on('click', '.Urders', function() {
@@ -54,7 +59,7 @@ function logout() {
         success: function(response) {
             console.log('Logged out successfully');
             localStorage.removeItem('auth_token');
-            window.location.href = '/item';
+            window.location.href = '/login';
         },
         error: function(xhr) {
             console.error('Logout failed:', xhr);

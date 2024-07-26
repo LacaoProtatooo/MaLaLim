@@ -3,7 +3,7 @@
   <div class="flex-1">
     <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">MaLaLim</a>
   </div>
-  
+
   {{-- LOGIN :: USER PROFILE --}}
   @if (!Auth::user())
     <button class="btn" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
@@ -12,7 +12,6 @@
     <div class="dropdown dropdown-end">
       <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
         <div class="w-10 rounded-full">
-          {{-- Must Replace this with Registered Photo --}}
           @if (Auth::check())
               @php
                   $imagePath = Auth::user()->image_path ? asset(Auth::user()->image_path) : 'https://www.svgrepo.com/show/530585/user.svg';

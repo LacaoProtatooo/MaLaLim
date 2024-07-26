@@ -21,10 +21,13 @@ class LoginController extends Controller
             $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
 
+            $isAdmin = $user->role && $user->role->title == 'admin';
+
             return response()->json([
                 'message' => 'Login successful',
                 'user' => $user,
                 'token' => $token,
+                'isAdmin' => $isAdmin,
             ], 200);
         }
 
@@ -32,6 +35,7 @@ class LoginController extends Controller
             'message' => 'Invalid credentials'
         ], 401);
     }
+
 
 
     public function logout(Request $request)
