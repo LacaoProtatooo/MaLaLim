@@ -12,7 +12,8 @@
 @include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
-    <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createusermodal').showModal()">Create User</button>
+    {{-- <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createusermodal').showModal()">Create User</button> --}}
+    <p class="text-4xl mb-6"> Listed Users : </p>
     <div class="table-responsive">
         <table class="table table-bordered" id="usersTable">
             <thead>

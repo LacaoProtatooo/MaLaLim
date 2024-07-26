@@ -13,6 +13,7 @@
 @include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
+    <p class="text-4xl mb-6"> Listed Couriers : </p>
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createcouriermodal').showModal()">Create Courier</button>
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('importcouriermodal').showModal()">Import Courier</button>
     <div class="table-responsive">

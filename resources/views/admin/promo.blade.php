@@ -13,6 +13,7 @@
 @include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
+    <p class="text-4xl mb-6"> Listed Promos : </p>
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createpromomodal').showModal()">Create Promo</button>
     <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('importpromomodal').showModal()">Import Promo</button>
     <div class="table-responsive">

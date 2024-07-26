@@ -13,6 +13,7 @@
 @include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
+    <p class="text-4xl mb-6"> Listed Orders : </p>
 
     <div class="table-responsive">
         <table class="table table-bordered" id="ordersTable">
