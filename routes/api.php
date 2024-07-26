@@ -15,6 +15,7 @@ use App\Http\Controllers\CourierController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ExcelController;
+use App\Http\Controllers\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +42,7 @@ Route::get('/promos', [PromoController::class, 'dtpopulate'])->name('admin.getPr
 Route::get('/payments', [PaymentController::class, 'dtpopulate'])->name('admin.getPayments');
 Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
 Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getStocks');
+Route::get('/orders', [OrderController::class, 'dtpopulate'])->name('admin.geOrders');
 
 // Excel Import
 Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name('courier.import');
@@ -83,6 +85,8 @@ Route::get('/fetchModCheck', [CheckoutController::class, 'ModCheckPop'])->middle
 Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
 Route::get('/carousel', [PromoController::class, 'carouu']);
 
+// Status Order Manipulator
+Route::post('/Manipulate', [OrderController::class, 'manipulator']);
 
 
 // delete fave
@@ -102,6 +106,10 @@ Route::put('/cancel', [CheckoutController::class, 'Kansel'])->middleware('auth:s
 
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
+
+
+// dont know how to use resource lol
+Route::get('/InfoOrder', [OrderController::class, 'contentModal']);
 
 
 // ===================================================================== //

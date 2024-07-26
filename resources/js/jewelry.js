@@ -22,10 +22,10 @@ $(document).ready(function() {
     // Excel Import
     $(document).on('submit', '#importjewelryForm', function (e) {
         e.preventDefault();
-    
+
         var formData = new FormData(this);
         var fileInput = document.querySelector('input[name="jewelry_file"]');
-    
+
         if (!fileInput || !fileInput.files.length) {
             alert('Please select a file to upload.');
             return;
@@ -39,7 +39,7 @@ $(document).ready(function() {
             alert('Please upload a valid Excel file (xlsx, xls, csv).');
             return;
         }
-    
+
         $.ajax({
             type: 'POST',
             url: '/api/import-jewelry',
@@ -51,7 +51,7 @@ $(document).ready(function() {
             },
             success: function (response) {
                 console.log('Success:', response);
-   
+
                 document.getElementById('importjewelrymodal').close();
                 jewelryTable.ajax.reload();
             },
@@ -59,8 +59,8 @@ $(document).ready(function() {
                 console.log('Error:', xhr.responseText);
             }
         });
-    });    
-    
+    });
+
     // CREATE
     $('#jewelryForm').validate({
         rules: {
@@ -81,7 +81,7 @@ $(document).ready(function() {
                 number: true,
                 min: 0
             },
-            images: { 
+            images: {
                 required: true,
                 extension: "jpg|jpeg|png|gif"
             }
@@ -117,7 +117,7 @@ $(document).ready(function() {
                 url: '/api/jewelry',
                 data: formData,
                 processData: false,
-                contentType: false, 
+                contentType: false,
                 headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
                 dataType: "json",
                 success: function(data) {
@@ -144,7 +144,7 @@ $(document).ready(function() {
 
         var jewelryid = $(this).data('id');
         console.log(jewelryid);
-        
+
         // OPENING DETAILS MODAL
         $.ajax({
             type: "GET",
@@ -180,10 +180,10 @@ $(document).ready(function() {
             error: function (error) {
                 console.log(error);
             }
-        });       
+        });
     });
 
-    // UPDATE 
+    // UPDATE
     $('#jewelryeditForm').validate({
         rules: {
             name: {
@@ -234,7 +234,7 @@ $(document).ready(function() {
             var data = $('#jewelryeditForm')[0];
             let formData = new FormData(data);
             formData.append("_method", "PUT");
-    
+
             $.ajax({
                 type: 'POST',
                 url: `http://localhost:8000/api/jewelry/${jewelryId}`,
@@ -254,12 +254,12 @@ $(document).ready(function() {
             });
         }
     });
-    
+
     // DELETE
     $(document).on('click', '.jewelry-delete', function() {
         var jewelryId = $(this).data('id');
         console.log('Delete button : jewelry ID:', jewelryId);
-        
+
         // Confirm deletion
         if (confirm("Are you sure you want to delete this jewelry?")) {
             $.ajax({

@@ -37,6 +37,7 @@ Route::get('/admin/jewelries', function () { return view('admin.jewelry'); })->n
 Route::get('/admin/promos', function () { return view('admin.promo'); })->name('admin.promo');
 Route::get('/admin/payments', function () { return view('admin.payment'); })->name('admin.payment');
 Route::get('/admin/stocks', function () { return view('admin.stock'); })->name('admin.stock');
+Route::get('/admin/orders', function () { return view('admin.order'); })->name('admin.order');
 
 // Customer
 Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');
