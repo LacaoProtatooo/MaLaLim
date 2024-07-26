@@ -222,6 +222,12 @@ class UserController extends Controller
         return view('customer.profile', compact('userinfo'));
     }
 
+    public function adminprofile()
+    {
+        $userinfo = Auth::user();
+        return view('admin.profile', compact('userinfo'));
+    }
+
     public function getUserProfile()
     {
         $userinfo = Auth::user();

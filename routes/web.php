@@ -22,17 +22,15 @@ use App\Http\Controllers\ExcelController;
 |
 */
 
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/item', [ItemController::class, 'index'])->name('home');
 Route::get('/', function () { return view('home.about'); })->name('about');
 
 
-Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');
-Route::get('/favorites', function () { return view('home.favorites'); })->name('favorites');
-Route::get('/checkout', function () { return view('home.checkout'); })->name('checkout');
-
-
 // Admin
 Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
+Route::get('/admin/profile', [UserController::class, 'adminprofile'])->name('admin.profile');
 Route::get('/admin/users', [UserController::class, 'index'])->name('admin.users');
 Route::get('/admin/couriers', function () { return view('admin.courier'); })->name('admin.courier');
 Route::get('/admin/jewelries', function () { return view('admin.jewelry'); })->name('admin.jewelry');
@@ -42,10 +40,14 @@ Route::get('/admin/stocks', function () { return view('admin.stock'); })->name('
 Route::get('/admin/orders', function () { return view('admin.order'); })->name('admin.order');
 Route::get('/admin/materials', function () { return view('admin.material'); })->name('admin.material');
 
+
+
 // Customer
 Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');
+Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');
+Route::get('/favorites', function () { return view('home.favorites'); })->name('favorites');
+Route::get('/checkout', function () { return view('home.checkout'); })->name('checkout');
 
-// Login
-Route::get('/login', [LoginController::class, 'index'])->name('login');
+
 
 

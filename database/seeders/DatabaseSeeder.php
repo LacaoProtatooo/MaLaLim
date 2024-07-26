@@ -104,6 +104,9 @@ class DatabaseSeeder extends Seeder
             StockSeeder::class,
             PriceSeeder::class
         ]);
+        $this->call([
+            AdminSeeder::class
+        ]);
 
         mat();              //jewelry materials attachment
 
