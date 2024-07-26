@@ -8,9 +8,9 @@ $(document).ready(function() {
         headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
         dataType: "json",
         success: function(data) {
-            // console.log("Promo response contains: ", data);
+            $('#promoCount').text(response.promocount);
+            $('#pendingJewelry').text(response.pendingjewelry);
             
-            // $('#promono').val(data.id);
         },
         error: function(error) {
             console.log(error);
