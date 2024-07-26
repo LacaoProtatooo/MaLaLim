@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/js/favourite.js',)
 </head>
-<body>
+<body class="bg-yellow-50">
     @include('common.header')
     @include('common.navbar')
 

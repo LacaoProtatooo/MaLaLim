@@ -9,21 +9,16 @@
     @include('common.links')
     @vite('resources/js/charts.js')
 </head>
-<body>
+<body class="bg-yellow-50">
     @include('common.adminheader') 
     @include('common.sidebar') 
     
-    
-
-
     <div class="px-4 pt-6">
         @include('common.charts')
         @include('common.summary')
         
-        
-
-
-
     </div>
+
+    @include('common.footer')
 </body>
 </html>

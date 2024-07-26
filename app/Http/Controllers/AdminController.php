@@ -27,4 +27,14 @@ class AdminController extends Controller
         compact('admininfo','usercount','usercountall',
         'soldjewelry','pendingjewelry','jewelrycount','promocount'));
     }
+
+    public function sidebar(){
+        $promocount = Promo::count();
+        $pendingjewelry = Order::where('status', 'pending')->count();
+
+        return response()->json([
+            'promocount' => $promocount,
+            'pendingjewelry' => $pendingjewelry,
+        ]);
+    }
 }

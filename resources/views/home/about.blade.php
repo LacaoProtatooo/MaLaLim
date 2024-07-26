@@ -7,18 +7,8 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @include('common.links')
 </head>
-<body>
+<body class="bg-yellow-50">
 @include('common.header')
-
-<!-- <button class="btn" onclick="my_modal_10.showModal()">open modal</button>
-<dialog id="my_modal_10" class="modal">
-  <div class="modal-box">
-    <form method="dialog">
-      <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
-    </form>
-    @include('common.newmodal')
-  </div>
-</dialog>  -->
 
 
 <div class="card lg:card-side shadow-xl rounded-md bg-base-100">

@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\LoginController;
@@ -30,6 +31,8 @@ use App\Http\Controllers\MaterialController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+
+// ================================ USER: ADMIN ================================ //
 
 Route::resource('user', UserController::class);
 Route::apiResource('courier', CourierController::class);
@@ -64,6 +67,9 @@ Route::post('/import-promo', [ExcelController::class, 'importPromo'])->name('pro
 Route::post('/import-jewelry', [ExcelController::class, 'importJewelry'])->name('jewelry.import');
 Route::post('/import-jewelryvariant', [ExcelController::class, 'importJewelryVariant'])->name('jewelryvariant.import');
 
+// Sidebar
+Route::get('/sidebar', [Admincontroller::class, 'sidebar'])->name('side.bar');
+
 // Charts
 Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
 Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
@@ -72,11 +78,6 @@ Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie'
 // Login | Logout
 Route::post('/user/login', [LoginController::class, 'login'])->middleware('web')->name('user.login');
 Route::post('/user/logout', [LoginController::class, 'logout'])->middleware(['web', 'auth:sanctum'])->name('user.logout');
-
-// User Profile
-Route::get('/userprofile', [UserController::class, 'getUserProfile'])->middleware('auth:sanctum');
-Route::post('/updateProfile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
-Route::post('/user/deactivate', [UserController::class, 'deactivate'])->middleware('auth:sanctum');
 
 // Admin Users
 Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
@@ -87,8 +88,12 @@ Route::get('/admin/getJewelries/{id}', [PromoController::class, 'getJewelry'])->
 Route::post('/admin/jewelrypromosave/{id}', [PromoController::class, 'jewelrypromosave'])->name('admin.jewelrypromosave');
 
 
+// =============================== USER: CUSTOMER =============================== //
 
-
+// User Profile
+Route::get('/userprofile', [UserController::class, 'getUserProfile'])->middleware('auth:sanctum');
+Route::post('/updateProfile', [UserController::class, 'updateProfile'])->middleware('auth:sanctum');
+Route::post('/user/deactivate', [UserController::class, 'deactivate'])->middleware('auth:sanctum');
 
 // AttachFave Jewelry
 Route::post('/user/fave', [ItemController::class, 'AddFave'])->middleware('auth:sanctum');

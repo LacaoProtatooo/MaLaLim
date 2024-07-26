@@ -11,7 +11,7 @@
     @include('common.links') <!-- Include necessary CSS and JavaScript resources -->
     @vite('resources/js/home.js',)
 </head>
-<body>
+<body class="bg-yellow-50">
 
     @include('common.header') <!-- Include header component -->
     @include('common.navbar') <!-- Include navbar component -->

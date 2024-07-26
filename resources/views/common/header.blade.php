@@ -1,11 +1,9 @@
 
-<div class="navbar bg-yellow-300">
+<div class="navbar bg-yellow-300 w-full">
   <div class="flex-1">
     <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">MaLaLim</a>
   </div>
-
-
-
+  
   {{-- LOGIN :: USER PROFILE --}}
   @if (!Auth::user())
     <button class="btn" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
