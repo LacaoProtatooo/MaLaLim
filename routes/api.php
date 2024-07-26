@@ -17,6 +17,8 @@ use App\Http\Controllers\StockController;
 use App\Http\Controllers\ExcelController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ChartController;
+use App\Http\Controllers\MaterialController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -44,6 +46,17 @@ Route::get('/payments', [PaymentController::class, 'dtpopulate'])->name('admin.g
 Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
 Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getStocks');
 Route::get('/orders', [OrderController::class, 'dtpopulate'])->name('admin.geOrders');
+
+Route::get('/materials', [MaterialController::class, 'dtpopulate'])->name('admin.getMat');
+Route::post('/materials/create', [MaterialController::class, 'store']);
+Route::put('/materials/update/{id}', [MaterialController::class, 'update']);
+Route::delete('/materials/{id}', [MaterialController::class, 'delete']);
+
+Route::get('/getmaterials/{id}', [JewelryController::class, 'modpop']);
+Route::post('/savematerialstoJewelry/{id}', [JewelryController::class, 'save']);
+
+
+
 
 // Excel Import
 Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name('courier.import');

@@ -40,6 +40,7 @@ Route::get('/admin/promos', function () { return view('admin.promo'); })->name('
 Route::get('/admin/payments', function () { return view('admin.payment'); })->name('admin.payment');
 Route::get('/admin/stocks', function () { return view('admin.stock'); })->name('admin.stock');
 Route::get('/admin/orders', function () { return view('admin.order'); })->name('admin.order');
+Route::get('/admin/materials', function () { return view('admin.material'); })->name('admin.material');
 
 // Customer
 Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');

@@ -34,6 +34,7 @@
 @include('modal.jewelrydetails')
 @include('modal.addjewelry')
 @include('modal.jewelryimport')
+@include('modal.jewelrymaterial')
 
 @include('common.footer')
 </body>

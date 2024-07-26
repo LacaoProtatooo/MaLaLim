@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Material;
 use Illuminate\Http\Request;
 
 use App\Models\Jewelry;
 use App\Models\Price;
 use App\Models\Classification;
+use Psy\TabCompletion\Matcher\FunctionsMatcher;
 
 class JewelryController extends Controller
 {
@@ -22,11 +24,12 @@ class JewelryController extends Controller
         $jewelries = Jewelry::all();
         $jewelries = $jewelries->map(function($jewelry) {
             return [
-            'id' => $jewelry->id,
-            'name' => $jewelry->name,
-            'actions' => '<button class="btn btn-primary jewelry-edit" data-id="' . $jewelry->id . '">Details</button> ' .
-                           '<button class="btn btn-secondary jewelry-delete" data-id="' . $jewelry->id . '">Delete</button>',
-            'full_data' => $jewelry
+                'id' => $jewelry->id,
+                'name' => $jewelry->name,
+                'actions' => '<button class="btn btn-primary jewelry-edit" data-id="' . $jewelry->id . '">Details</button> ' .
+                             '<button class="btn btn-secondary jewelry-delete" data-id="' . $jewelry->id . '">Delete</button> ' .
+                             '<button class="btn btn-success jewelry-material" data-id="' . $jewelry->id . '">Assign Materials</button>',
+                'full_data' => $jewelry
             ];
         });
         return response()->json($jewelries);
@@ -47,7 +50,7 @@ class JewelryController extends Controller
 
         $jewelry = new Jewelry();
         $imagePaths = [];
-        
+
         // Handle multiple image uploads
         if ($request->hasFile('images')) {
             foreach ($request->file('images') as $image) {
@@ -59,7 +62,7 @@ class JewelryController extends Controller
             $validatedData['image_path'] = implode(',', $imagePaths);
             $jewelry->image_path = $validatedData['image_path'];
         }
-        
+
         $jewelry->name = $validatedData['name'];
         $jewelry->description = $validatedData['description'];
         $jewelry->classification_id = $validatedData['classification'];
@@ -82,10 +85,10 @@ class JewelryController extends Controller
         if (!$jewelry) {
             return response()->json(['message' => 'Jewelry not found'], 404);
         }
-        
+
         $price = Price::where('jewelry_id', $jewelry->id)->first();
         $jewelry->price = $price ? $price->price : null;
-        
+
         return response()->json($jewelry);
     }
 
@@ -150,4 +153,49 @@ class JewelryController extends Controller
         $jewelry->delete();
         return response()->json(['message' => 'Jewelry deleted successfully'], 200);
     }
+
+    public function modpop($id)
+    {
+        // Find the jewelry by ID
+        $jewelry = Jewelry::find($id);
+
+        if (!$jewelry) {
+            return response()->json(['error' => 'Jewelry not found'], 404);
+        }
+
+        // Get all materials
+        $allMaterials = Material::all();
+
+        // Get the IDs of materials associated with the specific jewelry
+        $associatedMaterialIds = $jewelry->materials->pluck('id')->toArray();
+
+        // Add 'hasJewelry' attribute to each material
+        $allMaterials->each(function ($material) use ($associatedMaterialIds) {
+            $material->hasJewelry = in_array($material->id, $associatedMaterialIds);
+        });
+
+        return response()->json($allMaterials, 200);
+    }
+
+    public function save(Request $request, string $id)
+    {
+        $checkedMaterialIds  = $request->checkedJewelryIds;
+        $uncheckedMaterialIds = $request->uncheckedJewelryIds;
+        $jewel = Jewelry::find($id);
+        if (!$jewel) {
+            return response()->json(['error' => 'jewel not found'], 404);
+        }
+
+        if (!empty($checkedMaterialIds)) {
+            $jewel->materials()->syncWithoutDetaching($checkedMaterialIds);
+        }
+
+        if (!empty($uncheckedMaterialIds)) {
+            $jewel->materials()->detach($uncheckedMaterialIds);
+        }
+
+        return response()->json($request, 200);
+
+    }
+
 }

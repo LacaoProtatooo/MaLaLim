@@ -128,7 +128,8 @@ $(document).ready(function() {
                         'name': data.name,
                         'rate': data.rate,
                         'actions': '<button class="btn btn-primary jewelry-edit" data-id="' + data.id + '">Details</button> ' +
-                                   '<button class="btn btn-secondary jewelry-delete" data-id="' + data.id + '">Delete</button>'
+                                   '<button class="btn btn-secondary jewelry-delete" data-id="' + data.id + '">Delete</button>' +
+                                   '<button class="btn btn-success jewelry-material" data-id="' + data.id + '">Assign Materials</button>',
                     }).draw(false);
                 },
                 error: function(error) {
@@ -336,5 +337,113 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('click', '.jewelry-material', function(e) {
+        e.preventDefault();
+        var matId = $(this).data('id');
+        $.ajax({
+            type: "GET",
+            url: `/api/getmaterials/${matId}`,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: "json",
+            success: function(data) {
+                // console.log(data);
+                $('#materialContainer').empty();
+                console.log(data);
+                data.forEach(function(material) {
+
+                    var materialyElement = `
+                        <div class="form-control">
+                            <label class="label cursor-pointer">
+                                <span class="label-text">${material.id}</span>
+                                <span class="label-text">${material.material}</span>
+                                <!-- Assuming materialStatus is a boolean variable -->
+                                <input type="checkbox" ${material.hasJewelry ? 'checked' : ''} class="checkbox checkbox-primary" data-id="${material.id}" />
+
+
+                            </label>
+                        </div>`;
+
+                    $('#materialContainer').append(materialyElement);
+                });
+
+                $('#saveJewelryMaterial').data('id', matId);
+                document.getElementById('jewelrymaterialmodal').showModal();
+
+                // Capture the initial states of checkboxes
+                captureInitialStates();
+            },
+            error: function(xhr, status, error) {
+                console.log('Error Status:', xhr.status); // HTTP status code
+                console.log('Status Text:', status); // Status text (e.g., 'error', 'timeout')
+                console.log('Error Message:', error); // Error message
+
+                console.log('Response Text:', xhr.responseText);
+            }
+        });
+    });
+
+    $(document).on('click', '#saveJewelryMaterial', function() {
+        var jewelid = $(this).data('id');
+        var changedStates = getChangedStates();
+
+        var formData = new FormData();
+        changedStates.checked.forEach(function(id) {
+            formData.append('checkedJewelryIds[]', id);
+        });
+        changedStates.unchecked.forEach(function(id) {
+            formData.append('uncheckedJewelryIds[]', id);
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: `http://localhost:8000/api/savematerialstoJewelry/${jewelid}`,
+            data: formData,
+            processData: false,
+            contentType: false,
+            headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+            dataType: "json",
+            success: function(response) {
+                console.log("Response:", response);
+                document.getElementById('jewelrymaterialmodal').close();
+                jewelryTable.ajax.reload();
+            },
+            error: function(error) {
+                console.log("Error:", error);
+            }
+        });
+
+    });
+
+    let initialCheckboxStates = {};
+
+    // Function to capture the initial state of the checkboxes
+    function captureInitialStates() {
+        initialCheckboxStates = {};
+        $('#materialContainer input[type="checkbox"]').each(function() {
+            initialCheckboxStates[$(this).data('id')] = $(this).prop('checked');
+        });
+    }
+
+    // Function to get the changed states
+    function getChangedStates() {
+        let changedStates = {
+            checked: [],
+            unchecked: []
+        };
+
+        $('#materialContainer input[type="checkbox"]').each(function() {
+            let id = $(this).data('id');
+            let isChecked = $(this).prop('checked');
+            if (initialCheckboxStates[id] !== isChecked) {
+                if (isChecked) {
+                    changedStates.checked.push(id);
+                } else {
+                    changedStates.unchecked.push(id);
+                }
+            }
+        });
+
+        return changedStates;
+    }
 
 });
