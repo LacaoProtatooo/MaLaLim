@@ -1,4 +1,4 @@
-<footer class="rounded-lg m-4 w-full bg-yellow-300">
+<footer class="rounded-lg mt-4 mb-4 mr-4 ml-4 w-full bg-yellow-300">
     <div class="w-full mx-auto max-w-screen-xl p-4 md:flex md:items-center md:justify-between shadow-md">
 
         <span class="text-sm text-gray-700 sm:text-center dark:text-gray-700">© 2024 
