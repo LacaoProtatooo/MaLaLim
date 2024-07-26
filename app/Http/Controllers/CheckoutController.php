@@ -13,7 +13,6 @@ class CheckoutController extends Controller
 {
     public function CheckPop()
     {
-
         $user = Auth::user();
         $userId = $user->id;
         $userName = $user->fname . " " . $user->lname;

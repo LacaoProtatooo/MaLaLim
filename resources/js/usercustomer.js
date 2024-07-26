@@ -18,7 +18,6 @@ $(document).ready(function(){
         dataType: "json",
 
         success: function (data) {
-            console.log(data.birthdate);
             $('#userfullname').text(data.fname + ' ' + data.lname)
             $('#fname').val(data.fname)
             $('#lname').val(data.lname)
@@ -86,13 +85,13 @@ $(document).ready(function(){
         submitHandler: function(form) {
 
             var formData = new FormData($(form)[0]);
-            for (var pair of formData.entries()) {
-                if (pair[1] instanceof File) {
-                    console.log(pair[0] + ': [File] ' + pair[1].name);
-                } else {
-                    console.log(pair[0] + ': ' + pair[1]);
-                }
-            }
+            // for (var pair of formData.entries()) {
+            //     if (pair[1] instanceof File) {
+            //         console.log(pair[0] + ': [File] ' + pair[1].name);
+            //     } else {
+            //         console.log(pair[0] + ': ' + pair[1]);
+            //     }
+            // }
 
             $.ajax({
                 type: 'POST',
