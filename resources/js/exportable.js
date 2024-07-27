@@ -420,7 +420,7 @@ export function popOrder()
                 });
                 const urdirHTML = `
                      <div
-                        class="box p-8 rounded-3xl bg-gray-100 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto modsss"
+                        class="box p-8 rounded-3xl bg-gray-300 grid grid-cols-8 mb-7 cursor-pointer transition-all duration-500 hover:bg-yellow-100 max-lg:max-w-xl max-lg:mx-auto modsss"
                         data-id="${ord.id}">
 
 

@@ -9,7 +9,7 @@
     @include('common.links')
     @vite('resources/js/jewelry.js')
 </head>
-<body class=" bg-yellow-50">
+<body class=" bg-gray-100">
 @include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">

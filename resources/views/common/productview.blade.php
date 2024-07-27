@@ -2,7 +2,7 @@
 
 <!-- Modal -->
 @vite('resources/js/cart.js')
-<div id="myModal" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-50" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+<div id="myModal" class="fixed inset-0 z-50 hidden bg-gray-900 bg-opacity-50 overflow-scroll" role="dialog" aria-labelledby="modalTitle" aria-describedby="modalDescription">
     <div class="flex items-center justify-center min-h-screen p-4">
         <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full overflow-hidden relative">
             <!-- Close Button -->
