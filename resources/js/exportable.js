@@ -93,14 +93,15 @@ export function deTach(itemId) {
                 _token: $('meta[name="csrf-token"]').attr('content')
             },
             success: function(response) {
+                console.log(response);
                 if (response.success) {
-                    // console.log(response);
+
                     if(response.colorJewelryId)
                     {
                         AddQuan(response.colorJewelryId)
                     }
                 } else {
-                    console.log('Error attaching item:', response.message); // Fixed the console message
+                    console.log('Error attaching item:', response); // Fixed the console message
                 }
             },
             error: function(xhr, status, error) {
@@ -509,9 +510,15 @@ export function popOrderMod(id)
                         <td class="text-right px-4 py-2 border border-gray-600">₱ ${alahas.jewelry.prices.price * alahas.pivot.quantity} </td>
                     </tr>
                 `;
-                let dcRate = alahas.jewelry.promos.discountRate ? parseFloat(alahas.jewelry.promos.discountRate) : 0;
+                let dcRate ;
                 let PRC = parseFloat(alahas.jewelry.prices.price);
-
+                if(response.perks)
+                {
+                     dcRate = alahas.jewelry.promos.discountRate ? parseFloat(alahas.jewelry.promos.discountRate) : 0;
+                }
+                else{
+                    dcRate = 0;
+                }
 
                 totDD += dcRate * PRC * alahas.pivot.quantity;
                 sum += PRC * alahas.pivot.quantity;
@@ -555,6 +562,12 @@ export function popOrderMod(id)
                 $('#btnn').prop('disabled', true);
                 $('#btnn').text('Cancelled');
             }
+
+            if(response.order.status === 'Completed')
+                {
+                    $('#btnn').prop('disabled', true);
+                    $('#btnn').text('Completed');
+                }
 
             if(response.order.status === 'Shipping')
                 {

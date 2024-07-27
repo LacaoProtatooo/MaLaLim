@@ -160,7 +160,15 @@ class CheckoutController extends Controller
         $order = Order::with(['courier', 'payment', 'colorJewelry','colorJewelry.jewelry','colorJewelry.jewelry.promos','colorJewelry.jewelry.prices', 'colorJewelry.colors'])
         ->findOrFail($Orderid);
 
-        return response()->json(['order' => $order]);
+        if(Auth::user()->role->title === 'CustomerPlus')
+        {
+            $perks = true;
+        }
+        else{
+            $perks = false;
+        }
+
+        return response()->json(['order' => $order,'perks' => $perks]);
 
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\Stock;
+use Auth;
 class OrderController extends Controller
 {
     public function dtpopulate()
@@ -36,45 +37,54 @@ class OrderController extends Controller
         $OrderId = $request->input('id');
         $order = Order::find($OrderId);
         $courier = $order->courier->rate;
-        $orderDetails = $order->colorJewelry()->with([
-            'jewelry',
-            'jewelry.classification',
-            'jewelry.promos', // Fetch all promos but only use the first
-            'jewelry.prices', // Fetch the single price
-            'colors'
-        ])->withPivot('quantity')->get();
+        $orderDetails = $order->load([
+            'colorJewelry' => function ($query) {
+                $query->with([
+                    'jewelry',
+                    'jewelry.classification',
+                    'jewelry.promos',
+                    'jewelry.prices',
+                    'colors'
+                ])->withPivot('quantity');
+            },
+            'users' // Include the user relationship
+        ]);
+
+        // Now you can access the user directly from the $order object
+        $user = $order->users;
 
         // Map the results to a simplified structure
-        $mappedOrderDetails = $orderDetails->map(function ($colorJewelry) {
+        $mappedOrderDetails = $order->colorJewelry->map(function ($colorJewelry) use ($user) {
             $jewelry = $colorJewelry->jewelry;
-            $price = $jewelry->prices; // Fetch the single price
+            $price = $jewelry->prices->first(); // Fetch the single price
 
             // Get the first promo if available
             $firstPromo = $jewelry->promos->first();
 
+            // Check if the authenticated user has the role 'CustomerPlus' and if a promo exists
+            if ($firstPromo && $user->roles->first()->title === 'CustomerPlus') {
+                $dcRate = $firstPromo->discountRate;
+            } else {
+                $dcRate = 0;
+            }
 
             return [
                 'quantity' => $colorJewelry->pivot->quantity,
                 'jewelry' => [
-
                     'name' => $jewelry->name,
                     'classification' => [
-
                         'name' => $jewelry->classification->classification,
                     ],
-                    'promo' => $firstPromo ? [
-
-                        'discount' => $firstPromo->discountRate,
+                    'promo' => [
+                        'discount' => $dcRate,
                         // Add other promo fields as necessary
-                    ] : null,
+                    ] ,
                     'price' => $price ? [
                         'amount' => $price->price,
                         // Add other price fields as necessary
                     ] : null,
                 ],
-                'colors' =>
-                [
-
+                'colors' => [
                     'name' => $colorJewelry->colors->color,
                 ]
             ];

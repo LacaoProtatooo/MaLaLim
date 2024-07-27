@@ -40,7 +40,7 @@ Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logo
 Route::middleware('auth:sanctum')->group(function () {
 
     // ================================ USER: ADMIN ================================ //
-    
+
     Route::apiResource('courier', CourierController::class);
     Route::apiResource('promo', PromoController::class);
     Route::apiResource('jewelry', JewelryController::class);
@@ -92,44 +92,55 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/userprofile', [UserController::class, 'getUserProfile']);
     Route::post('/updateProfile', [UserController::class, 'updateProfile']);
     Route::post('/user/deactivate', [UserController::class, 'deactivate']);
+// Attach Favorite Jewelry
+    Route::post('/user/fave', [ItemController::class, 'AddFave']);
+
+    // Attach to Cart
+    Route::post('/item/cartz', [ItemController::class, 'AddCart']);
+
+    // Populate Thingz
+    Route::get('/fetchingFave', [ItemController::class, 'fetchFave']);
+    Route::get('/fetchCart', [CartController::class, 'CartPop']);
+    Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop']);
+    Route::get('/fetchOrder', [CheckoutController::class, 'OrderPop']);
+    Route::get('/fetchModCheck', [CheckoutController::class, 'ModCheckPop']);
+
+
+
+    // Status Order Manipulator
+    Route::post('/Manipulate', [OrderController::class, 'manipulator']);
+    // Delete Favorite
+    Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry']);
+    // Transaction Final Momints:
+    Route::post('/Fin', [CheckoutController::class, 'Endo']);
+    // CART + - x ACTIONS BRUHHHHHH
+    Route::post('/add/jewel2Cart', [CartController::class, 'Increase']);
+    Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease']);
+    Route::post('/delete/jewel2Cart', [CartController::class, 'Remove']);
+
+        // Cancel Order
+    Route::put('/cancel', [CheckoutController::class, 'Kansel']);
+    Route::get('/carousel', [PromoController::class, 'carouu']);
+
+    // dont know how to use resource lol
+    Route::get('/InfoOrder', [OrderController::class, 'contentModal']);
 
 
 });
 
 // ANO ANO MGA NEED DITO NG AUTH:SANCTUM
 
-// Attach Favorite Jewelry
-Route::post('/user/fave', [ItemController::class, 'AddFave']);
-// Attach to Cart
-Route::post('/item/cartz', [ItemController::class, 'AddCart']);
-// Populate Thingz
-Route::get('/fetchingFave', [ItemController::class, 'fetchFave']);
-Route::get('/fetchCart', [CartController::class, 'CartPop']);
-Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop']);
-Route::get('/fetchOrder', [CheckoutController::class, 'OrderPop']);
-Route::get('/fetchModCheck', [CheckoutController::class, 'ModCheckPop']);
 
-// Status Order Manipulator
-Route::post('/Manipulate', [OrderController::class, 'manipulator']);
-// Delete Favorite
-Route::delete('/user/{userId}/jewelry', [ItemController::class, 'detachJewelry']);
-// Transaction Final Momints:
-Route::post('/Fin', [CheckoutController::class, 'Endo']);
-// CART + - x ACTIONS BRUHHHHHH
-Route::post('/add/jewel2Cart', [CartController::class, 'Increase']);
-Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease']);
-Route::post('/delete/jewel2Cart', [CartController::class, 'Remove']);
-// Cancel Order
-Route::put('/cancel', [CheckoutController::class, 'Kansel']);
-Route::get('/carousel', [PromoController::class, 'carouu']);
+
+
+
+
+
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
 
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
-// dont know how to use resource lol
-Route::get('/InfoOrder', [OrderController::class, 'contentModal']);
-
 
 
 

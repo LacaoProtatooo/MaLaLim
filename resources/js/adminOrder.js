@@ -34,10 +34,19 @@ OrderTable;
                 orde.empty();
                 let over = 0;
                 let overD = 0;
+                console.log(response);
                 response.order.forEach(items => {
                     let DCsum;
                     let sum;
-                    DCsum  = (items.colorJewelry.quantity * items.colorJewelry.jewelry.price.amount) * items.colorJewelry.jewelry.promo.discount;
+                    let discountss
+                    if(!items.colorJewelry.jewelry.promo.discount)
+                    {
+                        discountss = 0;
+                    }
+                    else{
+                        discountss = items.colorJewelry.jewelry.promo.discount;
+                    }
+                    DCsum  = (items.colorJewelry.quantity * items.colorJewelry.jewelry.price.amount) * discountss;
                     overD += DCsum;
                     sum = (items.colorJewelry.quantity * items.colorJewelry.jewelry.price.amount) - DCsum;
                     over += sum;
@@ -81,7 +90,10 @@ OrderTable;
 
             },
             error: function (error) {
-                console.log(error);
+                console.log("Error:", error);
+                console.log("Status:", error.status);
+                console.log("Status Text:", error.statusText);
+                console.log("Response Text:", error.responseText);
             }
         });
         OrderTable.ajax.reload();

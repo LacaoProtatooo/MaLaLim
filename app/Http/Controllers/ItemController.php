@@ -150,11 +150,12 @@ class ItemController extends Controller
 
     public function addCart(Request $request)
     {
-        if (!Auth::check()) {
+        if (!Auth::user()) {
             return redirect()->route('home');
         }
 
         $userId = Auth::id();
+        // return response()->json(['success' => 'Item added to cart', 'user' =>  $userId]);
         $jewelId = $request->input('item_id');
         $colId = $request->input('col_id');
         $quantity = 1; // Default quantity to 1 if not provided
@@ -196,6 +197,7 @@ class ItemController extends Controller
 
         // Create or update the cart record with user_id
         $user = Cart::where('user_id', $userId)->first();
+
         if(!$user)
         {
             $cart = Cart::create([
