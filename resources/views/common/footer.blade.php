@@ -9,9 +9,6 @@
             <li>
            <a href="{{route('about')}}" class="hover:underline text-gray-700">About</a>
             </li>
-            <li>
-                <a href="{{route('about')}}" class="hover:underline text-gray-700">Contact</a>
-            </li>
         </ul>
     </div>
 </footer>

@@ -1,12 +1,12 @@
 
 
-<div class="navbar bg-yellow-300">
+<div class="navbar bg-gradient-to-b from-yellow-300 to-gray-100">
     <div class="flex-1">
-        <div class="text-center">
-            <a href="#" class="btn btn-ghost text-xl" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-                MaLaLim
-            </a>
-        </div>
+      <div class="text-center">
+        <a href="#" class="btn btn-ghost text-xl" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+          <img src="../storage/login-image.png" alt="MaLaLim" class="w-15 h-11">
+        </a>
+      </div>
     </div>
     
     {{-- LOGIN :: ADMIN PROFILE --}}
