@@ -18,7 +18,7 @@
     @include('common.banner2')
     
 
-    <div id="jewelry" class="w-full mx-auto max-w-screen-xl p-4 md:grid md:grid-cols-4 gap-4 shadow-md">
+    <div id="jewelry" class="w-full mx-auto max-w-screen-xl p-4 md:grid md:grid-cols-4 gap-4 shadow-md rounded-3xl bg-gray-200 bg-gradient-to-gray from-gray-200 to-gray-100">
         {{-- Content will be dynamically loaded here --}}
     </div>
 

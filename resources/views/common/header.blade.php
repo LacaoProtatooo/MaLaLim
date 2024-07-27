@@ -1,12 +1,14 @@
 
-<div class="navbar bg-yellow-300 shadow-sm">
+<div class="navbar bg-gradient-to-b from-yellow-300 to-gray-100">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">MaLaLim</a>
+  <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">
+    <img class="w-15 h-11" src="{{asset('storage/login-image.png')}}" alt="MaLaLim" />
+  </a>
   </div>
 
   {{-- LOGIN :: USER PROFILE --}}
-  @if (!Auth::user())
-    <button class="btn w-24 h-5 bg-yellow-50 rounded-md shadow-md hover:bg-yellow-100" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
+  @if(!Auth::user())
+  <button class="btn w-24 h-5 bg-yellow-50 rounded-md shadow-md hover:bg-yellow-100" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
   @else
   <a class="btn btn-ghost text-xl">{{ Auth::user()->fname }}</a>
     <div class="dropdown dropdown-end">
@@ -35,5 +37,6 @@
       </ul>
     </div>
   @endif
+</div>
 
 </div>
