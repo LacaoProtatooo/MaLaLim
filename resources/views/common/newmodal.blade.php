@@ -1,5 +1,5 @@
 <!-- Modal Container -->
-<div id="modalContainer" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+<div id="modalContainer" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
     <div class="bg-yellow-100 p-6 rounded-md">
         <table class="mt-8 w-full">
             <tbody id="jewewe">
@@ -25,6 +25,6 @@
             </tbody>
         </table>
         <button id="btnn" class="bg-red-400 text-white px-4 py-2 mt-4 w-full rounded-md kansul">Cancel</button>
-        <button id="closeModalBtn" class="bg-blue-400 text-white px-4 py-2 mt-4 w-full rounded-md kansul">Close</button>
+        <button id="closeModalBtn" class="bg-blue-400 text-white px-4 py-2 mt-4 w-full rounded-md sara">Close</button>
     </div>
 </div>

@@ -22,6 +22,12 @@ $(document).on('click', '.kansul', function() {
 
 });
 
+$(document).on('click', '.sara', function() {
+
+    $('#modalContainer').addClass('hidden');
+
+});
+
 
 $('#modalContainer').on('click', function(e) {
 

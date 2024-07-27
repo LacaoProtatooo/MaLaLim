@@ -596,6 +596,7 @@ export function popOrderMod(id)
             $('#OverallTotali').text('₱ ' + huli.toFixed(2));
             hideLoadingModal();
             $('#btnn').data('OrderId', id);
+            $('#closeModalBtn').data('OrderId', id);
             if(response.order.status === 'Cancelled')
             {
                 $('#btnn').prop('disabled', true);
@@ -613,6 +614,12 @@ export function popOrderMod(id)
                     $('#btnn').prop('disabled', true);
                     $('#btnn').text('Shipping');
                 }
+
+                if(response.order.status === 'pending')
+                    {
+                        $('#btnn').prop('disabled', false);
+                        $('#btnn').text('Cancel');
+                    }
 
 
         },
@@ -710,7 +717,7 @@ export function promoCarou()
             const carouu = $('#carous');
             carouu.empty();
 
-            response.promo.forEach(prom => {     
+            response.promo.forEach(prom => {
                 const carouuHTML = `
                     <div id="slide${prom.id}" class="carousel-item relative w-full flex justify-center items-center p-3 nyaa mr-4" data-id="${prom.id}">
                         <div class="card lg:card-side bg-gradient-to-r from-yellow-200 to-yellow-300 shadow-xl h-96 w-full flex mr-4">
@@ -727,7 +734,7 @@ export function promoCarou()
 
                 carouu.append(carouuHTML);
             });
-        
+
             if (response.promo.length > 1) {
                 const ButtHTML = `
                     <div class="absolute top-1/2 transform -translate-y-1/2 left-5">
@@ -790,7 +797,7 @@ export function promoCarou()
             console.error('Error updating record:', status, error);
             console.error('Response Text:', xhr.responseText);
         }
-        
+
 
     });
 }

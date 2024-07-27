@@ -20,7 +20,7 @@
           </div>
 
           <div class="mt-6 text-center">
-            <button type="button" onclick="window.location.href='{{ route('checkout') }}'" class="group inline-flex w-full items-center justify-center rounded-md bg-yellow-300 hover:bg-yellow-400 hover:text-white px-6 py-4 text-lg font-semibold CheckCheck">
+            <button id="checkoutButt" type="button" onclick="window.location.href='{{ route('checkout') }}'" class="group inline-flex w-full items-center justify-center rounded-md bg-yellow-300 hover:bg-yellow-400 hover:text-white px-6 py-4 text-lg font-semibold CheckCheck">
                 Place Order
             </button>
           </div>
