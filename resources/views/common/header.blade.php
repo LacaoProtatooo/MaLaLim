@@ -2,7 +2,7 @@
 <div class="navbar bg-gradient-to-b from-yellow-300 to-gray-100">
   <div class="flex-1">
   <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">
-    <img class="w-15 h-11" src="{{asset('storage/login-image.png')}}" alt="MaLaLim" />
+    <img class="w-15 h-11" src="{{asset('storage/logo.png')}}" alt="MaLaLim" />
   </a>
   </div>
 
