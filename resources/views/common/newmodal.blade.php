@@ -1,5 +1,5 @@
 <!-- Modal Container -->
-<div id="modalContainer" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
+<div id="modalContainer" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
     <div class="bg-yellow-100 p-6 rounded-md">
         <table class="mt-8 w-full">
             <tbody id="jewewe">
