@@ -1,3 +1,5 @@
+import { isEmptyObject } from "jquery";
+
 export function ModalDisplay(itemId) {
     showLoadingModal();
     $.ajax({
@@ -127,60 +129,93 @@ export function deTach(itemId) {
                     const cartDom = $('#cartItems');
                     var tot = 0;
                     cartDom.empty();
-                    response.data.forEach(ilagay =>{
-                        const cartHTML =
-                        `
-                            <li class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
-                                <div class="shrink-0 relative">
-                                <span class="absolute top-1 left-1 flex h-6 w-6 items-center justify-center rounded-full border bg-white text-sm font-medium text-gray-500 shadow sm:-top-2 sm:-right-2">1</span>
-                                <img class="h-24 w-24 max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=150&q=60" alt="Product Image 2" />
-                                </div>
 
-                                <div class="relative flex flex-1 flex-col justify-between">
-                                <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
-                                    <div class="pr-8 sm:pr-5">
-                                    <p class="text-base font-semibold text-gray-900">${ilagay.jewelry}</p>
-                                    <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">${ilagay.color} | ${ilagay.quantity} pc(s)</p>
-                                    </div>
 
-                                    <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
-                                    <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">PHP${parseFloat(ilagay.price).toFixed(2)}</p>
-                                    </div>
-                                </div>
+                    // if (items) {
+                    //     alert('The object is empty');
+                    // }
+                    console.log(response.items);
+                    if(response.items)
+                    {
+                        response.data.forEach(ilagay =>
+                            {
+                                const cartHTML =
+                                `
+                                    <li class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
+                                        <div class="shrink-0 relative">
+                                        <span class="absolute top-1 left-1 flex h-6 w-6 items-center justify-center rounded-full border bg-white text-sm font-medium text-gray-500 shadow sm:-top-2 sm:-right-2">1</span>
+                                        <img class="h-24 w-24 max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=150&q=60" alt="Product Image 2" />
+                                        </div>
 
-                                <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
-                                    <button type="button" id = ""  class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 DeductButt" data-id = ${ilagay.pivotId} data-quan = ${ilagay.quantity}>
-                                        <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
-                                        </svg>
-                                    </button>
-                                    <button type="button" id = "" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 AddButt"data-id = ${ilagay.pivotId} >
-                                        <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
-                                        </svg>
-                                    </button>
+                                        <div class="relative flex flex-1 flex-col justify-between">
+                                        <div class="sm:col-gap-5 sm:grid sm:grid-cols-2">
+                                            <div class="pr-8 sm:pr-5">
+                                            <p class="text-base font-semibold text-gray-900">${ilagay.jewelry}</p>
+                                            <p class="mx-0 mt-1 mb-0 text-sm text-gray-400">${ilagay.color} | ${ilagay.quantity} pc(s)</p>
+                                            </div>
 
-                                    <button type="button" id = "" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 RemoveButt" data-id = ${ilagay.pivotId}>
-                                        <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                                        </svg>
-                                    </button>
-                                </div>
-                                </div>
-                            </li>
-                        `;
-                        cartDom.append(cartHTML);
-                        tot += parseFloat(ilagay.price);
-                    });
+                                            <div class="mt-4 flex items-end justify-between sm:mt-0 sm:items-start sm:justify-end">
+                                            <p class="shrink-0 w-20 text-base font-semibold text-gray-900 sm:order-2 sm:ml-8 sm:text-right">PHP${parseFloat(ilagay.price).toFixed(2)}</p>
+                                            </div>
+                                        </div>
+
+                                        <div class="absolute top-0 right-0 flex sm:bottom-0 sm:top-auto">
+                                            <button type="button" id = ""  class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 DeductButt" data-id = ${ilagay.pivotId} data-quan = ${ilagay.quantity}>
+                                                <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
+                                                </svg>
+                                            </button>
+                                            <button type="button" id = "" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 AddButt"data-id = ${ilagay.pivotId} >
+                                                <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                                                </svg>
+                                            </button>
+
+                                            <button type="button" id = "" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 RemoveButt" data-id = ${ilagay.pivotId}>
+                                                <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        </div>
+                                    </li>
+                                `;
+                                cartDom.append(cartHTML);
+                                tot += parseFloat(ilagay.price);
+                            });
+
+                            const button = document.getElementById('checkoutButt');
+
+                            button.disabled = false;
+
+
+                            button.textContent = "Proceed To CheckOut";
+                    }
+                    else {
+                        const button = document.getElementById('checkoutButt');
+
+                        button.disabled = true;
+
+
+                        button.textContent = "Empty";
+                    }
                     tot = tot.toFixed(2);
+
                     $('#subtot').html('<span class="text-xs font-normal text-gray-400">PHP</span>'+ tot);
+
+                    const button = document.getElementById('checkoutButt');
+                    button.setAttribute('data-value', response.items);
+
                     hideLoadingModal();
                 } else {
                     console.log('ERROR', response.message); // Fixed the console message
                 }
             },
             error: function(xhr, status, error) {
-                console.error('AJAX error:', error);
+                console.error('Error Status:', status);
+                console.error('Error Thrown:', error);
+                console.error('Response Text:', xhr.responseText);
+                console.error('Full Error Object:', xhr);
             }
         });
     }

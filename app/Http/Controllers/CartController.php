@@ -17,12 +17,19 @@ class CartController extends Controller
         if (!$Usercart) {
             $Usercart = new Cart();
             $Usercart->user_id = $userID;
-           
+
             $Usercart->save();
+
         }
 
         // Retrieve the color_jewelry records along with pivot data
         $colorJewelries = $Usercart->colorJewelry()->with(['jewelry.classification', 'colors', 'jewelry.prices'])->get();
+        if ($colorJewelries->isEmpty()) {
+            $withItems = false;
+        } else {
+            $withItems = true;
+        }
+
         // return response()->json(['success' => true, 'data' => $colorJewelries]);
         $data = [];
         $subtot = 0;
@@ -46,7 +53,7 @@ class CartController extends Controller
                 ];
 
         }
-        return response()->json(['success' => true, 'data' => $data]);
+        return response()->json(['success' => true, 'data' => $data, 'items'=> $withItems]);
 
     }
 

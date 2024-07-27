@@ -16,6 +16,15 @@ class ItemController extends Controller
     {
         $search = $request->input('search');
 
+        if(Auth::user())
+        {
+            $user = true ;
+        }
+        else
+        {
+            $user = false;
+        }
+
         if ($search && !is_numeric($search)) {
             // Perform the search query using Algolia
             $jewelryIds = Jewelry::search($search)->get()->pluck('id');
@@ -44,7 +53,7 @@ class ItemController extends Controller
         }
 
         // Return the results as JSON
-        return response()->json($jewelry);
+        return response()->json(['success'=>true, 'jewelry'=>$jewelry, 'auth'=>$user]);
     }
 
     public function index()
