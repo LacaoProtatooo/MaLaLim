@@ -27,12 +27,12 @@
           <img alt="Profile Picture" src="{{ $imagePath }}" />
         </div>
       </div>
-      <ul tabindex="0"class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+      <ul tabindex="0"class="menu menu-sm dropdown-content bg-gray-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         {{-- PROFILE --}}
-        <li> <a href="{{ route('customer.profile') }}" id="profileLink" class="justify-between"> Profile </a></li>
-        <li> <a class="justify-between Urders"> Orders </a></li>
+        <li> <a href="{{ route('customer.profile') }}" id="profileLink" class="justify-between hover:bg-yellow-200"> Profile </a></li>
+        <li> <a class="justify-between Urders hover:bg-yellow-200"> Orders </a></li>
         {{-- LOGOUT --}}
-        <li><a href="#" id="logoutLink">Logout</a></li>
+        <li><a class="justify-between Urders hover:bg-yellow-200"href="#" id="logoutLink">Logout</a></li>
 
       </ul>
     </div>

@@ -3,7 +3,7 @@
 <div class="navbar flex justify-between items-center p-4">
 
     <div class="flex ml-24">
-        <button class="btn mr-3 openMod" onclick="my_modal_3.showModal()">
+        <button class="btn mr-3 openMod bg-yellow-200" onclick="my_modal_3.showModal()">
             <img src="../storage/cart.png" alt="Shopping Cart" style="width: 20px; height: 20px;" />
         </button>
 
@@ -18,7 +18,7 @@
             </div>
         </dialog>
 
-        <button class="btn mr-3" onclick="window.location.href='{{ url('favorites') }}'">Favorites</button>
+        <button class="btn mr-3 bg-yellow-200" onclick="window.location.href='{{ url('favorites') }}'">Favorites</button>
     </div>
 
     <div class="relative p-3 rounded-lg w-full max-w-lg">

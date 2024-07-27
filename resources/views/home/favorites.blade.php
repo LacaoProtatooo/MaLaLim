@@ -10,11 +10,11 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @vite('resources/js/favourite.js',)
 </head>
-<body class="bg-yellow-50">
+<body class="bg-gray-100">
     @include('common.header')
     @include('common.navbar')
 
-    <section class="py-24 bg-white">
+    <section class="py-24 bg-gray-100">
         <div class="w-full max-w-7xl mx-auto px-4 md:px-8">
             <div class="main-data p-8 sm:p-14 bg-gray-50 rounded-3xl">
                 <h2 class="text-center font-manrope font-semibold text-4xl text-black mb-16">Favourites</h2>
@@ -31,7 +31,7 @@
                 </div>
 
 
-                @include('common.productview');
+                @include('common.productview')
 
 
             </div>
