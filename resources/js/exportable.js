@@ -263,6 +263,10 @@ export function popCheck()
     $.ajax({
         url: '/api/fetchCheck',
         type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+        },
         success: function(response)
         {
             GlobalCheckResponse = response;
@@ -662,34 +666,33 @@ export function promoCarou()
     $.ajax({
         url: '/api/carousel',
         type: 'GET',
-        data: {
-            _token: '{{ csrf_token() }}',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
         },
+
         success: function(response) {
             const carouu = $('#carous');
-
-
             carouu.empty();
 
-
-            response.promo.forEach(prom => {
+            response.promo.forEach(prom => {     
                 const carouuHTML = `
-                    <div id="slide${prom.id}" class="carousel-item relative w-full flex justify-center items-center nyaa" data-id="${prom.id}">
-                        <div class="card lg:card-side bg-gradient-to-r from-yellow-200 to-yellow-300 shadow-xl h-36 m-5">
-                            <figure>
-                                <img src="${prom.image_path}" alt="${prom.name}" />
+                    <div id="slide${prom.id}" class="carousel-item relative w-full flex justify-center items-center p-3 nyaa mr-4" data-id="${prom.id}">
+                        <div class="card lg:card-side bg-gradient-to-r from-yellow-200 to-yellow-300 shadow-xl h-96 w-full flex mr-4">
+                            <figure class="flex-shrink-0 h-full w-1/2 overflow-hidden relative">
+                                <img src="${prom.image_path}" alt="${prom.name}" class="w-full h-full object-cover" />
                             </figure>
-                            <div class="card-body justify-center">
-                                <h2 class="card-title text-xl">${prom.name}</h2>
+                            <div class="card-body w-1/2 p-4 flex flex-col justify-center">
+                                <h2 class="card-title text-xl mb-2">${prom.name}</h2>
                                 <p>${prom.description}</p>
                             </div>
                         </div>
                     </div>
                 `;
+
                 carouu.append(carouuHTML);
             });
-
-
+        
             if (response.promo.length > 1) {
                 const ButtHTML = `
                     <div class="absolute top-1/2 transform -translate-y-1/2 left-5">
@@ -714,11 +717,9 @@ export function promoCarou()
             let currentSlideIndex = 0;
             const ids = [];
 
-
             response.promo.forEach(promu => {
                 ids.push(promu.id);
             });
-
             const totalSlides = ids.length;
 
             function showSlide(slideIndex) {
@@ -747,18 +748,16 @@ export function promoCarou()
                 showSlide(currentSlideIndex);
             }
 
-
             showSlide(currentSlideIndex);
-
             console.log(response);
         },
         error: function(xhr, status, error) {
             console.error('Error updating record:', status, error);
             console.error('Response Text:', xhr.responseText);
         }
+        
+
     });
-
-
 }
 
 
