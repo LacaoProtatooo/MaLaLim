@@ -1,6 +1,6 @@
 @foreach ($data as $jewel)
 
-        <div class="col-span-1 bg-white p-4">
+        <div class="col-span-1 bg-white p-4 rounded-md">
                 <div class="group my-10 flex w-full max-w-md flex-col overflow-hidden border border-gray-100 bg-white shadow-md rounded-lg">
                         <a class="relative flex h-80 overflow-hidden rounded-t-lg" href="#">
                             <img class="absolute top-0 right-0 h-full w-full object-cover" src="{{ $jewel->image_path }}" />

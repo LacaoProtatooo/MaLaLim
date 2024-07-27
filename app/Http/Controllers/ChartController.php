@@ -24,8 +24,8 @@ class ChartController extends Controller
 
     public function linechart(){
 
-        $classi = Classification::all();
-        $jewel = $classi->jewelries();
+        // $classi = Classification::all();
+        // $jewel = $classi->jewelries();
         $labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'];
         $datasets = [
             [

@@ -9,8 +9,8 @@
     @include('common.links')
     @vite('resources/js/payment.js')
 </head>
-<body class=" bg-yellow-50">
-@include('common.adminheader')
+<body class=" bg-gray-100">
+    @include('common.adminheader')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <p class="text-4xl mb-6"> Listed Payment Methods : </p>

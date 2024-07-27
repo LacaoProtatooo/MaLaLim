@@ -9,27 +9,26 @@
     @include('common.links')
     @vite('resources/js/checkout.js')
 </head>
-<body class="bg-yellow-50">
+<body class="bg-gray-100">
 @include('common.header')
 @include('common.navbar')
 
-    <div class="font-[sans-serif] bg-white p-4">
-      <div class="md:max-w-5xl max-w-xl mx-auto ma">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <div class="lg:col-span-2 max-md:order-1">
+    <div class="font-[sans-serif] bg-gray-100 p-4">
+      <div class="md:max-w-5xl max-w-2xl mx-auto">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div class="lg:col-span-2 max-md:order-1 bg-white p-8 rounded-md">
             <h2 class="text-3xl font-extrabold text-gray-800">Checkout</h2>
             <p class="text-gray-800 text-sm mt-4">Complete your transaction swiftly and securely with our easy-to-use checkout process.</p>
 
-            <form class="mt-8 max-w-lg">
+            <form class="mt-8">
               <div class="grid gap-4">
                 <div>
-                  <input id = "CusN" type="text" placeholder="Customer Name"
-                    class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none" />
+                  <input id="CusN" type="text" placeholder="Customer Name"
+                  class="px-4 py-3.5 bg-gray-100 text-gray-800 w-full text-sm border rounded-md focus:border-purple-500 focus:bg-transparent outline-none" readonly />
                 </div>
-
                 <div class="flex bg-gray-100 border rounded-md focus-within:border-purple-500 focus-within:bg-transparent overflow-hidden">
                   <input type="text" placeholder="Address"
-                  id = "CusA" class="px-4 py-3.5 text-gray-800 w-full text-sm outline-none bg-transparent" />
+                  id="CusA" class="px-4 py-3.5 text-gray-800 w-full text-sm outline-none bg-transparent" readonly />
                 </div>
 
                 <div class="grid grid-cols-2 gap-4">
@@ -46,12 +45,12 @@
                 </div>
               </div>
 
-              <button type="button" class="mt-8 w-full py-3.5 text-sm bg-yellow-400 text-white rounded-md hover:bg-yellow-600 tracking-wide completeButt">Complete Order </button>
+              <button type="button" class="mt-8 w-full py-3.5 text-sm bg-yellow-300 text-white rounded-md hover:bg-yellow-400 tracking-wide completeButt">Complete Order </button>
             </form>
           </div>
 
-            <div class="bg-yellow-100 p-6 rounded-md w-full">
-            <table class="mt-8 w-full text-lg">
+          <div class="lg:col-span-1 bg-yellow-100 p-1 rounded-md">
+            <table class="w-full text-lg overflow-hidden">
               <tbody id="JewelsKUH">
               <!-- Dynamic rows will be appended here -->
               </tbody>
@@ -73,12 +72,12 @@
               </tr>
               </tbody>
             </table>
-            </div>
+          </div>
 
-            </div>
-            </div>
-            </div>
-            
+        </div>
+      </div>
+    </div>
+
     @include('common.footer')
 </body>
 </html>

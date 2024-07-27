@@ -13,9 +13,9 @@
     @include('common.header')
     @include('common.navbar')
 
-    <section class="py-24 bg-white">
+    <section class="py-24 bg-gray-100">
         <div class="w-full max-w-7xl mx-auto px-4 md:px-8">
-            <div class="main-data p-8 sm:p-14 bg-gray-50 rounded-3xl">
+            <div class="main-data p-8 sm:p-14 bg-gray-200 rounded-3xl">
                 <h2 class="text-center font-manrope font-semibold text-4xl text-black mb-16">My Orders</h2>
                 <div class="grid grid-cols-8 pb-9">
                     <div class="col-span-8 lg:col-span-4">

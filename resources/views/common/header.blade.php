@@ -1,12 +1,14 @@
 
-<div class="navbar bg-yellow-300 shadow-sm">
+<div class="navbar bg-gradient-to-b from-yellow-300 to-gray-100">
   <div class="flex-1">
-    <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">MaLaLim</a>
+  <a class="btn btn-ghost text-xl" onclick="window.location.href='{{ route('home') }}'">
+    <img class="w-15 h-11" src="{{asset('storage/login-image.png')}}" alt="MaLaLim" />
+  </a>
   </div>
 
   {{-- LOGIN :: USER PROFILE --}}
-  @if (!Auth::user())
-    <button class="btn w-24 h-5 bg-yellow-50 rounded-md shadow-md hover:bg-yellow-100" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
+  @if(!Auth::user())
+  <button class="btn w-24 h-5 bg-yellow-50 rounded-md shadow-md hover:bg-yellow-100" onclick="window.location.href='{{ url('login') }}'">LOGIN</button>
   @else
   <a class="btn btn-ghost text-xl">{{ Auth::user()->fname }}</a>
     <div class="dropdown dropdown-end">
@@ -25,15 +27,16 @@
           <img alt="Profile Picture" src="{{ $imagePath }}" />
         </div>
       </div>
-      <ul tabindex="0"class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+      <ul tabindex="0"class="menu menu-sm dropdown-content bg-gray-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
         {{-- PROFILE --}}
-        <li> <a href="{{ route('customer.profile') }}" id="profileLink" class="justify-between"> Profile </a></li>
-        <li> <a class="justify-between Urders"> Orders </a></li>
+        <li> <a href="{{ route('customer.profile') }}" id="profileLink" class="justify-between hover:bg-yellow-200"> Profile </a></li>
+        <li> <a class="justify-between Urders hover:bg-yellow-200"> Orders </a></li>
         {{-- LOGOUT --}}
-        <li><a href="#" id="logoutLink">Logout</a></li>
+        <li><a class="justify-between Urders hover:bg-yellow-200"href="#" id="logoutLink">Logout</a></li>
 
       </ul>
     </div>
   @endif
+</div>
 
 </div>

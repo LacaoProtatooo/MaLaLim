@@ -48,6 +48,7 @@ Route::middleware('user')->group(function () {
     Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');
     Route::get('/favorites', function () { return view('home.favorites'); })->name('favorites');
     Route::get('/checkout', function () { return view('home.checkout'); })->name('checkout');
+    
 });
 
 
