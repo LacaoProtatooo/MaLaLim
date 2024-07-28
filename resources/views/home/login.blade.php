@@ -11,6 +11,10 @@
 </head>
 <body class="bg-gray-100">
     @include('common.header')
+    <script>
+        var adminHomeUrl = "{{ route('admin.home') }}";
+        var userHomeUrl = "{{ route('home') }}";
+    </script>
 
     <div class="text-black min-h-screen flex flex-col items-center justify-center bg-gray-100 mt-10">
         <div class="grid md:grid-cols-2 items-center gap-4 max-w-6xl w-full p-4 m-4 rounded-md bg-white shadow-2xl px-10 py-10">

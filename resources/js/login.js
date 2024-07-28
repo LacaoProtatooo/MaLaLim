@@ -21,9 +21,9 @@ $('#loginForm').on('submit', function (e){
                 
                 // Redirect based on role
                 if (response.isAdmin) {
-                    window.location.href = '/admin/home'; // Admin redirect
+                    window.location.href = adminHomeUrl; // Admin redirect
                 } else {
-                    window.location.href = '/item'; // Regular user redirect
+                    window.location.href = userHomeUrl; // Regular user redirect
                 }
             } 
             else {
