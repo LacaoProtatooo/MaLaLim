@@ -17,6 +17,7 @@
 
 @include('modal.alert')
 @include('modal.loading')
+@include('modal.message')
 
 
 {{-- DATATABLE SEARCH BAR ALLIGNMENT --}}

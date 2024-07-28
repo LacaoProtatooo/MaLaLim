@@ -21,6 +21,7 @@
                     <p class="text-sm mt-4">Don't have an account? <a onclick="document.getElementById('registeruserModal').showModal()" class="text-blue-600 font-semibold hover:underline ml-1 whitespace-nowrap">Register here</a></p>
                 </div>
                 <form name="loginForm" id="loginForm">
+                    @csrf
                     <div>
                         <label class="text-xs block mb-2">Email</label>
                         <div class="relative flex items-center">

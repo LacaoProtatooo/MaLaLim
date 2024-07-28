@@ -7,6 +7,7 @@
             <h3 class="text-lg font-bold mb-4 ml-4"> USER REGISTRATION </h3>
             
             <form class="max-w-md mx-auto bg-gray-100" id="userregisterForm" method="#" action="#" enctype="multipart/form-data">
+                @csrf
                 {{-- email --}}
                 <div class="relative z-0 w-full mb-5 group">
                     <input type="text" name="email" id="emailregister" class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " required />

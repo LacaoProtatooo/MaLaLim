@@ -21,6 +21,7 @@
             <p class="text-gray-800 text-sm mt-4">Complete your transaction swiftly and securely with our easy-to-use checkout process.</p>
 
             <form class="mt-8">
+              @csrf
               <div class="grid gap-4">
                 <div>
                   <input id="CusN" type="text" placeholder="Customer Name"

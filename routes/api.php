@@ -37,6 +37,13 @@ Route::resource('user', UserController::class);
 Route::post('/user/login', [LoginController::class, 'login'])->name('user.login');
 Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout');
 
+// Homepage
+Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
+Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
+// Item Modals
+Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
+Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
+
 Route::middleware('auth:sanctum')->group(function () {
 
     // ================================ USER: ADMIN ================================ //
@@ -55,8 +62,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/jewelries', [JewelryController::class, 'dtpopulate'])->name('admin.getJewelries');
     Route::get('/stocks', [StockController::class, 'dtpopulate'])->name('admin.getStocks');
     Route::get('/orders', [OrderController::class, 'dtpopulate'])->name('admin.geOrders');
-
     Route::get('/materials', [MaterialController::class, 'dtpopulate'])->name('admin.getMat');
+
     Route::post('/materials/create', [MaterialController::class, 'store']);
     Route::put('/materials/update/{id}', [MaterialController::class, 'update']);
     Route::delete('/materials/{id}', [MaterialController::class, 'delete']);
@@ -70,10 +77,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/import-jewelry', [ExcelController::class, 'importJewelry'])->name('jewelry.import');
     Route::post('/import-jewelryvariant', [ExcelController::class, 'importJewelryVariant'])->name('jewelryvariant.import');
 
-    // Sidebar
+    // Sidebar | Charts
     Route::get('/sidebar', [Admincontroller::class, 'sidebar'])->name('side.bar');
-
-    // Charts
     Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
     Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
     Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
@@ -82,7 +87,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
     Route::post('/user/permadelete/{id}', [UserController::class, 'permadelete'])->name('adminuser.permadelete');
 
-    // Admin Assign Promo to Jewelries
+    // Admin: Assign Promo to Jewelries
     Route::get('/admin/getJewelries/{id}', [PromoController::class, 'getJewelry'])->name('admin.getpromoJewelries');
     Route::post('/admin/jewelrypromosave/{id}', [PromoController::class, 'jewelrypromosave'])->name('admin.jewelrypromosave');
 
@@ -123,9 +128,4 @@ Route::middleware('auth:sanctum')->group(function () {
 
 });
 
-// ANO ANO MGA NEED DITO NG AUTH:SANCTUM
-Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
-Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
 
-Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
-Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');

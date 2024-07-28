@@ -14,6 +14,7 @@
             </div>
         
             <form class="max-w-md mx-auto" id="usereditForm" method="#" action="#" enctype="multipart/form-data">
+                @csrf
                 <div class="grid md:grid-cols-2 md:gap-6">
                     {{-- user number --}}
                     <div class="relative z-0 w-full mb-5 group">
