@@ -4,6 +4,7 @@ $(document).ready(function() {
     // Check if the auth token is available
     if (!authToken) {
         console.error('Auth token not available. Please log in first.');
+        return;
     }
 
     $.ajax({
@@ -11,7 +12,7 @@ $(document).ready(function() {
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + authToken, 
+            'Authorization': 'Bearer ' + authToken,
         },
         dataType: "json",
         success: function(data) {

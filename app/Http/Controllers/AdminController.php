@@ -8,8 +8,7 @@ use App\Models\Jewelry;
 use App\Models\Promo;
 
 use Illuminate\Http\Request;
-
-
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -29,6 +28,11 @@ class AdminController extends Controller
     }
 
     public function sidebar(){
+        // Ensure the request is authenticated
+        if (!Auth::check()) {
+            return response()->json(['message' => 'Unauthenticated.'], 401);
+        }
+
         $promocount = Promo::count();
         $pendingjewelry = Order::where('status', 'pending')->count();
 

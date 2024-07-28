@@ -10,7 +10,7 @@
         <div class="px-4 py-6 sm:px-8 sm:py-10">
           <div class="flow-root">
             <ul id = "cartItems" class="-my-8 ">
-                {{--  --}}
+                {{-- IMGAE HERE --}}
             </ul>
           </div>
 

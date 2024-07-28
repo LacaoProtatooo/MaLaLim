@@ -6,10 +6,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Admin</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    @include('common.links')
-    @vite('resources/js/charts.js')
+    
 </head>
 <body class="bg-gray-100">
+    @include('common.links')
+    @vite('resources/js/charts.js')
+    
     @include('common.adminheader') 
     
     <div class="px-4 pt-6">

@@ -44,7 +44,7 @@ class LoginController extends Controller
             return response()->json(['message' => 'No User Found'], 401);
         }
 
-        // $request->user()->currentAccessToken()->delete();
+        // $user->tokens()->latest()->first()->delete();
         $user->tokens()->delete();
 
         $request->session()->invalidate();

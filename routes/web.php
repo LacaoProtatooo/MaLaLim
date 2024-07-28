@@ -27,7 +27,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/item', [ItemController::class, 'index'])->name('home');
 Route::get('/', function () { return view('home.about'); })->name('about');
 
-Route::middleware('admin')->group(function () {
+Route::middleware(['admin'])->group(function () {
     // Admin
     Route::get('/admin/home', [AdminController::class, 'index'])->name('admin.home');
     Route::get('/admin/profile', [UserController::class, 'adminprofile'])->name('admin.profile');
@@ -42,7 +42,7 @@ Route::middleware('admin')->group(function () {
 
 });
 
-Route::middleware('user')->group(function () {
+Route::middleware(['user'])->group(function () {
     // Customer
     Route::get('/customer/profile', [UserController::class, 'profile'])->name('customer.profile');
     Route::get('/orderhistory', function () { return view('home.orderhistory'); })->name('orderhistory');

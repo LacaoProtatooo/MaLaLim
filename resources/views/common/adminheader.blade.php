@@ -1,4 +1,5 @@
-
+@vite('resources/js/sidebar.js')
+@include('common.sidebar')
 
 <div class="navbar bg-gradient-to-b from-yellow-300 to-gray-100">
     <div class="flex-1">
@@ -41,7 +42,6 @@
     @endif
 </div>
 
-@vite('resources/js/sidebar.js')
-@include('common.sidebar')
+
 
   

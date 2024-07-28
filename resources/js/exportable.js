@@ -171,12 +171,13 @@ export function deTach(itemId) {
                     {
                         response.data.forEach(ilagay =>
                             {
+                                // https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=150&q=60
                                 const cartHTML =
                                 `
                                     <li class="flex flex-col space-y-3 py-6 text-left sm:flex-row sm:space-x-5 sm:space-y-0">
                                         <div class="shrink-0 relative">
                                         <span class="absolute top-1 left-1 flex h-6 w-6 items-center justify-center rounded-full border bg-white text-sm font-medium text-gray-500 shadow sm:-top-2 sm:-right-2">1</span>
-                                        <img class="h-24 w-24 max-w-full rounded-lg object-cover" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=150&q=60" alt="Product Image 2" />
+                                        <img class="h-24 w-24 max-w-full rounded-lg object-cover" src="${ilagay.image_path}" alt="${ilagay.image_path}" />
                                         </div>
 
                                         <div class="relative flex flex-1 flex-col justify-between">

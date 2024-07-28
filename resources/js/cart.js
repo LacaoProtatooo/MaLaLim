@@ -2,7 +2,7 @@ import { addCart, popCart, AddQuan, RemoveQuan, MinusQuan, popCheck,setButtonLoa
 
 $(document).ready(function() {
 
-    popCheck();
+    
 
 });
 
@@ -50,7 +50,7 @@ $(document).on('click', '.openMod', function() {
 });
 
 $(document).on('click', '.CheckCheck', function() {
-
+    popCheck();
 });
 
 

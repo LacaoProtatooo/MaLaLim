@@ -20,12 +20,9 @@ class ItemController extends Controller
     {
         $search = $request->input('search');
 
-        if(Auth::user())
-        {
-            $user = true ;
-        }
-        else
-        {
+        if (Auth::check()) {
+            $user = true;
+        } else {
             $user = false;
         }
 
@@ -35,32 +32,73 @@ class ItemController extends Controller
             $classIds = Classification::search($search)->get()->pluck('id');
 
             if ($classIds->isNotEmpty()) {
-                    $jewelry = Jewelry::with(['prices', 'classification'])
+                $jewelry = Jewelry::with(['prices', 'classification'])
                     ->whereIn('classification_id', $classIds)
                     ->paginate(10);
-                    return response()->json(['success'=> true, 'jewelry'=> $jewelry]);
-                };
-                // return response()->json($classIds);
-            // Fetch the actual models with the related data using the retrieved IDs
+                return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
+            }
+
             $jewelry = Jewelry::with(['prices', 'classification'])
                 ->whereIn('id', $jewelryIds)
                 ->paginate(10);
-        } elseif(is_numeric($search)) {
-
+        } elseif (is_numeric($search)) {
             $promos = Promo::find($search);
             $jewelry = $promos->jewelries()
-            ->with(['classification', 'prices'])
-            ->paginate(10);
+                ->with(['classification', 'prices'])
+                ->paginate(10);
 
-            return response()->json(['success'=> true, 'jewelry'=> $jewelry]);
-        }
-        elseif(!$search){
+            return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
+        } elseif (!$search) {
             $jewelry = Jewelry::with(['prices', 'classification'])->paginate(10);
         }
 
-        // Return the results as JSON
-        return response()->json(['success'=>true, 'jewelry'=>$jewelry, 'auth'=>$user]);
+        return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
     }
+    // public function home(Request $request)
+    // {
+    //     $search = $request->input('search');
+
+    //     if(Auth::user())
+    //     {
+    //         $user = true ;
+    //     }
+    //     else
+    //     {
+    //         $user = false;
+    //     }
+
+    //     if ($search && !is_numeric($search)) {
+    //         // Perform the search query using Algolia
+    //         $jewelryIds = Jewelry::search($search)->get()->pluck('id');
+    //         $classIds = Classification::search($search)->get()->pluck('id');
+
+    //         if ($classIds->isNotEmpty()) {
+    //                 $jewelry = Jewelry::with(['prices', 'classification'])
+    //                 ->whereIn('classification_id', $classIds)
+    //                 ->paginate(10);
+    //                 return response()->json(['success'=> true, 'jewelry'=> $jewelry, 'auth'=>$user]);
+    //             };
+    //             // return response()->json($classIds);
+    //         // Fetch the actual models with the related data using the retrieved IDs
+    //         $jewelry = Jewelry::with(['prices', 'classification'])
+    //             ->whereIn('id', $jewelryIds)
+    //             ->paginate(10);
+    //     } elseif(is_numeric($search)) {
+
+    //         $promos = Promo::find($search);
+    //         $jewelry = $promos->jewelries()
+    //         ->with(['classification', 'prices'])
+    //         ->paginate(10);
+
+    //         return response()->json(['success'=> true, 'jewelry'=> $jewelry, 'auth'=>$user]);
+    //     }
+    //     elseif(!$search){
+    //         $jewelry = Jewelry::with(['prices', 'classification'])->paginate(10);
+    //     }
+
+    //     // Return the results as JSON
+    //     return response()->json(['success'=>true, 'jewelry'=>$jewelry, 'auth'=>$user]);
+    // }
 
     public function index()
     {

@@ -8,10 +8,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Home</title>
-    @include('common.links') <!-- Include necessary CSS and JavaScript resources -->
-    @vite('resources/js/home.js',)
+    
+    
 </head>
 <body class="bg-gray-100">
+    @include('common.links') <!-- Include necessary CSS and JavaScript resources -->
+    @vite('resources/js/home.js')
 
     @include('common.header') <!-- Include header component -->
     @include('common.navbar') <!-- Include navbar component -->

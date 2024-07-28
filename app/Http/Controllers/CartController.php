@@ -24,6 +24,8 @@ class CartController extends Controller
 
         // Retrieve the color_jewelry records along with pivot data
         $colorJewelries = $Usercart->colorJewelry()->with(['jewelry.classification', 'colors', 'jewelry.prices'])->get();
+
+
         if ($colorJewelries->isEmpty()) {
             $withItems = false;
         } else {
@@ -40,6 +42,7 @@ class CartController extends Controller
             $quan = $colorJewelry->pivot->quantity;
             $price = $colorJewelry->jewelry->prices->price;
             $id = $colorJewelry->id;
+            $image_path = $colorJewelry->image_path;
 
 
             $subtot = $quan * $price;
@@ -50,6 +53,7 @@ class CartController extends Controller
                     'classification' => $classification,
                     'price' => $subtot,
                     'pivotId' => $id,
+                    'image_path' => $image_path,
                 ];
 
         }

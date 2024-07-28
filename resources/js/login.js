@@ -25,8 +25,7 @@ $('#loginForm').on('submit', function (e){
                 } else {
                     window.location.href = userHomeUrl; // Regular user redirect
                 }
-            } 
-            else {
+            } else {
                 showError("Username or Password Incorrect. Please Check");
             }
         },

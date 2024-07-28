@@ -35,7 +35,7 @@ use App\Http\Controllers\MaterialController;
 // Login | Logout
 Route::resource('user', UserController::class);
 Route::post('/user/login', [LoginController::class, 'login'])->name('user.login');
-Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout');
+Route::post('/user/logout', [LoginController::class, 'logout'])->name('user.logout')->middleware('auth:sanctum');
 
 // Homepage
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
