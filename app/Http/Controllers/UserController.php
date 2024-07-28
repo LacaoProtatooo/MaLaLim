@@ -74,14 +74,20 @@ class UserController extends Controller
         })->get();
 
         $users = $users->map(function($user) {
-            if ($user->trashed()) {
+            $userOrder = $user->orders()->where('status', 'completed')->count();
+            if ($user->trashed() ) {
                 // User is soft-deleted
                 $actions = '<button class="btn btn-success user-activate" data-id="' . $user->id . '">Activate</button> ' .
                         '<button class="btn btn-secondary user-permadelete" data-id="' . $user->id . '">Delete</button>';
-            } else {
+            } elseif(!$user->trashed() && ($userOrder>=5) && ($user->role->title === 'customer')) {
                 // User is not deleted
                 $actions = '<button class="btn btn-primary user-edit" data-id="' . $user->id . '">Details</button> ' .
+                        '<button class="btn btn-primary user-promote" data-id="' . $user->id . '">Promote</button> ' .
                         '<button class="btn btn-secondary user-delete" data-id="' . $user->id . '">Deactivate</button>';
+            }
+            else{
+                $actions = '<button class="btn btn-primary user-edit" data-id="' . $user->id . '">Details</button> ' .
+                '<button class="btn btn-secondary user-delete" data-id="' . $user->id . '">Deactivate</button>';
             }
 
             return [
@@ -297,6 +303,29 @@ class UserController extends Controller
             'image_path' => $user->image_path,
         ], 200);
 
+    }
+
+    public function promote(string $id)
+    {
+        // Find the user by ID
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+
+        // Retrieve the role associated with the user
+        $role = $user->role;
+
+        if (!$role) {
+            return response()->json(['error' => 'Role not found'], 404);
+        }
+
+        // Update the role's title to 'CustomerPlus'
+        $role->title = 'CustomerPlus';
+        $role->save(); // Save the role to update the title
+
+        return response()->json(['message' => 'User role updated to CustomerPlus'], 200);
     }
 
 }

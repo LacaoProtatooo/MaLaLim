@@ -36,6 +36,7 @@ class ChartController extends Controller
             if (!in_array($date, $labels)) {
                 $labels[] = $date;
             }
+            $courierRate = $order->courier->rate;
 
             // Get the user with their role
             $userinfo = User::with('role')->where('id', $order->user_id)->first();
@@ -55,7 +56,7 @@ class ChartController extends Controller
                 if (!isset($totalExpendituresByDate[$date])) {
                     $totalExpendituresByDate[$date] = 0;
                 }
-                $totalExpendituresByDate[$date] += $OrderTotal;  // Add the total expenditure for the date
+                $totalExpendituresByDate[$date] += $OrderTotal +  $courierRate;  // Add the total expenditure for the date
             }
 
             if ($userinfo->role->title === 'CustomerPlus') {
@@ -79,7 +80,7 @@ class ChartController extends Controller
                 if (!isset($totalExpendituresPlusByDate[$date])) {
                     $totalExpendituresPlusByDate[$date] = 0;
                 }
-                $totalExpendituresPlusByDate[$date] += $OrderTotalPlus;  // Add the total expenditure for the date
+                $totalExpendituresPlusByDate[$date] += $OrderTotalPlus +  $courierRate;  // Add the total expenditure for the date
             }
         }
 

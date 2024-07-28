@@ -279,5 +279,27 @@ $(document).ready(function() {
             });
         }
     });
+    // Promote
+    $(document).on('click', '.user-promote', function() {
+        var userId = $(this).data('id');
+
+
+        // Confirm activation
+        if (confirm("Promote this user?")) {
+            $.ajax({
+                type: 'POST',
+                url: `/api/user/promote/${userId}`,
+                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                success: function(response) {
+                    console.log(response.message);
+                    // Reload Table
+                    userTable.ajax.reload();
+                },
+                error: function(error) {
+                    console.error("Promotion error:", error);
+                }
+            });
+        }
+    });
 
 });
