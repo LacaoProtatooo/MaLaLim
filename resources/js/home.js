@@ -8,7 +8,7 @@ $(document).ready(function() {
     function popItems(page, search = '') {
         // Check for auth token in sessionStorage
         const authToken = sessionStorage.getItem('auth_token');
-    
+
         $.ajax({
             url: `/api/item?page=${page}&search=${search}`,
             type: 'GET',
@@ -17,12 +17,12 @@ $(document).ready(function() {
                 'Authorization': authToken ? 'Bearer ' + authToken : undefined
             },
             success: function(response) {
-                console.log(response);
+                console.log(response.jewelry);
                 if (page === 1) {
                     $('#jewelry').empty();
                 }
                 const jewels = $('#jewelry');
-    
+
                 // Add Empty Results here
                 response.jewelry.data.forEach(jewel => {
                     let jewelHTML = ``;
@@ -107,7 +107,7 @@ $(document).ready(function() {
             }
         });
     }
-    
+
 
     // function popItems(page, search = '') {
     //     $.ajax({

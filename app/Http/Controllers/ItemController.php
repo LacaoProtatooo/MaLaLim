@@ -33,12 +33,14 @@ class ItemController extends Controller
             // Perform the search query using Algolia
             $jewelryIds = Jewelry::search($search)->get()->pluck('id');
             $classIds = Classification::search($search)->get()->pluck('id');
+
             if ($classIds->isNotEmpty()) {
                     $jewelry = Jewelry::with(['prices', 'classification'])
                     ->whereIn('classification_id', $classIds)
                     ->paginate(10);
-                    return response()->json($jewelry);
+                    return response()->json(['success'=> true, 'jewelry'=> $jewelry]);
                 };
+                // return response()->json($classIds);
             // Fetch the actual models with the related data using the retrieved IDs
             $jewelry = Jewelry::with(['prices', 'classification'])
                 ->whereIn('id', $jewelryIds)
