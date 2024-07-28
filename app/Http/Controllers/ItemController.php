@@ -37,10 +37,15 @@ class ItemController extends Controller
                     ->paginate(10);
                 return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
             }
-
-            $jewelry = Jewelry::with(['prices', 'classification'])
+            else{
+                $jewelry = Jewelry::with(['prices', 'classification'])
                 ->whereIn('id', $jewelryIds)
                 ->paginate(10);
+
+                return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
+            }
+
+
         } elseif (is_numeric($search)) {
             $promos = Promo::find($search);
             $jewelry = $promos->jewelries()
@@ -50,9 +55,10 @@ class ItemController extends Controller
             return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
         } elseif (!$search) {
             $jewelry = Jewelry::with(['prices', 'classification'])->paginate(10);
+            return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
         }
 
-        return response()->json(['success' => true, 'jewelry' => $jewelry, 'auth' => $user]);
+
     }
     // public function home(Request $request)
     // {
