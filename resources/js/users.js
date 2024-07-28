@@ -295,8 +295,11 @@ $(document).ready(function() {
                     // Reload Table
                     userTable.ajax.reload();
                 },
-                error: function(error) {
-                    console.error("Promotion error:", error);
+                error: function(xhr, status, error) {
+                    console.error('Error Status:', status);
+                    console.error('Error Thrown:', error);
+                    console.error('Response Text:', xhr.responseText);
+                    console.error('Full Error Object:', xhr);
                 }
             });
         }
