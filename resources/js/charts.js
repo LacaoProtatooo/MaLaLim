@@ -62,10 +62,12 @@ $(document).ready(function() {
     function initializeCharts() {
         const token = sessionStorage.getItem('auth_token');
         if (token) {
-            // Create charts after ensuring token is available
-            createChart('bar', "/api/chart-bar", 'barChart', 'Classification Analysis');
-            createChart('pie', "/api/chart-pie", 'pieChart', 'Courier Earnings', { scales: {} });
-            createChart('line', "/api/chart-line", 'lineChart', 'Expenditure Tracker');
+            setTimeout(function() {
+                createChart('bar', "/api/chart-bar", 'barChart', 'Classification Analysis');
+                createChart('bar', "/api/chart-bar", 'barChart', 'Classification Analysis');
+                createChart('pie', "/api/chart-pie", 'pieChart', 'Courier Earnings', { scales: {} });
+                createChart('line', "/api/chart-line", 'lineChart', 'Expenditure Tracker');
+            }, 2000);
         } else {
             console.error('Auth token not available. Please log in first.');
         }
@@ -74,4 +76,3 @@ $(document).ready(function() {
     // Initialize charts after ensuring the document is ready
     $(document).ready(initializeCharts);
 });
-
