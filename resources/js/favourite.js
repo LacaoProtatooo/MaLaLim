@@ -24,7 +24,7 @@ $(document).ready(function() {
                                     <div class="flex items-center">
                                         <!-- Image Container -->
                                         <div class="flex-shrink-0 col-span-1">
-                                            <img src="${item.image_path}" alt="${item.name}" class="max-lg:w-auto max-sm:mx-auto">
+                                            <img src="${item.image_path}" alt="${item.name}" class="w-15 h-12">
                                         </div>
                                         <!-- Text Container -->
                                         <div class="flex-1 flex flex-col justify-center pl-4">
