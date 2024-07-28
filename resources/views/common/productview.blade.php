@@ -12,15 +12,13 @@
             </button>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4">
-                <!-- Image Section -->
+                <!-- Image Section ../storage/r-3-2.png-->
                 <div class="flex flex-col items-center">
-                    <img src="../storage/r-3-2.png" alt="Product" class="w-full h-auto rounded-md object-cover" />
+                    {{-- JEWELRY IMAGE HERE --}}
+                    <img id="jewelimage" src="{{ asset('') }}" alt="Product" class="w-full h-auto rounded-md object-cover" />
 
-                    <div class="flex flex-wrap gap-4 justify-center mt-4">
-                        <img src="../storage/r-3-2.png" alt="Product1" class="w-16 cursor-pointer rounded-md hover:outline focus:outline" />
-                        <img src="../storage/r-3-2.png" alt="Product2" class="w-16 cursor-pointer rounded-md hover:outline focus:outline" />
-                        <img src="../storage/r-3-2.png" alt="Product3" class="w-16 cursor-pointer rounded-md hover:outline focus:outline" />
-                        <img src="../storage/r-3-2.png" alt="Product4" class="w-16 cursor-pointer rounded-md hover:outline focus:outline" />
+                    <div id="jewelVariantsContainer" class="flex flex-wrap gap-4 justify-center mt-4">
+                        {{-- JEWELRY VARIANTS WILL BE APPENDED HERE BY JAVASCRIPT --}}
                     </div>
                 </div>
 

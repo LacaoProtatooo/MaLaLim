@@ -13,6 +13,23 @@ export function ModalDisplay(itemId) {
                 $('#description').text(response.data.description);
                 $('#classi').text(response.data.classification.classification);
                 $('#salapi').text('₱' + response.data.prices.price);
+
+                // Insert Jewelry Path and Jewelry Variant Paths here
+                $('#jewelimage').attr('src', response.data.image_path);
+
+                const jewelVariantsContainer = $('#jewelVariantsContainer');
+                jewelVariantsContainer.empty(); // Clear previous images
+
+                response.data.colorjewelries.forEach(jvar => {
+                    const imgElement = $('<img>', {
+                        src: jvar.image_path,
+                        alt: 'Jewelry Variant',
+                        class: 'w-16 cursor-pointer rounded-md hover:outline focus:outline'
+                    });
+                    jewelVariantsContainer.append(imgElement);
+                });
+
+
                 // console.log(response.data);
                 response.data.materials.forEach(mat=>{
                     $('#materialdesc').html(mat.material + ':' + '<br>' + mat.description + '<br>');

@@ -10,6 +10,10 @@ use App\Models\Cart;
 use App\Models\Promo;
 use App\Models\Classification;
 use Auth;
+
+use Barryvdh\Debugbar\Facade as Debugbar;
+
+
 class ItemController extends Controller
 {
     public function home(Request $request)
@@ -65,8 +69,10 @@ class ItemController extends Controller
     public function description($id)
     {
         // Retrieve item details based on $id
-        $item = Jewelry::with(['prices', 'classification', 'colors', 'materials'])->find($id); // Assuming you have an Item model
-        // dd($item);
+        // $item = Jewelry::with(['prices', 'classification', 'colors', 'materials'])->find($id); // Assuming you have an Item model
+        $item = Jewelry::with(['prices', 'classification', 'colors', 'materials', 'colorjewelries'])->find($id);
+
+        // debugbar::info($item);
         if ($item) {
             return response()->json([
                 'success' => true,

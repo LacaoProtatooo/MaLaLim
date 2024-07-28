@@ -15,12 +15,16 @@ class ColorJewelrySeeder extends Seeder
     {
         $jewelries = Jewelry::all();
         $colors = Color::all();
-
         $jewelries->each(function ($jewelry) use ($colors) {
-            $jewelry->image_path = 'storage/jewelrysample.jpg';
-            $jewelry->colors()->attach(
-                $colors->random(rand(1, 2))->pluck('id')->toArray()
-            );
+            // $jewelry->colors()->attach(
+            //     $colors->random(rand(1, 2))->pluck('id')->toArray()
+            // );
+
+            $colorsToAttach = $colors->random(rand(1, 2))->pluck('id')->toArray();
+
+            foreach ($colorsToAttach as $colorId) {
+                $jewelry->colors()->attach($colorId, ['image_path' => 'storage/jewelrysample.jpg']);
+            }
         });
     }
 }
