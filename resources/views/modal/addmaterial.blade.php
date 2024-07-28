@@ -4,7 +4,7 @@
     <div class="modal-box">
         <div class="relative bg-white rounded-lg">
             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2" onclick="document.getElementById('creatematerial').close()">✕</button>
-            <h3 class="text-lg font-bold mb-4"> Create New Jewelry </h3>
+            <h3 class="text-lg font-bold mb-4"> Create New Jewelry Material </h3>
 
             <form class="max-w-md mx-auto" id="materialForm" method="#" action="#" enctype="multipart/form-data">
                 @csrf
@@ -21,23 +21,6 @@
                 <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Create</button>
             </form>
             <br>
-            <div class="image-container">
-                <img class="h-auto max-w-lg" id="uploadedImage" src="" alt="Image Preview">
-            </div>
-
-            <style>
-                .image-container {
-                    position: relative;
-                    overflow: hidden;
-                    max-height: 800px;
-                    max-width: 800px;
-                }
-                .image-container img {
-                    width: 100%;
-                    height: auto;
-                }
-            </style>
-
         </div>
     </div>
 </dialog>

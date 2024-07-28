@@ -2,8 +2,12 @@ import { popCheck, GlobalCheckResponse,  selectedCourierId, selectedPayId, Compl
 
 $(document).on('click', '.refresher', function() {
 
-    popCheck();
+  
 
+});
+
+$(document).ready(function() {
+    popCheck();
 });
 
 $(document).on('click', '.completeButt', function() {

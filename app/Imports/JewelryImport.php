@@ -15,15 +15,17 @@ class JewelryImport implements ToModel
     */
     public function model(array $row)
     {
-         $jewelry = Jewelry::create([
-            'name' => $row[0],
-            'description' => $row[1],
-            'classification_id' => $row[2],
-        ]);
-
-        Price::create([
-            'jewelry_id' => $jewelry->id,
-            'price' => $row[3],
-        ]);
+        if (!empty($row[0])) {
+            $jewelry = Jewelry::create([
+                'name' => $row[0],
+                'description' => $row[1],
+                'classification_id' => $row[2],
+            ]);
+    
+            Price::create([
+                'jewelry_id' => $jewelry->id,
+                'price' => $row[3],
+            ]);
+        }
     }
 }
