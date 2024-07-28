@@ -2,6 +2,7 @@ import { isEmptyObject } from "jquery";
 
 export function ModalDisplay(itemId) {
     showLoadingModal();
+    // No Auth Needed
     $.ajax({
         url: `/api/item/description/${itemId}`,
         type: 'GET',
@@ -63,6 +64,7 @@ export function ModalDisplay(itemId) {
 }
 
 export function AutoDisplay(colId, itemId) {
+    // No Auth Needed?
     $.ajax({
         url: `/api/item/description?col=${colId}&ite=${itemId}`,
         type: 'GET',
@@ -87,9 +89,14 @@ export function deTach(itemId) {
     $.ajax({
         url: `/api/user/${itemId}/jewelry`,
         type: 'DELETE',
+        // headers: {
+        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+        // },
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
+
         success: function(response) {
             console.log('Success:', response.message);
             hideLoadingModal();
@@ -109,7 +116,11 @@ export function deTach(itemId) {
             data: {
                 item_id: itemId,
                 col_id: colId,
-                _token: $('meta[name="csrf-token"]').attr('content')
+                // _token: $('meta[name="csrf-token"]').attr('content')
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
             },
             success: function(response) {
                 console.log(response);
@@ -140,6 +151,10 @@ export function deTach(itemId) {
         $.ajax({
             url: '/api/fetchCart',
             type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            },
             success: function(response) {
                 if (response.success) {
                     console.log('Cart data received:', response.data);
@@ -244,7 +259,11 @@ export function AddQuan(id)
         type: 'POST',
         data: {
             item_id: id,
-            _token: $('meta[name="csrf-token"]').attr('content')
+            // _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -266,7 +285,11 @@ export function MinusQuan(id)
         type: 'POST',
         data: {
             item_id: id,
-            _token: $('meta[name="csrf-token"]').attr('content')
+            // _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -288,7 +311,11 @@ export function RemoveQuan(id)
         type: 'POST',
         data: {
             item_id: id,
-            _token: $('meta[name="csrf-token"]').attr('content')
+            // _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -438,7 +465,11 @@ export function CompleteOrder(Cour, Pay, namer, ads, Cartid, pivId)
             name: namer,
             address: ads,
             cartId: Cartid,
-            _token: $('meta[name="csrf-token"]').attr('content')
+            // _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -458,8 +489,12 @@ export function popOrder()
     $.ajax({
         url: '/api/fetchOrder',
         type: 'GET',
+        // headers: {
+        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ensure CSRF token is included
+        // },
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Ensure CSRF token is included
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             const urdir = $('#urdir');
@@ -553,6 +588,10 @@ export function popOrderMod(id)
     $.ajax({
         url: `/api/fetchModCheck?cart=${id}`,
         type: 'GET',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+        },
         success: function(response)
         {
             console.log(response);
@@ -659,8 +698,12 @@ export function cancelButt(id)
         url: '/api/cancel',
         type: 'PUT',
         data: {
-            _token: '{{ csrf_token() }}',
+            // _token: '{{ csrf_token() }}',
             OrderId: id,
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             console.log('Record updated successfully:', response);
@@ -676,11 +719,12 @@ export function cancelButt(id)
 
 export function auto(query)
 {
+    // No Auth Needed?
     $.ajax({
         url: '/api/AUTOCOM',
         type: 'GET',
         data: {
-            _token: '{{ csrf_token() }}',
+            // _token: '{{ csrf_token() }}',
             Querie: query,
         },
         success: function(response) {
@@ -728,10 +772,10 @@ export function promoCarou()
     $.ajax({
         url: '/api/carousel',
         type: 'GET',
-        // headers: {
-        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-        //     'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
-        // },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+        },
         success: function(response) {
             const carouu = $('#carous');
             carouu.empty();

@@ -11,7 +11,7 @@ $(document).ready(function() {
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + authToken, // Include the auth token if available
+            'Authorization': 'Bearer ' + authToken, 
         },
         dataType: "json",
         success: function(data) {
