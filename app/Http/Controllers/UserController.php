@@ -322,7 +322,7 @@ class UserController extends Controller
         }
 
         // Update the role's title to 'CustomerPlus'
-        $role->title = 'CustomerPlus';
+        $role->title = 'customerplus';
         $role->save(); // Save the role to update the title
 
         return response()->json(['message' => 'User role updated to CustomerPlus'], 200);

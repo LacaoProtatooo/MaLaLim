@@ -59,7 +59,7 @@ class ChartController extends Controller
                 $totalExpendituresByDate[$date] += $OrderTotal +  $courierRate;  // Add the total expenditure for the date
             }
 
-            if ($userinfo->role->title === 'CustomerPlus') {
+            if ($userinfo->role->title === 'customerplus') {
                 $OrderTotalPlus = 0;  // Initialize OrderTotal for this order
 
                 // Get the colorJewelry items for this order with pivot data
