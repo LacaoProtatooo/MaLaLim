@@ -33,10 +33,10 @@ $(document).on('click', '.DeductButt', function() {
 
 $(document).on('click', '.AddButt', function() {
     const itemId = $(this).data('id');
-    AddQuan(itemId);
+    const quant = $(this).data('quan');
+    AddQuan(itemId, quant);
     console.log(itemId);
-    popCart();
-
+    
 });
 
 $(document).on('click', '.RemoveButt', function() {

@@ -62,7 +62,7 @@ class CartController extends Controller
         $userID = Auth::user()->id;
         $cartId = Cart::where('user_id', $userID)->pluck('id')->first();
         $colorJewelryId = $request->input('item_id');
-
+        $Quantity = $request->input('quants');
         // Ensure a cart was found for the user
         if (!$cartId) {
             return response()->json(['error' => 'Cart not found for the user.'], 404);
@@ -70,7 +70,11 @@ class CartController extends Controller
 
         // Retrieve the Cart instance
         $cart = Cart::find($cartId);
-
+        $colorfirst = $cart->colorJewelry()->where('color_jewelry_id', $colorJewelryId)->first()->stocks()->first()->quantity;
+        if($Quantity >= $colorfirst)
+        {
+            return response()->json(['success' => true, 'message' => 'Failed']);
+        }
         $pivotEntry = $cart->colorJewelry()->where('color_jewelry_id', $colorJewelryId)->first();
 
         if (!$pivotEntry) {

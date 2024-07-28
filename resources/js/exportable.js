@@ -197,7 +197,7 @@ export function deTach(itemId) {
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"></path>
                                                 </svg>
                                             </button>
-                                            <button type="button" id = "" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 AddButt"data-id = ${ilagay.pivotId} >
+                                            <button type="button" id = "" class="flex rounded p-2 text-center text-gray-500 transition-all duration-200 ease-in-out focus:shadow hover:text-gray-900 AddButt"data-id = ${ilagay.pivotId} data-quan = ${ilagay.quantity} >
                                                 <svg class="block h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" >
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                                                 </svg>
@@ -252,13 +252,14 @@ export function deTach(itemId) {
         });
     }
 
-export function AddQuan(id)
+export function AddQuan(id, quant)
 {
     $.ajax({
         url: '/api/add/jewel2Cart',
         type: 'POST',
         data: {
             item_id: id,
+            quants: quant,
             // _token: $('meta[name="csrf-token"]').attr('content')
         },
         headers: {
@@ -267,13 +268,21 @@ export function AddQuan(id)
         },
         success: function(response) {
             if (response.success) {
-                console.log(response.message);
+                if(response.message === 'Failed') {
+                    $('.RemoveButt').addClass('hidden');
+                } else {
+                    $('.RemoveButt').removeClass('hidden');
+                    popCart();
+                }
             } else {
                 console.log('Error attaching item:', response.message); // Fixed the console message
             }
         },
         error: function(xhr, status, error) {
-            console.error('AJAX error:', error);
+            console.error('Error Status:', status);
+            console.error('Error Thrown:', error);
+            console.error('Response Text:', xhr.responseText);
+            console.error('Full Error Object:', xhr);
         }
     });
 }
@@ -325,7 +334,10 @@ export function RemoveQuan(id)
             }
         },
         error: function(xhr, status, error) {
-            console.error('AJAX error:', error);
+            console.error('Error Status:', status);
+            console.error('Error Thrown:', error);
+            console.error('Response Text:', xhr.responseText);
+            console.error('Full Error Object:', xhr);
         }
     });
     popCart();
