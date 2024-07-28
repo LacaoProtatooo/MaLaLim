@@ -76,6 +76,7 @@ $(document).ready(function() {
                 'Authorization': 'Bearer ' + token,
             },
             success: function(data) {
+                console.log(data);
                 try {
                     var ctx = document.getElementById(canvasId).getContext('2d');
                     var chart = new Chart(ctx, {
