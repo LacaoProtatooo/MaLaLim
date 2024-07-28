@@ -268,12 +268,12 @@ export function AddQuan(id, quant)
         },
         success: function(response) {
             if (response.success) {
-                if(response.message === 'Failed') {
-                    $('.RemoveButt').addClass('hidden');
-                } else {
-                    $('.RemoveButt').removeClass('hidden');
-                    popCart();
-                }
+                // if(response.message === 'Failed') {
+                //     $('.AddButt').addClass('hidden');
+                // } else {
+                //     $('.AddButt').removeClass('hidden');
+                popCart();
+                // }
             } else {
                 console.log('Error attaching item:', response.message); // Fixed the console message
             }
