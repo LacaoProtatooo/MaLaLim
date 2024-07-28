@@ -24,17 +24,24 @@ class ChartController extends Controller
      */
 
     public function linechart(){
-        $labels = [];
-        $totalExpenditures = [];
-        $totalExpendituresPlus = [];
+
         $orders = Order::where('status', 'Completed')->get();
 
-        foreach ($orders as $order)
-        {
+        $labels = [];
+        $totalExpendituresByDate = [];
+        $totalExpendituresPlusByDate = [];
+
+        foreach ($orders as $order) {
+            $date = $order->updated_at->format('F j, Y');
+            if (!in_array($date, $labels)) {
+                $labels[] = $date;
+            }
+            $courierRate = $order->courier->rate;
+
             // Get the user with their role
             $userinfo = User::with('role')->where('id', $order->user_id)->first();
 
-            if ($userinfo->role->title === 'Customer') {
+            if ($userinfo->role->title === 'customer') {
                 $OrderTotal = 0;  // Initialize OrderTotal for this order
 
                 // Get the colorJewelry items for this order with pivot data
@@ -46,7 +53,10 @@ class ChartController extends Controller
                     $OrderTotal += $price * $quantity;  // Calculate the total expenditure
                 }
 
-                $totalExpenditures[] = $OrderTotal;  // Add the total expenditure to the array
+                if (!isset($totalExpendituresByDate[$date])) {
+                    $totalExpendituresByDate[$date] = 0;
+                }
+                $totalExpendituresByDate[$date] += $OrderTotal +  $courierRate;  // Add the total expenditure for the date
             }
 
             if ($userinfo->role->title === 'CustomerPlus') {
@@ -56,11 +66,9 @@ class ChartController extends Controller
                 $colorJewelries = $order->colorjewelry()->withPivot('quantity')->get();
 
                 foreach ($colorJewelries as $colorJewelry) {
-                    if($dc = $colorJewelry->jewelry->promos()->first())
-                    {
+                    if ($dc = $colorJewelry->jewelry->promos()->first()) {
                         $promo = $dc->discountRate;
-                    }
-                    else{
+                    } else {
                         $promo = 0;
                     }
                     $price = $colorJewelry->jewelry->prices->price;  // Get the price from the jewelry
@@ -69,7 +77,10 @@ class ChartController extends Controller
                     $OrderTotalPlus += ($price * $quantity) - $totDC;  // Calculate the total expenditure
                 }
 
-                $totalExpendituresPlus[] = $OrderTotalPlus;  // Add the total expenditure to the array
+                if (!isset($totalExpendituresPlusByDate[$date])) {
+                    $totalExpendituresPlusByDate[$date] = 0;
+                }
+                $totalExpendituresPlusByDate[$date] += $OrderTotalPlus +  $courierRate;  // Add the total expenditure for the date
             }
         }
 
@@ -80,14 +91,14 @@ class ChartController extends Controller
         $datasets = [
             [
                 'label' => 'Customers Expenditure',
-                'data' =>  $totalExpenditures,
+                'data' =>  $totalExpendituresByDate,
                 'backgroundColor' => 'rgba(255, 99, 132, 0.2)',
                 'borderColor' => 'rgba(255, 99, 132, 1)',
                 'borderWidth' => 1,
             ],
             [
                 'label' => 'CustomersPlus Expenditure',
-                'data' => $totalExpendituresPlus,
+                'data' =>  $totalExpendituresPlusByDate,
                 'backgroundColor' => 'rgba(54, 162, 235, 0.2)',
                 'borderColor' => 'rgba(54, 162, 235, 1)',
                 'borderWidth' => 1,
@@ -97,6 +108,7 @@ class ChartController extends Controller
         return response()->json([
             'labels' => $labels,
             'datasets' => $datasets,
+
         ]);
     }
 

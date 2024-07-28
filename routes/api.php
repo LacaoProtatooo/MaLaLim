@@ -85,6 +85,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // Admin: Users
     Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
+    Route::post('/user/promote/{id}', [UserController::class, 'promote'])->name('adminuser.promote');
     Route::post('/user/permadelete/{id}', [UserController::class, 'permadelete'])->name('adminuser.permadelete');
 
     // Admin: Assign Promo to Jewelries
