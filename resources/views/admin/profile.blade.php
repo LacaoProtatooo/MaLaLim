@@ -13,8 +13,6 @@
 </head>
 <body class="bg-gray-100">
     @include('common.adminheader')
-    @vite('resources/js/sidebar.js')
-    @include('common.sidebar')
     {{-- THIS PAGE IS ADMIN PROFILE --}}
     
     <!-- USER $userinfo-->

@@ -1,6 +1,7 @@
 import { ModalDisplay, AutoDisplay, showLoadingModal, hideLoadingModal } from './exportable.js';
 
 $(document).ready(function() {
+    // const token = window.authToken;
     var token = sessionStorage.getItem('auth_token');
     console.log(token);
     let page = 1;
@@ -13,7 +14,7 @@ $(document).ready(function() {
             type: 'GET',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+                // 'Authorization': 'Bearer ' + token,
             },
             success: function(response) {
                 console.log(response);
@@ -101,6 +102,7 @@ $(document).ready(function() {
                 hideLoadingModal();
             },
             error: function(xhr, status, error) {
+                // window.location.reload(true);
                 console.error('Error:', status, error);
             }
         });

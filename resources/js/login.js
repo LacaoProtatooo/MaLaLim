@@ -1,9 +1,9 @@
 $(document).ready(function(){
-    
+ 
 });
 
 $('#loginForm').on('submit', function (e){
-    
+    window.authToken = null;
     e.preventDefault();
     var data = $(this).serialize();
     $.ajax({
@@ -16,10 +16,13 @@ $('#loginForm').on('submit', function (e){
         success: function(response) {
             console.log(response);
             if (response.message === 'Login successful') {
+
                 sessionStorage.removeItem('auth_token');
                 sessionStorage.setItem('auth_token', response.auth_token);
                 console.log("Login Success:", response.auth_token);
 
+
+                window.authToken = response.auth_token;
                 // Redirect based on role
                 if (response.isAdmin) {
                     window.location.href = adminHomeUrl; // Admin redirect

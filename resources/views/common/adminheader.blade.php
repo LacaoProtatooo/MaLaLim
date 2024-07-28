@@ -41,6 +41,10 @@
     @endif
 </div>
 
+@include('common.sidebar')
+@vite('resources/js/sidebar.js')
+    
+
 
 
   

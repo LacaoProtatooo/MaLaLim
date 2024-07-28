@@ -44,16 +44,6 @@ Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
 
- // Sidebar | Charts
- Route::get('/sidebar', [Admincontroller::class, 'sidebar'])->name('side.bar');
- Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
- Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
- Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
-
- // Attach Favorite Jewelry | Attach to Cart
- Route::post('/user/fave', [ItemController::class, 'AddFave']);
- Route::post('/item/cartz', [ItemController::class, 'AddCart']);
-
 Route::middleware('auth:sanctum')->group(function () {
 
     // ================================ USER: ADMIN ================================ //
@@ -85,7 +75,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/import-courier', [ExcelController::class, 'importCourier'])->name('courier.import');
     Route::post('/import-promo', [ExcelController::class, 'importPromo'])->name('promo.import');
     Route::post('/import-jewelry', [ExcelController::class, 'importJewelry'])->name('jewelry.import');
-    Route::post('/import-jewelryvariant', [ExcelController::class, 'importJewelryVariant'])->name('jewelryvariant.import');
+    
+    // Sidebar | Charts
+    Route::get('/sidebar', [Admincontroller::class, 'sidebar'])->name('side.bar');
+    Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
+    Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
+    Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
 
     // Admin: Users
     Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
@@ -96,7 +91,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/getJewelries/{id}', [PromoController::class, 'getJewelry'])->name('admin.getpromoJewelries');
     Route::post('/admin/jewelrypromosave/{id}', [PromoController::class, 'jewelrypromosave'])->name('admin.jewelrypromosave');
 
-    // =============================== USER: CUSTOMER =============================== //
+  // =============================== USER: CUSTOMER =============================== //
 
     // User Profile
     Route::get('/userprofile', [UserController::class, 'getUserProfile']);
@@ -125,5 +120,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/cancel', [CheckoutController::class, 'Kansel']);
     Route::get('/carousel', [PromoController::class, 'carouu']);
     Route::get('/InfoOrder', [OrderController::class, 'contentModal']);
+
+    // Attach Favorite Jewelry | Attach to Cart
+    Route::post('/user/fave', [ItemController::class, 'AddFave']);
+    Route::post('/item/cartz', [ItemController::class, 'AddCart']);
 
 });
