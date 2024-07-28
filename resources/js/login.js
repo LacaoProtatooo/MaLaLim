@@ -21,19 +21,22 @@ $('#loginForm').on('submit', function (e){
                 sessionStorage.setItem('auth_token', response.auth_token);
                 console.log("Login Success:", response.auth_token);
 
+                showSuccess("Login successful! Redirecting...");
 
-                window.authToken = response.auth_token;
                 // Redirect based on role
-                if (response.isAdmin) {
-                    window.location.href = adminHomeUrl; // Admin redirect
-                } else {
-                    window.location.href = userHomeUrl; // Regular user redirect
-                }
+                setTimeout(() => {
+                    if (response.isAdmin) {
+                        window.location.href = adminHomeUrl;
+                    } else {
+                        window.location.href = userHomeUrl;
+                    }
+                }, 2000);
             } else {
                 showError("Username or Password Incorrect. Please Check");
             }
         },
         error: function(xhr) {
+            // Add Window Here
             if (xhr.status === 401) {
                 showError("Invalid credentials");
             } else {
@@ -72,7 +75,29 @@ $(document).on('click', '.Urders', function() {
     window.location.href = '/orderhistory';
 });
 
+function showSuccess(message) {
+    document.getElementById('modalMessage').textContent = message;
+    const modal = document.getElementById('my_modal_2');
+    if (modal) {
+        modal.showModal();
+    } else {
+        console.error("Modal element not found.");
+    }
+}
 
 function showError(message) {
-    $("#err").hide().html(message).fadeIn('slow');
+    document.getElementById('modalMessage').textContent = message;
+    
+    const modal = document.getElementById('my_modal_2');
+    if (modal) {
+        modal.showModal();
+    } else {
+        console.error("Modal element not found.");
+    }
 }
+
+
+document.getElementById('closeModal').addEventListener('click', function() {
+    const modal = document.getElementById('my_modal_2');
+    modal.close();
+});

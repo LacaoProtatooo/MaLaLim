@@ -51,6 +51,16 @@
         </div>
     </div>
 
+    <dialog id="my_modal_2" class="modal">
+        <div class="modal-box">
+            <h3 class="text-lg font-semibold mb-4">Message</h3>
+            <p id="modalMessage" class="text-black"></p>
+            <form method="dialog" class="modal-backdrop">
+                <button type="button" id="closeModal" class="mt-4 bg-blue-500 text-white px-4 py-2 rounded">Close</button>
+            </form>
+        </div>
+    </dialog>
+
     @include('modal.userregister')
     @include('common.footer')
 </body>

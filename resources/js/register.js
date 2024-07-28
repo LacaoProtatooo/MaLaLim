@@ -78,8 +78,6 @@ $(document).ready(function() {
             var data = $('#userregisterForm')[0];
             let formData = new FormData(data);
 
-            console.log(data);
-
             $.ajax({
                 type: 'POST',
                 url: '/api/user',
@@ -90,14 +88,39 @@ $(document).ready(function() {
                 dataType: "json",
                 success: function(user) {
                     sessionStorage.setItem('auth_token', user.token);
-                    console.log("Registration Successful: ", user);
+                    showModal("Registration Successful", "You have been successfully registered.");
                     
                     document.getElementById('registeruserModal').close();
                 },
-                error: function(error) {
-                    console.error('Error:', error);
+                error: function(xhr) {
+                    if (xhr.status === 401) {
+                        showModal("Error", "Invalid credentials");
+                    } else {
+                        console.error('Error:', xhr);
+                    }
                 }
             });
+        }
+    });
+
+    function showModal(title, message) {
+        const modal = document.getElementById('my_modal_2');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalTitle = modal.querySelector('h3');
+
+        if (modal && modalMessage && modalTitle) {
+            modalTitle.textContent = title;
+            modalMessage.textContent = message;
+            modal.showModal();
+        } else {
+            console.error('Modal elements not found.');
+        }
+    }
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        const modal = document.getElementById('my_modal_2');
+        if (modal) {
+            modal.close();
         }
     });
 });

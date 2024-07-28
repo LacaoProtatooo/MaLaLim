@@ -26,9 +26,9 @@
     </div>
 @endif
 
-@if(session::has('regissuccess'))
-    <div id="success-alert" class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
-        {{ Session::get('regissuccess') }}
+@if(session('regissuccess'))
+    <div id="success-alert" class="hidden bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative" role="alert">
+        {{ session('regissuccess') }}
     </div>
 @endif
 
@@ -37,6 +37,7 @@
         {{ Session::get('errorver') }}
     </div>
 @endif
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
