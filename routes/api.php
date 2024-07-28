@@ -78,7 +78,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
     Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
 
-    // Admin Users
+    // Admin: Users
     Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
     Route::post('/user/permadelete/{id}', [UserController::class, 'permadelete'])->name('adminuser.permadelete');
 
@@ -92,9 +92,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/userprofile', [UserController::class, 'getUserProfile']);
     Route::post('/updateProfile', [UserController::class, 'updateProfile']);
     Route::post('/user/deactivate', [UserController::class, 'deactivate']);
-// Attach Favorite Jewelry
-    Route::post('/user/fave', [ItemController::class, 'AddFave']);
 
+    // Attach Favorite Jewelry
+    Route::post('/user/fave', [ItemController::class, 'AddFave']);
     // Attach to Cart
     Route::post('/item/cartz', [ItemController::class, 'AddCart']);
 
@@ -104,8 +104,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/fetchCheck', [CheckoutController::class, 'CheckPop']);
     Route::get('/fetchOrder', [CheckoutController::class, 'OrderPop']);
     Route::get('/fetchModCheck', [CheckoutController::class, 'ModCheckPop']);
-
-
 
     // Status Order Manipulator
     Route::post('/Manipulate', [OrderController::class, 'manipulator']);
@@ -118,36 +116,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/decrease/jewel2Cart', [CartController::class, 'Decrease']);
     Route::post('/delete/jewel2Cart', [CartController::class, 'Remove']);
 
-        // Cancel Order
+    // Cancel Order
     Route::put('/cancel', [CheckoutController::class, 'Kansel']);
     Route::get('/carousel', [PromoController::class, 'carouu']);
-
-    // dont know how to use resource lol
     Route::get('/InfoOrder', [OrderController::class, 'contentModal']);
-
 
 });
 
 // ANO ANO MGA NEED DITO NG AUTH:SANCTUM
-
-
-
-
-
-
-
 Route::get('/item', [ItemController::class, 'home'])->name('home.fetch');
 Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
 
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
-
-
-
-
-
-// ===================================================================== //
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
-

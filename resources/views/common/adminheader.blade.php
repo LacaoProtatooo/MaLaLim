@@ -4,7 +4,7 @@
     <div class="flex-1">
       <div class="text-center">
         <a href="#" class="btn btn-ghost text-xl" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
-          <img src="../storage/login-image.png" alt="MaLaLim" class="w-15 h-11">
+          <img src="{{asset('storage/logo.png')}}" alt="MaLaLim" class="w-15 h-11">
         </a>
       </div>
     </div>

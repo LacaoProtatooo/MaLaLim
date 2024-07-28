@@ -4,7 +4,7 @@ $(document).ready(function() {
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         dataType: "json",
         success: function(data) {

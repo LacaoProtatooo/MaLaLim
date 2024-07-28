@@ -14,7 +14,10 @@ $(document).ready(function(){
     $.ajax({
         type: 'GET',
         url: '/api/userprofile',
-        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+        },
         dataType: "json",
 
         success: function (data) {
@@ -99,7 +102,10 @@ $(document).ready(function(){
                 data: formData,
                 processData: false,
                 contentType: false,
-                headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') },
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+                },
                 success: function(response) {
                     
                     console.log('Profile Updated Successfully');

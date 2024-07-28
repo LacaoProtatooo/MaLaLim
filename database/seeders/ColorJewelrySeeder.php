@@ -17,6 +17,7 @@ class ColorJewelrySeeder extends Seeder
         $colors = Color::all();
 
         $jewelries->each(function ($jewelry) use ($colors) {
+            $jewelry->image_path = 'storage/jewelrysample.jpg';
             $jewelry->colors()->attach(
                 $colors->random(rand(1, 2))->pluck('id')->toArray()
             );

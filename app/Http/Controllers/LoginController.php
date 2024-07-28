@@ -20,8 +20,9 @@ class LoginController extends Controller
             $request->session()->regenerate();
             $user = Auth::user();
             $token = $user->createToken('auth_token')->plainTextToken;
+            $request->session()->put('auth_token', $token);
 
-            $isAdmin = $user->role && $user->role->title == 'admin';
+            $isAdmin = $user->role && $user->role->title === 'admin';
 
             return response()->json([
                 'message' => 'Login successful',
@@ -32,36 +33,24 @@ class LoginController extends Controller
         }
 
         return response()->json([
-            'message' => 'Invalid credentials'
+            'message' => 'Invalid Credentials'
         ], 401);
     }
-
-
 
     public function logout(Request $request)
     {
         $user = Auth::user();
         if (!$user) {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'No User Found'], 401);
         }
 
-        // Revoke the current token
-        $token = $request->bearerToken();
-        if ($token) {
-            $sanctumToken = PersonalAccessToken::findToken($token);
-            if ($sanctumToken) {
-                $sanctumToken->delete();
-            }
-        }
+        // $request->user()->currentAccessToken()->delete();
+        $user->tokens()->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return response()->json(['message' => 'Logout successful']);
     }
-
-
-
-
 
 }

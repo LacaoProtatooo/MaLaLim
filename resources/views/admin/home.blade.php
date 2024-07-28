@@ -11,7 +11,6 @@
 </head>
 <body class="bg-gray-100">
     @include('common.adminheader') 
-    @include('common.sidebar') 
     
     <div class="px-4 pt-6">
         @include('common.charts')

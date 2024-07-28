@@ -65,7 +65,7 @@ class JewelryFactory extends Factory
         return [
             //
             'name' => $name,
-            'image_path' =>'Image.jpg',
+            'image_path' =>'storage/jewelrysample.jpg',
             'classification_id' => $classificationId,
             'description'=> $description,
         ];

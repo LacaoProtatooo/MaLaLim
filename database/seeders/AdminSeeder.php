@@ -32,9 +32,11 @@ class AdminSeeder extends Seeder
         ]);
 
         // Creating a new role for the user
-        $userrole = Role::create([
+        Role::create([
             'user_id' => $user->id,
             'title' => 'admin',
         ]);
+
+        $user->createToken('auth_token')->plainTextToken;
     }
 }

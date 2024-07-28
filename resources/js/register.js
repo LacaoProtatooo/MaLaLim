@@ -89,7 +89,9 @@ $(document).ready(function() {
                 headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                 dataType: "json",
                 success: function(user) {
+                    sessionStorage.setItem('auth_token', user.token);
                     console.log("Registration Successful: ", user);
+                    
                     document.getElementById('registeruserModal').close();
                 },
                 error: function(error) {

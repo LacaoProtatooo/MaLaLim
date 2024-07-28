@@ -53,8 +53,14 @@ class UserController extends Controller
             'title' => 'customer',
         ]);
 
-        return response()->json($user, 201);
-    }
+        // Tokenn
+        $token = $user->createToken('auth_token')->plainTextToken;
+
+        return response()->json([
+            'user' => $user,
+            'token' => $token
+        ], 201);
+        }
 
     /**
      * Display the specified resource.

@@ -1,4 +1,3 @@
-
 $(document).ready(function(){
     $('#loginForm').on('submit', function (e){
         e.preventDefault();
@@ -8,22 +7,23 @@ $(document).ready(function(){
             type: 'POST',
             url: '/api/user/login',
             headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') // Include CSRF token
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             data: data,
             success: function(response) {
                 console.log(response);
                 if (response.message === 'Login successful') {
+                    sessionStorage.setItem('auth_token', response.token);
                     console.log("Login Success");
-                    localStorage.setItem('auth_token', response.token);
-
+                    
                     // Redirect based on role
                     if (response.isAdmin) {
                         window.location.href = '/admin/home'; // Admin redirect
                     } else {
                         window.location.href = '/item'; // Regular user redirect
                     }
-                } else {
+                } 
+                else {
                     showError("Username or Password Incorrect. Please Check");
                 }
             },
@@ -47,18 +47,17 @@ $(document).on('click', '.Urders', function() {
     window.location.href = '/orderhistory';
 });
 
-
-
 function logout() {
     $.ajax({
         type: 'POST',
         url: '/api/user/logout',
-        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + localStorage.getItem('auth_token'),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token')
         },
         success: function(response) {
             console.log('Logged out successfully');
-            localStorage.removeItem('auth_token');
+            sessionStorage.removeItem('auth_token');
             window.location.href = '/login';
         },
         error: function(xhr) {
@@ -70,5 +69,3 @@ function logout() {
 function showError(message) {
     $("#err").hide().html(message).fadeIn('slow');
 }
-
-

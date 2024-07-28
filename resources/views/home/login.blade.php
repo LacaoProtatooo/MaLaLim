@@ -6,10 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Login</title>
 
-    @vite(['resources/js/login.js', 'resources/js/register.js'])
-
     @include('common.links')
-    
+    @vite('resources/js/register.js')
 </head>
 <body class="bg-gray-100">
     @include('common.header')
@@ -34,19 +32,6 @@
                         <div class="relative flex items-center">
                             <input name="password" id="password" type="password" required class="w-full text-sm border-b border-gray-300 focus:border-black px-2 py-3 outline-none" placeholder="Enter password" />
                         </div>
-                    </div>
-                    <div class="flex items-center justify-between gap-2 mt-5">
-                        {{-- <div class="flex items-center">
-                            <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 shrink-0 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" />
-                            <label for="remember-me" class="ml-3 block text-sm">
-                                Remember me
-                            </label>
-                        </div>
-                        <div>
-                            <a href="javascript:void(0);" class="text-blue-600 font-semibold text-sm hover:underline">
-                                Forgot Password?
-                            </a>
-                        </div> --}}
                     </div>
                     <div class="mt-12">
                         <button type="submit" class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold bg-yellow-300 rounded-full hover:bg-yellow-400 hover:text-white focus:outline-none">

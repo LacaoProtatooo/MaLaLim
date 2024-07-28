@@ -25,20 +25,21 @@ class AdminMiddleware
             if ($userinfo->role->title == 'admin') {
                 return $next($request);
             } else {
-                $token = $request->bearerToken();
-                if ($token) {
-                    $sanctumToken = PersonalAccessToken::findToken($token);
-                    if ($sanctumToken) {
-                        $sanctumToken->delete();
-                    }
-                }
+                // Invalidate the current token
+                // $token = $request->bearerToken();
+                // if ($token) {
+                //     $sanctumToken = PersonalAccessToken::findToken($token);
+                //     if ($sanctumToken) {
+                //         $sanctumToken->delete();
+                //     }
+                // }
 
+                // Log out user and invalidate session
                 // Auth::logout();
                 // $request->session()->invalidate();
                 // $request->session()->regenerateToken();
 
-                // return redirect()->route('login');
-                return redirect()->back()->with('error','User not Authorized');
+                return redirect()->back()->with('error', 'User Unauthorized');
             }
         }
 

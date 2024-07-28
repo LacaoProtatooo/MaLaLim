@@ -23,24 +23,24 @@ class UserMiddleware
         if ($currentUser) {
             $userinfo = User::with('role')->where('id', $currentUser->id)->first();
 
-            if ($userinfo->role->title == 'customer' || $userinfo->role->title == 'customerplus') {
+            if (in_array($userinfo->role->title, ['customer', 'customerplus'])) {
                 return $next($request);
             } else {
-                // Delete the current bearer token
-                $token = $request->bearerToken();
-                if ($token) {
-                    $sanctumToken = PersonalAccessToken::findToken($token);
-                    if ($sanctumToken) {
-                        $sanctumToken->delete();
-                    }
-                }
+                // Invalidate the current token
+                // $token = $request->bearerToken();
+                // if ($token) {
+                //     $sanctumToken = PersonalAccessToken::findToken($token);
+                //     if ($sanctumToken) {
+                //         $sanctumToken->delete();
+                //     }
+                // }
 
+                // Optional: Log out user and invalidate session
                 // Auth::logout();
                 // $request->session()->invalidate();
                 // $request->session()->regenerateToken();
 
-                // return redirect()->route('login');
-                return redirect()->back()->with('error','User not Authorized');
+                return redirect()->back()->with('error', 'User not Authorized');
             }
         }
 
