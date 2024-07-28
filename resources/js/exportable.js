@@ -725,11 +725,10 @@ export function promoCarou()
     $.ajax({
         url: '/api/carousel',
         type: 'GET',
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
-        },
-
+        // headers: {
+        //     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        //     'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+        // },
         success: function(response) {
             const carouu = $('#carous');
             carouu.empty();
