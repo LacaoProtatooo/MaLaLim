@@ -10,6 +10,8 @@
 </head>
 <body class=" bg-gray-100">
 @include('common.adminheader')
+@vite('resources/js/sidebar.js')
+@include('common.sidebar')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     {{-- <button class="btn btn-primary mt-4 mb-4" onclick="document.getElementById('createusermodal').showModal()">Create User</button> --}}

@@ -1,6 +1,8 @@
 import { ModalDisplay, AutoDisplay, showLoadingModal, hideLoadingModal } from './exportable.js';
 
 $(document).ready(function() {
+    var token = sessionStorage.getItem('auth_token');
+    console.log(token);
     let page = 1;
     let search = '';
     showLoadingModal();
@@ -9,6 +11,10 @@ $(document).ready(function() {
         $.ajax({
             url: `/api/item?page=${page}&search=${search}`,
             type: 'GET',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            },
             success: function(response) {
                 console.log(response);
                 if (page === 1) {
@@ -251,7 +257,7 @@ $(document).ready(function() {
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+                // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
             },
             success: function(response) {
                 if (response.success) {

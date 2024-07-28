@@ -11,6 +11,8 @@
 </head>
 <body class=" bg-gray-100">
 @include('common.adminheader')
+@vite('resources/js/sidebar.js')
+    @include('common.sidebar')
 
 <div class="mt-3 w-full mx-auto max-w-screen-xl p-4 allign-items-center">
     <p class="text-4xl mb-6"> Listed Couriers : </p>

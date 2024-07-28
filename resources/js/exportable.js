@@ -120,7 +120,7 @@ export function deTach(itemId) {
             },
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+                // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
             },
             success: function(response) {
                 console.log(response);
@@ -153,7 +153,7 @@ export function deTach(itemId) {
             type: 'GET',
             headers: {
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-                'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+                // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
             },
             success: function(response) {
                 if (response.success) {
@@ -265,7 +265,7 @@ export function AddQuan(id, quant)
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -299,7 +299,7 @@ export function MinusQuan(id)
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -325,7 +325,7 @@ export function RemoveQuan(id)
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             if (response.success) {
@@ -357,7 +357,7 @@ export function popCheck()
         type: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response)
         {
@@ -507,7 +507,7 @@ export function popOrder()
         // },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             const urdir = $('#urdir');
@@ -603,7 +603,7 @@ export function popOrderMod(id)
         type: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response)
         {
@@ -716,7 +716,7 @@ export function cancelButt(id)
         },
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             console.log('Record updated successfully:', response);
@@ -787,7 +787,7 @@ export function promoCarou()
         type: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
+            // 'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token'),
         },
         success: function(response) {
             const carouu = $('#carous');

@@ -44,6 +44,16 @@ Route::get('/AUTOCOM', [ItemController::class, 'popopop']);
 Route::get('/item/description', [ItemController::class, 'stonks'])->name('item.des');
 Route::get('/item/description/{id}', [ItemController::class, 'description'])->name('item.description');
 
+ // Sidebar | Charts
+ Route::get('/sidebar', [Admincontroller::class, 'sidebar'])->name('side.bar');
+ Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
+ Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
+ Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
+
+ // Attach Favorite Jewelry | Attach to Cart
+ Route::post('/user/fave', [ItemController::class, 'AddFave']);
+ Route::post('/item/cartz', [ItemController::class, 'AddCart']);
+
 Route::middleware('auth:sanctum')->group(function () {
 
     // ================================ USER: ADMIN ================================ //
@@ -77,12 +87,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/import-jewelry', [ExcelController::class, 'importJewelry'])->name('jewelry.import');
     Route::post('/import-jewelryvariant', [ExcelController::class, 'importJewelryVariant'])->name('jewelryvariant.import');
 
-    // Sidebar | Charts
-    Route::get('/sidebar', [Admincontroller::class, 'sidebar'])->name('side.bar');
-    Route::get('/chart-line', [ChartController::class, 'linechart'])->name('chart.line');
-    Route::get('/chart-bar', [ChartController::class, 'barchart'])->name('chart.bar');
-    Route::get('/chart-pie', [ChartController::class, 'piechart'])->name('chart.pie');
-
     // Admin: Users
     Route::post('/user/activate/{id}', [UserController::class, 'activate'])->name('adminuser.activate');
     Route::post('/user/promote/{id}', [UserController::class, 'promote'])->name('adminuser.promote');
@@ -98,11 +102,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/userprofile', [UserController::class, 'getUserProfile']);
     Route::post('/updateProfile', [UserController::class, 'updateProfile']);
     Route::post('/user/deactivate', [UserController::class, 'deactivate']);
-
-    // Attach Favorite Jewelry
-    Route::post('/user/fave', [ItemController::class, 'AddFave']);
-    // Attach to Cart
-    Route::post('/item/cartz', [ItemController::class, 'AddCart']);
 
     // Populate Thingz
     Route::get('/fetchingFave', [ItemController::class, 'fetchFave']);
@@ -128,5 +127,3 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/InfoOrder', [OrderController::class, 'contentModal']);
 
 });
-
-

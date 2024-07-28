@@ -62,7 +62,7 @@
 $(document).ready(function() {
     // Function to create charts
     function createChart(chartType, apiUrl, canvasId, titleText, additionalOptions = {}) {
-        const token = sessionStorage.getItem('auth_token');
+        var token = sessionStorage.getItem('auth_token');
         if (!token) {
             console.error('No auth token found in sessionStorage');
             return;

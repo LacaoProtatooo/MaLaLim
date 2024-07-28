@@ -3,9 +3,9 @@ $(document).ready(function(){
 });
 
 $('#loginForm').on('submit', function (e){
+    
     e.preventDefault();
     var data = $(this).serialize();
-
     $.ajax({
         type: 'POST',
         url: '/api/user/login',
@@ -16,9 +16,10 @@ $('#loginForm').on('submit', function (e){
         success: function(response) {
             console.log(response);
             if (response.message === 'Login successful') {
-                sessionStorage.setItem('auth_token', response.token);
-                console.log("Login Success");
-                
+                sessionStorage.removeItem('auth_token');
+                sessionStorage.setItem('auth_token', response.auth_token);
+                console.log("Login Success:", response.auth_token);
+
                 // Redirect based on role
                 if (response.isAdmin) {
                     window.location.href = adminHomeUrl; // Admin redirect
@@ -44,10 +45,6 @@ $('#logoutLink').on('click', function(e) {
     logout();
 });
 
-$(document).on('click', '.Urders', function() {
-    window.location.href = '/orderhistory';
-});
-
 function logout() {
     $.ajax({
         type: 'POST',
@@ -57,8 +54,9 @@ function logout() {
             'Authorization': 'Bearer ' + sessionStorage.getItem('auth_token')
         },
         success: function(response) {
-            console.log('Logged out successfully');
+            console.log('Logged out successfully : ', sessionStorage.getItem('auth_token'));
             sessionStorage.removeItem('auth_token');
+
             window.location.href = '/login';
         },
         error: function(xhr) {
@@ -66,6 +64,11 @@ function logout() {
         }
     });
 }
+
+$(document).on('click', '.Urders', function() {
+    window.location.href = '/orderhistory';
+});
+
 
 function showError(message) {
     $("#err").hide().html(message).fadeIn('slow');

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Sanctum\PersonalAccessToken;
 
+use Barryvdh\Debugbar\Facade as Debugbar;
+
 class LoginController extends Controller
 {
     public function index(){
@@ -19,15 +21,16 @@ class LoginController extends Controller
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
-            $token = $user->createToken('auth_token')->plainTextToken;
-            $request->session()->put('auth_token', $token);
-
+            $token = $user->createToken('auth_token');
+            
+            // $request->session()->put('auth_token', $token);
+            debugbar::info($token);
             $isAdmin = $user->role && $user->role->title === 'admin';
 
             return response()->json([
                 'message' => 'Login successful',
                 'user' => $user,
-                'token' => $token,
+                'auth_token' => $token->plainTextToken,
                 'isAdmin' => $isAdmin,
             ], 200);
         }
@@ -44,7 +47,6 @@ class LoginController extends Controller
             return response()->json(['message' => 'No User Found'], 401);
         }
 
-        // $user->tokens()->latest()->first()->delete();
         $user->tokens()->delete();
 
         $request->session()->invalidate();

@@ -1,18 +1,13 @@
 $(document).ready(function() {
-    const authToken = sessionStorage.getItem('auth_token');
-
-    // Check if the auth token is available
-    if (!authToken) {
-        console.error('Auth token not available. Please log in first.');
-        return;
-    }
-
+    var token = sessionStorage.getItem('auth_token');
+    console.log("token: ",token);
+    
     $.ajax({
         url: "/api/sidebar",
         method: 'GET',
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer ' + authToken,
+            'Authorization': 'Bearer ' + token,
         },
         dataType: "json",
         success: function(data) {
