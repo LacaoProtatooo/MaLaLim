@@ -418,7 +418,10 @@ export function popCheck()
             hideLoadingModal();
         },
         error: function(xhr, status, error) {
-            console.error('AJAX error:', error);
+            console.error('Error Status:', status);
+            console.error('Error Thrown:', error);
+            console.error('Response Text:', xhr.responseText);
+            console.error('Full Error Object:', xhr);
         }
     });
 }
