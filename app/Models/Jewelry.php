@@ -38,11 +38,6 @@ class Jewelry extends Model
     {
         return $this->belongsToMany(User::class);
     }
-    public function orders()
-    {
-        return $this->belongsToMany(Order::class);
-    }
-
     public function promos()
     {
         return $this->belongsToMany(Promo::class);

@@ -15,10 +15,10 @@ class JewelryController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        //
-    }
+    // public function index()
+    // {
+    //     //
+    // }
 
     public function dtpopulate(){
         $jewelries = Jewelry::all();
@@ -31,6 +31,7 @@ class JewelryController extends Controller
                              '<button class="btn btn-success jewelry-material" data-id="' . $jewelry->id . '">Assign Materials</button>',
                 'full_data' => $jewelry
             ];
+
         });
         return response()->json($jewelries);
     }

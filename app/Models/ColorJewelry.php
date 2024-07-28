@@ -35,4 +35,9 @@ class ColorJewelry extends Model
         return $this->belongsToMany(Cart::class)
                     ->withPivot('quantity'); // Add any other pivot fields if needed
     }
+
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
+    }
 }

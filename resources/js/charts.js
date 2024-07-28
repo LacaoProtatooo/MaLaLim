@@ -123,8 +123,8 @@ $(document).ready(function() {
         const token = sessionStorage.getItem('auth_token');
         if (token) {
             // Create charts after ensuring token is available
-            createChart('bar', "/api/chart-bar", 'barChart', 'Bar Chart');
-            createChart('pie', "/api/chart-pie", 'pieChart', 'Pie Chart', { scales: {} });
+            createChart('bar', "/api/chart-bar", 'barChart', 'Classification Analysis');
+            createChart('pie', "/api/chart-pie", 'pieChart', 'Courier Earnings', { scales: {} });
             createChart('line', "/api/chart-line", 'lineChart', 'Line Chart');
         } else {
             console.error('Auth token not available. Please log in first.');
