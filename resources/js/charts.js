@@ -64,10 +64,9 @@ $(document).ready(function() {
         if (token) {
             setTimeout(function() {
                 createChart('bar', "/api/chart-bar", 'barChart', 'Classification Analysis');
-                createChart('bar', "/api/chart-bar", 'barChart', 'Classification Analysis');
                 createChart('pie', "/api/chart-pie", 'pieChart', 'Courier Earnings', { scales: {} });
                 createChart('line', "/api/chart-line", 'lineChart', 'Expenditure Tracker');
-            }, 2000);
+            }, 1000);
         } else {
             console.error('Auth token not available. Please log in first.');
         }

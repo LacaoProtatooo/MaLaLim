@@ -25,7 +25,7 @@ $(document).ready(function() {
             },
             error: function(xhr) {
                 console.log(xhr);
-                console.log(xhr.responseJSON); // Use responseJSON for detailed error message
+                console.log(xhr.responseJSON); 
                 if (xhr.status === 401) {
                     console.error('Unauthorized access. Please check your credentials.');
                     showError('Unauthorized access. Please check your credentials or log in again.');
@@ -34,5 +34,5 @@ $(document).ready(function() {
                 }
             }
         });
-    }, 3000); // Delay of 3000 milliseconds (3 seconds)
+    }, 2000); 
 });

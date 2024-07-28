@@ -19,15 +19,18 @@ class LoginController extends Controller
         $credentials = $request->only('email', 'password');
         if (Auth::check()) {
             $user = Auth::user();
-            $user->tokens()->delete(); 
+            $user->tokens()->delete();
         }
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
             $user = Auth::user();
             $user->tokens()->delete();
-            $token = $user->createToken('auth_token')->plainTextToken;
 
+            $token = $user->createToken('auth_token')->plainTextToken;
             $isAdmin = $user->role && $user->role->title === 'admin';
 
             return response()->json([

@@ -10,6 +10,28 @@ function previewImage(event) {
 }
 
 $(document).ready(function(){
+    function showModal(message, isSuccess = true) {
+        // Set the message in the modal
+        document.getElementById('modalMessage').textContent = message;
+        
+        // Change modal appearance based on success or error
+        const modal = document.getElementById('my_modal_2');
+        if (modal) {
+            modal.showModal(); // Show the modal
+            
+            // Optionally, you can customize the modal's appearance
+            const modalBox = modal.querySelector('.modal-box');
+            if (isSuccess) {
+                modalBox.classList.add('bg-green-100', 'text-green-700');
+                modalBox.classList.remove('bg-red-100', 'text-red-700');
+            } else {
+                modalBox.classList.add('bg-red-100', 'text-red-700');
+                modalBox.classList.remove('bg-green-100', 'text-green-700');
+            }
+        } else {
+            console.error("Modal element not found.");
+        }
+    }
 
     $.ajax({
         type: 'GET',
@@ -119,14 +141,24 @@ $(document).ready(function(){
                     if (response.image_path) {
                         $('#imagePreview').attr('src', response.image_path);
                     }
-
-                    location.reload();
+                    
+                    showModal('Profile updated successfully!', true);
+                    setTimeout(function() {
+                        location.reload();
+                    }, 3000);
                 },
                 error: function(xhr, status, error) {
                     // Handle error response
                     console.error('Error updating profile:', error);
                 }
             });
+        }
+    });
+
+    document.getElementById('closeModal').addEventListener('click', function() {
+        const modal = document.getElementById('my_modal_2');
+        if (modal) {
+            modal.close();
         }
     });
 
