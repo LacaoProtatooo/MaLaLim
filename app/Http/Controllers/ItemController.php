@@ -52,7 +52,7 @@ class ItemController extends Controller
             ->with(['classification', 'prices'])
             ->paginate(10);
 
-            return response()->json($jewelry);
+            return response()->json(['success'=> true, 'jewelry'=> $jewelry]);
         }
         elseif(!$search){
             $jewelry = Jewelry::with(['prices', 'classification'])->paginate(10);
